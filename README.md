@@ -1,2 +1,46 @@
-# Knol
-all about Ethereum Knowledge!
+---
+description: 带你进入以太坊之境！
+---
+
+# 你好，以太坊
+
+### 开启未知世界
+
+这里有关于以太坊的一切。
+
+以太坊，英文为Ethereum，是下一代点对点的智能合约平台，由以太坊基金会\(Ethereum Foundation\)创立并维护。
+
+#### 以太坊 Ethereum
+
+#### 呢喃 Whisper
+
+#### Swarm
+
+
+
+### 以太坊元知识计划\(EthKnol\)
+
+介绍
+
+版权
+
+开始
+
+协作
+
+
+
+#### 关于ECN以太坊中国
+
+ECN \(Ethereum Community Network/ethereum.cn\) 是一个非营利性的中国以太坊社区，致力于为以太坊中文开发者、爱好者提供全方位的教育支持和优质的前沿资讯，为中国社区成员创建线上线下观点交流和价值传递的载体，旨在助力以太坊全球生态发展。
+
+#### ECN以太坊中国与以太坊基金会的关系
+
+
+
+
+
+
+
+
+

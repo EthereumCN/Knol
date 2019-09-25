@@ -1,0 +1,2 @@
+# Bad Chain Canary
+
