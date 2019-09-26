@@ -1,4 +1,4 @@
-# Proof-of-Stake
+# Proof-of-Stake 权益证明
 
 **Contents**
 
