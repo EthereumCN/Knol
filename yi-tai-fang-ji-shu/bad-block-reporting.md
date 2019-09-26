@@ -1,2 +1,2 @@
-# Bad Block Reporting
+# 坏块广播
 

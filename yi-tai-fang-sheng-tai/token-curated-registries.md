@@ -1,2 +1,2 @@
-# Token Curated REgistries
+# 通证组织注册表
 

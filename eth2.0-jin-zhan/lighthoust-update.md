@@ -1,2 +1,2 @@
-# Lighthoust Update
+# Lighthouse 更新
 

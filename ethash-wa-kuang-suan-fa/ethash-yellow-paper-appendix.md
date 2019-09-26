@@ -1,4 +1,4 @@
-# Ethash Yellow Paper appendix
+# Ethash 黄皮书附录
 
 
 

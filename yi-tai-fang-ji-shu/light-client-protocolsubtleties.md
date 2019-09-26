@@ -1,2 +1,2 @@
-# Light client protocolSubtleties
+# 轻客户端协议微妙
 

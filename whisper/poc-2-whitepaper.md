@@ -1,4 +1,4 @@
-# PoC-2 Whitepaper
+# 概念证明-2 白皮书
 
 ## Whisper PoC 2 Protocol Spec
 

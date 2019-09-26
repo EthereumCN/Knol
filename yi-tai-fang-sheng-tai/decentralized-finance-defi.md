@@ -1,4 +1,4 @@
-# Decentralized Finance \(DeFi\)
+# 去中心化金融 \(DeFi\)
 
 
 

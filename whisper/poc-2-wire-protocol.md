@@ -1,4 +1,4 @@
-# PoC-2 Wire protocol
+# 概念证明-2 网络协议
 
 ## Whisper PoC 2 Wire Protocol
 

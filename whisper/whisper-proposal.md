@@ -1,4 +1,4 @@
-# Whisper Proposal
+# Whisper 协议
 
 ## Whisper
 
