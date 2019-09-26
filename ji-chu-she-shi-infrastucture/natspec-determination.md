@@ -1,2 +1,2 @@
-# NatSpec Determination
+# NatSpec 规定
 

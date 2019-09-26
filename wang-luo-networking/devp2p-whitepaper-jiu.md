@@ -1,2 +1,2 @@
-# devp2p Whitepaper \(旧\)
+# devp2p 白皮书 \(旧\)
 
