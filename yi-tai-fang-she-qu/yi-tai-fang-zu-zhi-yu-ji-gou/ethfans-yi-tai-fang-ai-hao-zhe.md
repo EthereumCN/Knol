@@ -1,4 +1,4 @@
-# Ethfans以太坊爱好者
+# EthFans 以太坊爱好者
 
 Ethfans以太坊爱好者
 

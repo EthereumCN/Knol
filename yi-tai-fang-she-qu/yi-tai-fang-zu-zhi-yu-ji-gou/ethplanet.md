@@ -1,4 +1,4 @@
-# EthPlanet
+# EthPlanet 以太行星
 
 #### Ethplanet
 
