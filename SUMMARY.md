@@ -1,6 +1,6 @@
 # Table of contents
 
-* [你好，以太坊](README.md)
+* [探秘以太坊](README.md)
 * [以太坊基础](basics-ji-chu/README.md)
   * [以太坊白皮书](basics-ji-chu/yi-tai-fang-bai-pi-shu.md)
   * [以太坊介绍](basics-ji-chu/yi-tai-fang-jie-shao.md)
