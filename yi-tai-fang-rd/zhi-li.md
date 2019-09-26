@@ -2,19 +2,11 @@
 
 **Contents**
 
-* [Sources](https://github.com/ethereum/wiki/wiki/Governance-compendium#sources)
-* [Against on chain governance](https://github.com/ethereum/wiki/wiki/Governance-compendium#against-on-chain-governance)
-* [Projects working in blockchain governance](https://github.com/ethereum/wiki/wiki/Governance-compendium#projects-working-in-blockchain-governance)
-* [Mechanism design](https://github.com/ethereum/wiki/wiki/Governance-compendium#mechanism-design)
-* [Liberal Radicalism](https://github.com/ethereum/wiki/wiki/Governance-compendium#liberal-radicalism)
-
-[![governance](https://camo.githubusercontent.com/17b9d2745be036802435c3e7ba9528c6d555c0f9/68747470733a2f2f6261646765732e6769747465722e696d2f676f7665726e616e63652e7376673f73616e6974697a653d74727565)](https://gitter.im/ethereum/governance) [![Documentation chat](https://camo.githubusercontent.com/6b8d34a3f579921e30ee0f863833678a0b1b4e7b/68747470733a2f2f6261646765732e6769747465722e696d2f4a6f696e253230436861742e7376673f73616e6974697a653d74727565)](https://gitter.im/ethereum/documentation)
-
 ![governance flowchart](https://camo.githubusercontent.com/862ff23935e5ac935b7608c07494f5bd505ea089/68747470733a2f2f7062732e7477696d672e636f6d2f6d656469612f44634b572d476c585541414d7352302e6a7067)
 
 Legalese: this is not necessarily an endorsement of any of the sources in this compendium.
 
-### Sources
+## Sources
 
 * [EIPs](https://github.com/ethereum/eips): Ethereum Improvement Proposals
 * [Ethereum Magicians](https://ethereum-magicians.org/): for technical governance
@@ -26,12 +18,12 @@ Legalese: this is not necessarily an endorsement of any of the sources in this c
 * [https://blog.goodaudience.com/blockchain-governance-101-eea5201d7992](https://blog.goodaudience.com/blockchain-governance-101-eea5201d7992)
 * [https://medium.com/@Vlad\_Zamfir/my-intentions-for-blockchain-governance-801d19d378e5](https://medium.com/@Vlad_Zamfir/my-intentions-for-blockchain-governance-801d19d378e5)
 
-### Against on chain governance
+## Against on chain governance
 
 * [blog post from Vlad](https://medium.com/@Vlad_Zamfir/against-on-chain-governance-a4ceacd040ca). Snippets: "On-chain governance makes node operator participation in governance completely unnecessary." However, node operator participation is necessary for the current protocol. Thus, changing to on-chain governance is very risky. "Unless there are governance processes that get _Sybil-resistant_ input from node operators, on-chain governance therefore always has the potential to disenfranchise node operators \(and users\) of the blockchain." [Vlad's reply to a comment to this post](https://medium.com/@Vlad_Zamfir/its-only-just-a-design-problem-da3806ff5114).
 * [Vitalik's post on plutocracy](https://vitalik.ca/general/2018/03/28/plutocracy.html)
 
-### Projects working in blockchain governance
+## Projects working in blockchain governance
 
 * [Democracy Earth](http://democracy.earth/): it is "an open source and decentralized democratic governance protocol for any kind of organization. It "uses proof of identity for sybil resistance via blockchain birth certificates, proof of attention, quadratic voting and liquid democracy; governance platform for an organization of any size\).
 * [DAOStack](https://daostack.io/): DAOStack is a community merit-based governance system and a new form of human association: the DAO. Decentralized Autonomous Organizations are open, self-organized networks coordinated by crypto-economic incentives and self-executing code. We believe that DAOs will impact every territory of life and will jumpstart the evolution of society toward a more cooperative and sustainable future.
@@ -49,13 +41,13 @@ While the following projects do not have blockchain governance as a mission, the
 * [Havven](https://havven.io/): another stablecoin that involves issuing tokens against a distributed collateral pool. James Ray's opinion: this seems simpler than DAI, while also intuitively seeming to be more desirable. See e.g. [this Twitter thread](https://twitter.com/JamesCRay01/status/1046893184800841728) for a related proposal to issue a token against a distributed pool of _ethical_ assets, which should result in less downside volatility and more upside volatility or potential for growth.
 * [Pocket Network](http://pokt.network/). A decentralized blockchain which incentivizes running a full node and relaying transactions, supporting connecting to blockchains. See also [https://ethresear.ch/t/incentivizing-full-state-nodes-as-an-api-service/2835/1](https://ethresear.ch/t/incentivizing-full-state-nodes-as-an-api-service/2835/1), which has a link to their [white paper](https://ethresear.ch/uploads/default/original/2X/b/b662eec0f686f44f504eb49e69760fca42535682.pdf).
 
-### Mechanism design
+## Mechanism design
 
 Infographic: [https://twitter.com/VladZamfir/status/1014882947781087233](https://twitter.com/VladZamfir/status/1014882947781087233)
 
 It's important to try to match rewards in protocol as closely as possible with the true utility provided, which isn't done well with a volatile cryptocurrency. Protocol participants have external incentives such as capital costs.
 
-### Liberal Radicalism
+## Liberal Radicalism
 
 [https://papers.ssrn.com/sol3/papers.cfm?abstract\_id=3243656](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3243656)
 

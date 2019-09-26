@@ -1,4 +1,4 @@
-# Glossry
+# 相关术语
 
 **UPDATE 10 April**: This draft spec is now retired and won’t be maintained. The research team is working on a better design ![:slight\_smile:](https://ethresear.ch/images/emoji/twitter/slight_smile.png?v=5) More details [here](https://ethresear.ch/t/a-minimal-sharding-protocol-that-may-be-worthwhile-as-a-development-target-now/1650/3?u=justindrake).
 

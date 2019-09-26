@@ -1,2 +1,2 @@
-# Arbitrary Proof of Computation
+# 任意计算证明
 

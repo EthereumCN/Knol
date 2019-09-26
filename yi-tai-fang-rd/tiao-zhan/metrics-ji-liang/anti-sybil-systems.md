@@ -1,2 +1,2 @@
-# Anti-Sybil systems
+# 抗女巫攻击系统
 

@@ -1,2 +1,2 @@
-# Proof of excellence
+# Proof of Excellence
 
