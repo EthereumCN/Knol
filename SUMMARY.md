@@ -65,7 +65,7 @@
       * [声誉系统](yi-tai-fang-rd/qi-ta-wen-ti/jing-ji-xue/sheng-yu-xi-tong.md)
     * [加密货币经济学](yi-tai-fang-rd/qi-ta-wen-ti/jia-mi-huo-bi-jing-ji-xue/README.md)
       * [Vitalik经济学](yi-tai-fang-rd/qi-ta-wen-ti/jia-mi-huo-bi-jing-ji-xue/vitalik-jing-ji-xue.md)
-      * [激进市场radicalmarket](yi-tai-fang-rd/qi-ta-wen-ti/jia-mi-huo-bi-jing-ji-xue/ji-jin-shi-chang-radicalmarket.md)
+      * [激进市场](yi-tai-fang-rd/qi-ta-wen-ti/jia-mi-huo-bi-jing-ji-xue/ji-jin-shi-chang-radicalmarket.md)
     * [代替性研究](yi-tai-fang-rd/qi-ta-wen-ti/dai-ti-xing-yan-jiu.md)
 * [以太坊虚拟机 EVM](xu-ni-ji-evm/README.md)
   * [Specification](xu-ni-ji-evm/specification.md)
