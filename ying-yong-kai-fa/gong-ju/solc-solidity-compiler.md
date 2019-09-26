@@ -1,2 +1,0 @@
-# Solc \(Solidity Compiler\)
-

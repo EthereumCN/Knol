@@ -1,2 +1,0 @@
-# Meta Mask \(Browser Plugin\)
-
