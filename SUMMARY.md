@@ -117,7 +117,7 @@
   * [侧链](eth2.0-jin-zhan/ce-lian.md)
   * [Plasma](eth2.0-jin-zhan/plasma.md)
   * [Plasma Cash](eth2.0-jin-zhan/plasma-cash.md)
-  * [Prysmatic Labs 两周更新](eth2.0-jin-zhan/prysmatic-labs-biweekly-update.md)
+  * [Prysmatic Labs 更新](eth2.0-jin-zhan/prysmatic-labs-biweekly-update.md)
   * [Lighthouse 更新](eth2.0-jin-zhan/lighthoust-update.md)
   * [Status-im 更新](eth2.0-jin-zhan/status-im-update.md)
 * [Whisper](whisper/README.md)

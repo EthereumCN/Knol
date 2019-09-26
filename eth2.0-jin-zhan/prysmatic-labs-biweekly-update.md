@@ -1,4 +1,4 @@
-# Prysmatic Labs 两周更新
+# Prysmatic Labs 更新
 
 {% embed url="https://medium.com/prysmatic-labs" %}
 
