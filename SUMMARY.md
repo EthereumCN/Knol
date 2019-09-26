@@ -104,7 +104,6 @@
   * [NatSpec 格式](yi-tai-fang-ji-shu/natspec-format.md)
   * [智能合约应用程序二进制接口 \(ABI\)](yi-tai-fang-ji-shu/contract-abi.md)
   * [坏块广播](yi-tai-fang-ji-shu/bad-block-reporting.md)
-  * [Bad Chain Canary](yi-tai-fang-ji-shu/bad-chain-canary.md)
 * [挖矿算法 Ethash](ethash-wa-kuang-suan-fa/README.md)
   * [内容](ethash-wa-kuang-suan-fa/ethash-dashimoto.md)
   * [Ethash 黄皮书附录](ethash-wa-kuang-suan-fa/ethash-yellow-paper-appendix.md)
