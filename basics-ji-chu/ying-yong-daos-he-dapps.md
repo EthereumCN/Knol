@@ -1,2 +1,2 @@
-# 应用：DAOs和Dapps
+# 应用：DAOs & DApps
 
