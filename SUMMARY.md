@@ -26,6 +26,7 @@
   * [测试网络](shi-yong-yi-tai-fang/ce-shi-wang-luo.md)
   * [客户端](shi-yong-yi-tai-fang/ke-hu-duan-qian-bao.md)
   * [浏览器](shi-yong-yi-tai-fang/liu-lan-qi.md)
+  * [钱包](shi-yong-yi-tai-fang/qian-bao.md)
 * [以太坊研究与开发](yi-tai-fang-rd/README.md)
   * [以太坊理论研究](yi-tai-fang-rd/guan-yu-yi-tai-fang-li-lun-yan-jiu.md)
   * [Sharding 分片](yi-tai-fang-rd/sharding-fen-pian/README.md)
