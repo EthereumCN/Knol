@@ -1,10 +1,4 @@
----
-description: 扩容
----
-
-# Scaling
-
-
+# 扩容性解决方案
 
 **Scaling**
 
