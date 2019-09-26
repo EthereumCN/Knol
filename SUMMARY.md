@@ -103,7 +103,7 @@
   * [Contract ABI](yi-tai-fang-ji-shu/contract-abi.md)
   * [Bad Block Reporting](yi-tai-fang-ji-shu/bad-block-reporting.md)
   * [Bad Chain Canary](yi-tai-fang-ji-shu/bad-chain-canary.md)
-* [Ethash 挖矿算法](ethash-wa-kuang-suan-fa/README.md)
+* [挖矿算法 Ethash](ethash-wa-kuang-suan-fa/README.md)
   * [Contents](ethash-wa-kuang-suan-fa/ethash-dashimoto.md)
   * [Ethash Yellow Paper appendix](ethash-wa-kuang-suan-fa/ethash-yellow-paper-appendix.md)
   * [Ethash C API](ethash-wa-kuang-suan-fa/ethash-c-api.md)
