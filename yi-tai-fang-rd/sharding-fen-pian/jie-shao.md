@@ -6,8 +6,6 @@ Each one of the shards \(currently set to 1024 in the [latest spec](https://gith
 
 
 
-
-
 For information on sharding, refer to \(sorted roughly from the most recent/important information to less recent\):
 
 * [https://github.com/ethereum/eth2.0-specs/blob/master/specs/beacon-chain.md](https://github.com/ethereum/eth2.0-specs/blob/master/specs/beacon-chain.md)
