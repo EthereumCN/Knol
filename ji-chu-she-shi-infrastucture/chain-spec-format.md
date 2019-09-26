@@ -1,4 +1,4 @@
-# Chain Spec Format
+# 以太坊区块链规范
 
 **Contents**
 
