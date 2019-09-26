@@ -1,2 +1,0 @@
-# Plasma Cash
-
