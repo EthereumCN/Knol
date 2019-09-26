@@ -166,4 +166,5 @@
     * [Vitalik Buterin](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/vitalik-buterin.md)
     * [Gavin Wood](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/gavin-wood.md)
     * [Vlad Zamfir](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/vlad-zamfir.md)
+* [每周以太坊](mei-zhou-yi-tai-fang-chi-xu-geng-xin.md)
 
