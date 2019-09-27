@@ -116,6 +116,7 @@
   * [概念证明-2 网络协议](whisper/poc-2-wire-protocol.md)
   * [概念证明-2 白皮书](whisper/poc-2-whitepaper.md)
 * [Swarm](swarm/README.md)
+  * [相关联系网站](swarm/xiang-guan-lian-xi-wang-zhan.md)
   * [Introduction](swarm/introduction.md)
   * [Architectural Overview](swarm/architectural-overview.md)
   * [Swarm Specification Process](swarm/swarm-specification-process.md)
@@ -123,7 +124,6 @@
   * [Swarm for Node-Operators](swarm/swarm-for-node-operators.md)
   * [Swarm for Go-Client Contributors](swarm/swarm-for-go-client-contributors.md)
   * [Team and Organisation](swarm/team-and-organisation.md)
-  * [swarmresear.ch](swarm/swarmresear.ch.md)
 * [ETH2.0](eth2.0-1/README.md)
   * [ETH2.0 Specifications](eth2.0-1/eth2.0.md)
   * [Phase 0 -- The Beacon Chain](eth2.0-1/phase-0-the-beacon-chain.md)
@@ -181,5 +181,4 @@
     * [Vitalik Buterin](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/vitalik-buterin.md)
     * [Gavin Wood](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/gavin-wood.md)
     * [Vlad Zamfir](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/vlad-zamfir.md)
-* [每周以太坊](mei-zhou-yi-tai-fang-chi-xu-geng-xin.md)
 
