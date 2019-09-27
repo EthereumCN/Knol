@@ -1,6 +1,4 @@
-# ETH2.0
-
-{% embed url="https://github.com/ethereum/eth2.0-specs" %}
+# ETH2.0 Specifications
 
 
 
