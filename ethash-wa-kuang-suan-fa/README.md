@@ -1,2 +1,2 @@
-# 挖矿算法 Ethash
+# Ethash算法
 
