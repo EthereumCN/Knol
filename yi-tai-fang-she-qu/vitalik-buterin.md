@@ -6,13 +6,7 @@ description: 天才出少年！
 
 ## 天才出少年
 
-## VITALIK BUTERIN
-
-### Zug, Switzerland
-
 ![](../.gitbook/assets/vitalik_buterin_1391981290_85.jpg)
-
-\#Copy-paste bio for conferences, articles, propaganda materials, etc:
 
 
 
@@ -20,7 +14,7 @@ description: 天才出少年！
 Vitalik is the creator of Ethereum. He first discovered blockchain and cryptocurrency technologies through Bitcoin in 2011, and was immediately excited by the technology and its potential. He cofounded Bitcoin Magazine in September 2011, and after two and a half years looking at what the existing blockchain technology and applications had to offer, wrote the Ethereum white paper in November 2013. He now leads Ethereum's research team, working on future versions of the Ethereum protocol.
 ```
 
-\#More interesting bio
+### \#Vitalik Buterin个人趣事
 
 I was born in 1994 in Russia and moved to Canada in 2000, where I went to school. I happily played World of Warcraft during 2007-2010, but one day Blizzard removed the damage component from my beloved warlock's Siphon Life spell. I cried myself to sleep, and on that day I realized what horrors centralized services can bring. I soon decided to quit.
 
@@ -47,11 +41,27 @@ Occupation: It's complicated
   * The Abelard School
   * Life
 
-## 个人网站
+## 个人论文集
+
+### 个人网站
+
+{% embed url="https://vitalik.ca/" %}
+
+更多的Vitalik文章请查阅 
+
+{% embed url="https://people.ethereum.cn" %}
 
 
 
-## Twitter
+## 社交账号
+
+### Medium
+
+{% embed url="https://medium.com/@VitalikButerin" %}
+
+
+
+### Twitter
 
 {% embed url="https://twitter.com/VitalikButerin" %}
 
