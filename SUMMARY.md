@@ -177,8 +177,5 @@
     * [Discord社区](yi-tai-fang-she-qu/she-qu-lun-tan/discord-she-qu.md)
     * [Reddit社区](yi-tai-fang-she-qu/she-qu-lun-tan/reddit-she-qu.md)
     * [Twitter](yi-tai-fang-she-qu/she-qu-lun-tan/twitter.md)
-  * [以太坊人物](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/README.md)
-    * [Vitalik Buterin](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/vitalik-buterin.md)
-    * [Gavin Wood](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/gavin-wood.md)
-    * [Vlad Zamfir](yi-tai-fang-she-qu/yi-tai-fang-ren-wu-chuan/vlad-zamfir.md)
+  * [天才Vitalik Buterin](yi-tai-fang-she-qu/vitalik-buterin.md)
 
