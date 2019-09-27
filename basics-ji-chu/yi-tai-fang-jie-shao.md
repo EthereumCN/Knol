@@ -6,34 +6,7 @@ Roy edited this page in 25th Sept.
 
 > Ethereum is a decentralized, self-contained economy for transactional computation and related data. —[Danny Ryan](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
 
-![Ethereum Homestead gold ingots](https://camo.githubusercontent.com/852a5531accbeee261cb0690e6429fd8b42e3c6a/68747470733a2f2f73757374657267792e66696c65732e776f726470726573732e636f6d2f323031372f30352f657468657265756d2d686f6d6573746561642d6261636b67726f756e642d31372e6a70673f773d31303030)
-
-[![Documentation chat](https://camo.githubusercontent.com/9f126db5efddc1c63d5fc50025b1e3a600da4a22/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769747465722d446f6373253230636861742d3441423439352e7376673f73616e6974697a653d74727565)](https://gitter.im/ethereum/documentation)
-
 Note that due to the lightning-fast pace of development in the Ethereum space with core development and dapps continually being launched, certain parts of this article may be outdated. You can help by keeping it up to date!
-
-**Contents**
-
-* [About blockchains](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#about-blockchains)
-* [About Ethereum](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#about-ethereum)
-  * [History](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#history)
-* [Uses](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#uses)
-  * [List of dapps](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#list-of-dapps)
-  * [Market analysis](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#market-analysis)
-* [Issues](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#issues)
-  * [Scalability](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#scalability)
-  * [Volatility](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#volatility)
-  * [Energy consumption and centralization with Proof of work vs proof of stake](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#energy-consumption-and-centralization-with-proof-of-work-vs-proof-of-stake)
-  * [Quantum computing attacks](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#quantum-computing-attacks)
-  * [No technological artefacts can be a panacea](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#no-technological-artefacts-can-be-a-panacea)
-  * [Bugs](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#bugs)
-* [How do you buy and sell Ether, the currency of Ethereum?](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#how-do-you-buy-and-sell-ether-the-currency-of-ethereum)
-* [Development](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#development)
-  * [Technical introduction and Ethereum Virtual Machine \(EVM\) intro](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#technical-introduction-and-ethereum-virtual-machine-evm-intro)
-  * [Core development](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#core-development)
-  * [Programming languages](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#programming-languages)
-* [Concluding remarks](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#concluding-remarks)
-* [Further reading](https://github.com/ethereum/wiki/wiki/Ethereum-introduction#further-reading)
 
 ## About blockchains
 
