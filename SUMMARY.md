@@ -130,7 +130,7 @@
   * [Phase 1-- Custody Game](eth2.0-1/phase-1-custody-game.md)
   * [Phase 2 - 研究中](eth2.0-1/phase-2-yan-jiu-zhong.md)
   * [Phase 3 研究中](eth2.0-1/untitled-2.md)
-  * [Serenity](eth2.0-1/untitled-1.md)
+  * [超越Serenity](eth2.0-1/untitled-1.md)
 * [以太坊生态](yi-tai-fang-sheng-tai/README.md)
   * [钱包](yi-tai-fang-sheng-tai/untitled-4/README.md)
     * [桌面钱包](yi-tai-fang-sheng-tai/untitled-4/qian-bao.md)
