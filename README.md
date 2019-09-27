@@ -1,5 +1,5 @@
 ---
-description: 共同进入以太坊之境！
+description: 进入以太坊之境 Eth Land!
 ---
 
 # 探秘以太坊
