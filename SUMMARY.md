@@ -11,6 +11,7 @@
   * [虚拟机EVM概要](basics-ji-chu/xu-ni-ji-evm-jie-shao/README.md)
     * [黄皮书](basics-ji-chu/xu-ni-ji-evm-jie-shao/huang-pi-shu.md)
     * [褐皮书](basics-ji-chu/xu-ni-ji-evm-jie-shao/he-pi-shu.md)
+    * [果冻纸皮书](basics-ji-chu/xu-ni-ji-evm-jie-shao/guo-dong-zhi-pi-shu.md)
     * [Py-EVM](basics-ji-chu/xu-ni-ji-evm-jie-shao/py-evm/README.md)
       * [介绍](basics-ji-chu/xu-ni-ji-evm-jie-shao/py-evm/introduction.md)
       * [快速上手](basics-ji-chu/xu-ni-ji-evm-jie-shao/py-evm/quickstart.md)
