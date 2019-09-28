@@ -6,7 +6,7 @@ description: 天才出少年！
 
 ## 天才出少年
 
-![](../.gitbook/assets/vitalik_buterin_1391981290_85.jpg)
+![](../../../.gitbook/assets/vitalik_buterin_1391981290_85.jpg)
 
 
 

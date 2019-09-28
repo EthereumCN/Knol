@@ -177,6 +177,8 @@
     * [Ethresear.ch](yi-tai-fang-she-qu/she-qu-lun-tan/ethresear.ch.md)
     * [Discord社区](yi-tai-fang-she-qu/she-qu-lun-tan/discord-she-qu.md)
     * [Reddit社区](yi-tai-fang-she-qu/she-qu-lun-tan/reddit-she-qu.md)
-    * [Twitter](yi-tai-fang-she-qu/she-qu-lun-tan/twitter.md)
-  * [天才Vitalik Buterin](yi-tai-fang-she-qu/vitalik-buterin.md)
+    * [社交账号](yi-tai-fang-she-qu/she-qu-lun-tan/she-jiao-zhang-hao/README.md)
+      * [Twitter](yi-tai-fang-she-qu/she-qu-lun-tan/she-jiao-zhang-hao/twitter.md)
+    * [人物](yi-tai-fang-she-qu/she-qu-lun-tan/ren-wu/README.md)
+      * [天才Vitalik Buterin](yi-tai-fang-she-qu/she-qu-lun-tan/ren-wu/vitalik-buterin.md)
 
