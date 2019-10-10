@@ -116,7 +116,7 @@
   * [概念证明-2 网络协议](whisper/poc-2-wire-protocol.md)
   * [概念证明-2 白皮书](whisper/poc-2-whitepaper.md)
 * [Swarm](swarm/README.md)
-  * [相关联系网站](swarm/xiang-guan-lian-xi-wang-zhan.md)
+  * [相关网站](swarm/xiang-guan-lian-xi-wang-zhan.md)
   * [Introduction](swarm/introduction.md)
   * [Architectural Overview](swarm/architectural-overview.md)
   * [Swarm Specification Process](swarm/swarm-specification-process.md)
