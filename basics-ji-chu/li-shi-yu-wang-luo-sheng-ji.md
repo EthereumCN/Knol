@@ -1,8 +1,8 @@
 ---
-description: 细数以太坊在 Serenity (ETH 2.0)阶段来临之前经历的升级和硬分叉。
+description: 细数以太坊在 Serenity (ETH 2.0)阶段来临之前经历的升级和硬分叉，以及什么是Serenity？ETH 2.0将于何时经历哪些阶段？​
 ---
 
-# 以太坊升级路线图
+# 路线图
 
 ![](../.gitbook/assets/1_f7c8r8ur47juljpbcbdhpw.jpeg)
 
