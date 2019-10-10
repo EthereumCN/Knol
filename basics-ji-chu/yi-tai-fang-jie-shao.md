@@ -2,8 +2,6 @@
 
 ## Ethereum Introduction
 
-Roy edited this page in 25th Sept.
-
 > Ethereum is a decentralized, self-contained economy for transactional computation and related data. —[Danny Ryan](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
 
 Note that due to the lightning-fast pace of development in the Ethereum space with core development and dapps continually being launched, certain parts of this article may be outdated. You can help by keeping it up to date!
