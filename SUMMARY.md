@@ -182,4 +182,5 @@
     * [Twitter](yi-tai-fang-she-qu/she-jiao-zhang-hao/twitter.md)
   * [人物](yi-tai-fang-she-qu/ren-wu/README.md)
     * [天才Vitalik Buterin](yi-tai-fang-she-qu/ren-wu/vitalik-buterin.md)
+* [每周以太坊](mei-zhou-yi-tai-fang.md)
 
