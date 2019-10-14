@@ -1,38 +1,38 @@
-# Sharding分片研究概况
+# 分片研究概况
 
+分片技术目前仍处于研究阶段，下面的内容可能不时进行增删、更新。
 
+参考来源：[https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view](https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view)
 
-## Ethereum Sharding Research Compendium <a id="Ethereum-Sharding-Research-Compendium"></a>
+## 分片基本信息
 
-分片技术目前处于研究阶段，下面的内容可能在某段时间被删除或者增加某些内容。
+* \*\*\*\*[**分片路线图**](https://github.com/ethereum/wiki/wiki/Sharding-roadmap)\*\*\*\*
+* \*\*\*\*[**设计理念**](https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA)\*\*\*\*
+* \*\*\*\*[**分片思维导图**](https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01)\*\*\*\*
+* \*\*\*\*[**Beacon chain Casper FFG 简要规范**](https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760)\*\*\*\*
+* \*\*\*\*[**Beacon chain 详细规范**](https://github.com/ethereum/eth2.0-specs/tree/master/specs/core)\*\*\*\*
+* \*\*\*\*[**Reddit 讨论板块**](https://ethresear.ch/c/sharding)\*\*\*\*
+* \*\*\*\*[**分片常见问题解答**](https://github.com/ethereum/wiki/wiki/Sharding-FAQ)\*\*\*\*
 
-Basic information and specs:
+## Proof of Stake 算法理论
 
-* **Sharding FAQ**: [https://github.com/ethereum/wiki/wiki/Sharding-FAQ](https://github.com/ethereum/wiki/wiki/Sharding-FAQ)
-* **Beacon chain Casper FFG mini-spec**: [https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760](https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760)
-* **Beacon chain full spec**: [https://github.com/ethereum/eth2.0-specs/tree/master/specs/core](https://github.com/ethereum/eth2.0-specs/tree/master/specs/core)
-* **Sharding mindmap**: [https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01](https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01)
-* **Design rationale**: [https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA](https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA)
+* \*\*\*\*[**PoS 常见问题解答**](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)\*\*\*\*
+* \*\*\*\*[**Casper FFG 论文**](https://arxiv.org/abs/1710.09437)\*\*\*\*
+* \*\*\*\*[**基于认证委员会的完全PoS链**](https://ethresear.ch/t/attestation-committee-based-full-pos-chains/2259)\*\*\*\*
 
-#### Proof of stake theory <a id="Proof-of-stake-theory"></a>
+## Casper FFG/GHOST/信标连模拟
 
-* **Proof of stake FAQ**: [https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)
-* **Casper FFG paper**: [https://arxiv.org/abs/1710.09437](https://arxiv.org/abs/1710.09437)
-* **Attestation committee-based full PoS chains**: [https://ethresear.ch/t/attestation-committee-based-full-pos-chains/2259](https://ethresear.ch/t/attestation-committee-based-full-pos-chains/2259)
-
-#### Casper FFG/GHOST/beacon chain simulations <a id="Casper-FFGGHOSTbeacon-chain-simulations"></a>
-
-* **Main folder**: [https://github.com/ethereum/research/tree/master/clock\_disparity](https://github.com/ethereum/research/tree/master/clock_disparity)
+* \*\*\*\*[**主文件夹**](https://github.com/ethereum/research/tree/master/clock_disparity)\*\*\*\*
   * Node: `lmd_node.py`
   * Test script: `lmd_test.py`
 
-#### Casper CBC <a id="Casper-CBC"></a>
+## Casper CBC
 
-* **A CBC Casper tutorial**: [https://vitalik.ca/general/2018/12/05/cbc\_casper.html](https://vitalik.ca/general/2018/12/05/cbc_casper.html)
-* **Casper CBC, Simplified!**: [https://medium.com/@aditya.asgaonkar/casper-cbc-simplified-2370922f9aa6](https://medium.com/@aditya.asgaonkar/casper-cbc-simplified-2370922f9aa6)
-* **Beacon chain-friendly CBC Casper**: [https://ethresear.ch/t/beacon-chain-friendly-cbc-casper/4710/2](https://ethresear.ch/t/beacon-chain-friendly-cbc-casper/4710/2)
-* **Bitwise LMD GHOST**: [https://ethresear.ch/t/bitwise-lmd-ghost/4749/5](https://ethresear.ch/t/bitwise-lmd-ghost/4749/5)
-* **LMD GHOST implementations**: [https://ethresear.ch/t/comparing-lmd-ghost-implementations/4945/3](https://ethresear.ch/t/comparing-lmd-ghost-implementations/4945/3)
+* \*\*\*\*[**CBC Casper 教程**](https://vitalik.ca/general/2018/12/05/cbc_casper.html)\*\*\*\*
+* \*\*\*\*[**简单解释 CBC Casper**](https://medium.com/@aditya.asgaonkar/casper-cbc-simplified-2370922f9aa6)\*\*\*\*
+* \*\*\*\*[**信标链友好的 CBC Casper**](https://ethresear.ch/t/beacon-chain-friendly-cbc-casper/4710/2)\*\*\*\*
+* \*\*\*\*[**Bitwise LMD GHOST**](https://ethresear.ch/t/bitwise-lmd-ghost/4749/5)\*\*\*\*
+* \*\*\*\*[**LMD GHOST 执行**](https://ethresear.ch/t/comparing-lmd-ghost-implementations/4945/3)\*\*\*\*
 
 #### Validator set rotation <a id="Validator-set-rotation"></a>
 
@@ -109,6 +109,8 @@ Basic information and specs:
 * **Data forgetfulness**: [https://ethresear.ch/t/sharding-and-data-forgetfulness/61](https://ethresear.ch/t/sharding-and-data-forgetfulness/61)
 * **Security in the bribing model**: [https://ethresear.ch/t/shard-security-in-the-bribing-model/1366](https://ethresear.ch/t/shard-security-in-the-bribing-model/1366)
 * **Better Merkle trees**: [https://ethresear.ch/t/data-availability-proof-friendly-state-tree-transitions/1453/6](https://ethresear.ch/t/data-availability-proof-friendly-state-tree-transitions/1453/6)
+
+\*\*\*\*
 
 {% embed url="https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view" %}
 

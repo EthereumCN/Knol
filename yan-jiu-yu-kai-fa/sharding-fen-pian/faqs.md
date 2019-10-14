@@ -1,9 +1,5 @@
 # Sharding FAQ
 
-## On sharding blockchains
-
-[![Documentation chat](https://camo.githubusercontent.com/9f126db5efddc1c63d5fc50025b1e3a600da4a22/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769747465722d446f6373253230636861742d3441423439352e7376673f73616e6974697a653d74727565)](https://gitter.im/ethereum/documentation) [![Sharding](https://camo.githubusercontent.com/caa54fcba338bac4077e61a08c53487010c9268d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6769747465722d7368617264696e672d3441423439352e7376673f73616e6974697a653d74727565)](https://gitter.im/ethereum/sharding)
-
 ## Introduction
 
 Currently, in all blockchain protocols each node stores the entire state \(account balances, contract code and storage, etc.\) and processes all transactions. This provides a large amount of security, but greatly limits scalability: a blockchain cannot process more transactions than a single node can. In large part because of this, Bitcoin is limited to ~3–7 transactions per second, Ethereum to 7–15, etc.
