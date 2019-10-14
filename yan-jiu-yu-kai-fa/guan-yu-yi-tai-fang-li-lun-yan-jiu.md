@@ -1,18 +1,15 @@
 # 以太坊理论研究
 
+以下是以太坊相关研究信息列表，为了跟进相关研究的最新进展，词条将会不时更新、增删。
 
+基本信息和规范：
 
-## Ethereum Sharding Research Compendium <a id="Ethereum-Sharding-Research-Compendium"></a>
-
-This is an ongoing curated list, entries will be added or removed to reflect the articles that have the most relevance to the current state of research.
-
-Basic information and specs:
-
-* **Sharding FAQ**: [https://github.com/ethereum/wiki/wiki/Sharding-FAQ](https://github.com/ethereum/wiki/wiki/Sharding-FAQ)
-* **Beacon chain Casper FFG mini-spec**: [https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760](https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760)
-* **Beacon chain full spec**: [https://github.com/ethereum/eth2.0-specs/tree/master/specs/core](https://github.com/ethereum/eth2.0-specs/tree/master/specs/core)
-* **Sharding mindmap**: [https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01](https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01)
-* **Design rationale**: [https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA](https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA)
+* **Sharding 分片路线图：**[**https://github.com/ethereum/wiki/wiki/Sharding-roadmap**](https://github.com/ethereum/wiki/wiki/Sharding-roadmap)\*\*\*\*
+* **Sharding 分片常见问题解答:** [**https://github.com/ethereum/wiki/wiki/Sharding-FAQ**](https://github.com/ethereum/wiki/wiki/Sharding-FAQ)\*\*\*\*
+* **Beacon chain Casper FFG 简要规范：** [**https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760**](https://ethresear.ch/t/beacon-chain-casper-ffg-rpj-mini-spec/2760)\*\*\*\*
+* **Beacon chain 信标连详细规范：** [**https://github.com/ethereum/eth2.0-specs/tree/master/specs/core**](https://github.com/ethereum/eth2.0-specs/tree/master/specs/core)\*\*\*\*
+* **Sharding 分片思维导图：** [**https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01**](https://www.mindomo.com/zh/mindmap/sharding-d7cf8b6dee714d01a77388cb5d9d2a01)\*\*\*\*
+* **设计理念：**[**https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA**](https://notes.ethereum.org/9l707paQQEeI-GPzVK02lA)\*\*\*\*
 
 #### Proof of stake theory <a id="Proof-of-stake-theory"></a>
 
