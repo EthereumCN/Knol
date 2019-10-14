@@ -8,7 +8,7 @@ description: 欢迎登陆 Eth Land 以太坊之境！
 
 这里有关于以太坊的一切。
 
-![](.gitbook/assets/6250754.png)[以太坊 \(Ethereum\)](yi-tai-fang-she-qu/yi-tai-fang-zu-zhi-yu-ji-gou/ethereum.network.md)，是一个全球的、开源的去中心化应用平台，用户可以在以太坊中创建、使用智能合约和去中心化应用（DApp）。以太坊由以太坊基金会 \(Ethereum Foundation\) 创立并维护。
+![](.gitbook/assets/timg.jpg) [以太坊 \(Ethereum\)](yi-tai-fang-she-qu/yi-tai-fang-zu-zhi-yu-ji-gou/ethereum.network.md)，是一个全球的、开源的去中心化应用平台，用户可以在以太坊中创建、使用智能合约和去中心化应用（DApp）。以太坊由以太坊基金会 \(Ethereum Foundation\) 创立并维护。
 
 ## ECN以太坊中国
 
