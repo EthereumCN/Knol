@@ -2,7 +2,7 @@
 
 * [探秘以太坊](README.md)
 * [以太坊基础](basics-ji-chu/README.md)
-  * [以太坊介绍](basics-ji-chu/yi-tai-fang-jie-shao.md)
+  * [以太坊通识](basics-ji-chu/yi-tai-fang-tong-shi.md)
   * [白皮书](basics-ji-chu/yi-tai-fang-bai-pi-shu.md)
   * [路线图](basics-ji-chu/li-shi-yu-wang-luo-sheng-ji.md)
   * [设计理念](basics-ji-chu/she-ji-li-nian.md)

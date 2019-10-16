@@ -1,10 +1,12 @@
-# 以太坊介绍
+# 以太坊通识
 
-## Ethereum Introduction
+## 以太坊介绍
 
-> Ethereum is a decentralized, self-contained economy for transactional computation and related data. —[Danny Ryan](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
+以太坊，翻译自Etheruem，是Vitalik借鉴比特币及社区后来所提出的一些想法所创造的一个通用区块链项目。名字来源与Ether\(以太\)和后缀ruem\(希腊语义是“石油”\)，国内的早期社区成员将其翻译成“以太坊”。不同于比特币的货币定义，以太坊释放了区块链前所未有的潜力，通过一些列的重新设计包括虚拟机\(EVM, Etheruem Virtual Machine\)，账户系统，在其上可以运行智能合约。智能合约的概念由Nick Szabo（尼克 萨博）于1997年提出的一个自动执行的合约形式。
 
-Note that due to the lightning-fast pace of development in the Ethereum space with core development and dapps continually being launched, certain parts of this article may be outdated. You can help by keeping it up to date!
+以太坊是去中心化的、可以运行可转移计算和数据的自洽经济系统。
+
+必须指出的是，在以太坊世界里，发展速度极快，核心开发和dapps（去中心化应用）不断涌现，我们这里可能不能够囊括所有的关于以太坊发展的实际情况。我们会及时更新相关发展。
 
 ## About blockchains
 
