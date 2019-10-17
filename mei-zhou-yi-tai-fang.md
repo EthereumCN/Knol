@@ -1,48 +1,51 @@
+---
+description: 2019.10.13
+---
+
 # 每周以太坊
-
-### Eth1 <a id="Eth1"></a>
-
-* Nethermind [v1.1.0](https://github.com/NethermindEth/nethermind/releases/tag/1.1.0)：数据库仅约 50 GB
-* Geth [v1.9.6](https://www.reddit.com/r/ethereum/comments/dcon81/geth_v196_elasa_light_client_fixes_and_huge_disk/) 轻客户端提升了同步速度，并将硬盘读写需求降低了 10 倍
-* Eth 测试工具 [v7.0.0-beta.1](https://github.com/ethereum/tests/releases/tag/v7.0.0-beta.1) 包含了伊斯坦布尔升级
-* 最新的[全体核心开发者会议](https://www.youtube.com/watch?v=rPD2EpDDI-0)。Pooja 的[备忘录](https://github.com/ethereum/pm/blob/eca93a683edd7f8384af117d85fb7c23c7e8091b/All%20Core%20Devs%20Meetings/Meeting%2072.md)。如果你好奇 Ropsten 测试网的伊斯坦布尔混乱的原因，很简单，有人在大力挖矿，但没有支持伊斯坦布尔分叉
-* [提议 CALLWITHSCHEDULE 操作码](https://medium.com/@earlz/a-simple-ethereum-proposal-e19efd9c3f72)来解决合约的可重入漏洞
-* [伊斯坦布尔分叉提高了数据存储的 Gas 用量](https://medium.com/@agusx1211/evm-istambul-storage-pricing-5befaac32403)。[Reddit 上还有有趣的讨论](https://www.reddit.com/r/ethereum/comments/dbxij1/evm_istambul_storage_pricing_or_how_to_hack_the/)
 
 ### Eth2 <a id="Eth2"></a>
 
-* [What’s New in Eth2](https://notes.ethereum.org/@ChihChengLiang/Sk8Zs--CQ/Sk8Zs--CQ?type=book)，包含了 Ben 对 Phase 1 和 Phase 2 都会在 2020 年上线的乐观想法
-* Ryuya 提议 [FMD GHOST](https://ethresear.ch/t/saving-strategy-and-fmd-ghost/6226)
-* 委员会随机选举的[安全算术](https://ethresear.ch/t/security-level-of-random-sampling-with-sharding/6230?u=benjaminion)
-* [Eth2 的开发者体验](https://thebitcoinpodcast.com/hio-panels-1/)（一个来自 Nimbus、Lighthouse、Prysmatic、EF、ConsenSys 工程师的播客）
-* [使用这个命令行运行 5 种客户端测试网](https://github.com/status-im/nim-beacon-chain/tree/interop/multinet)
-* [Prysmatic](https://medium.com/prysmatic-labs/ethereum-2-0-development-update-36-prysmatic-labs-3ea492024c4d) 客户端升级、重新启动测试网，大量的 BLS 升级
+* Eth2 的战术转变：[更少的分片数量（64？）但有更快的跨分片交互](https://notes.ethereum.org/@vbuterin/HkiULaluS)，单片吞吐量提升 8 倍
+* [Lighthouse 客户端升级](https://lighthouse.sigmaprime.io/update-16.html) —— 仍在开发组网工具
+* [Devcon5 上讲解 phase0 的幻灯片](https://docs.google.com/presentation/d/1MZ-E6TVwomt4rqz-P2Bd_X3DFUW9fWDQkxUP_QJhkyw/edit?pli=1#slide=id.g621e2d5823_0_205)
+* 上周 Vitalik 决定把一些（如果你经常读本周报）你可能已经知道的观念写下来，不过显然 Coindesk 的记者并不知道：
+  * [eth1 到 eth2 的迁移计划](https://ethresear.ch/t/the-eth1-eth2-transition/6265)
+  * [形式化 eth2 处理无效分片区块确定性的方法](https://ethresear.ch/t/formalizing-and-improving-eth2s-approach-toward-finalization-of-invalid-shard-blocks/6263)
+  * [分片不会打破可组合性](https://ethresear.ch/t/cross-shard-defi-composability/6268)
+  * [部分分片的应用设计模式](https://ethresear.ch/t/partially-sharding-single-threaded-apps-a-design-pattern/6287)
+  * [用分片链来保存合约](https://ethresear.ch/t/on-beacon-chain-saved-contracts/6295)。虽然昂贵，但可以做到
+  * [为什么说 eth1 和 eth2 的双向链桥很难](https://ethresear.ch/t/two-way-bridges-between-eth1-and-eth2/6286)，但因为可以实现，也算一个选择
 
 ### Layer-2 <a id="Layer-2"></a>
 
-* Counterfactual 和 Magmo [合并了他们的广义状态通道代码库](https://medium.com/statechannels/state-channels-developer-update-0-counterfactual-and-magmo-are-joining-forces-4acfabf3fc98)，并代之以 State Channels 的新名字
-* [Hodor](https://medium.com/matter-labs/meet-hodor-matter-labsstark-prover-implementation-c759a6ef4c98)，Matter Lab 的开放式 STARK 证明器实现
-* [Matic 测试版](https://blog.matic.network/matic-beta-mainnet-is-here/)包括了 Plasma predicates
+* Plasma Group 和 Uniswap [在 Devcon 上展示了一个 Optimistic Rollup 的 demo](https://decrypt.co/10030/plasma-group-and-uniswap-release-new-ethereum-scaling-solution-at-devcon)，TPS 可上百
+* Celer 放出了其[状态通道的技术详述](https://www.celer.network/docs/celercore/)
+* [跨 zk-Rollup 转账协议](https://ethresear.ch/t/trustless-and-secure-cross-zk-rollup-transfer-protocol/6255/2)
 
 ### 开发者材料 <a id="&#x5F00;&#x53D1;&#x8005;&#x6750;&#x6599;"></a>
 
-* Solidity [0.5.12](https://github.com/ethereum/solidity/releases/tag/v0.5.12) 支持 SMT solver 的循环，还有 Yul 优化实现
-* 使用 Buidler EVM 的[栈层跟踪来完成调试](https://medium.com/nomic-labs-blog/better-solidity-debugging-stack-traces-are-finally-here-dd80a56f92bb)
-* [Remix 的 ZoKrates 插件](https://medium.com/@edi.sinovcic/zokrates-zksnarks-on-ethereum-made-easy-8022300f8ba6)
-* 3Box 的 [IdentityWallet SDK](https://medium.com/3box/introducing-identitywallet-sdk-4750d6afa519)
-* [Burner Wallet 2](https://medium.com/@dmihal/introducing-the-burner-wallet-2-542604dc8d28)：模块化了开发 burner 钱包的组件
-* [如何避免给你的 Gas Station Network app 中的恶意用户发放补贴](https://forum.openzeppelin.com/t/advanced-gsn-gsnbouncersignature-sol/1414)
-* [Mexa](https://medium.com/biconomy/mexa-magical-experiences-anytime-anywhere-7a9c0c364221)：元交易 SDK
-* [Hookpad](https://medium.com/hookpad/hookpad-beta-is-here-6e8a63713219)：监听 EVM 链，并且过滤出你需要的事件
-* Brownie python 框架：[通过操作码跟踪来评估 Solidity 的代码覆盖率](https://medium.com/coinmonks/brownie-evaluating-solidity-code-coverage-via-opcode-tracing-a7cf5a92d28c)
+* Metamask：[web3 插件](https://medium.com/metamask/introducing-the-next-evolution-of-the-web3-wallet-4abdf801a4ee)。加载在 ENS、IPFS 或者 Swarm 上的经过验证的脚本
+* [ZoKrates v0.5](https://github.com/Zokrates/ZoKrates/releases/tag/0.5.0)
+* [OpenZKP](https://blog.0xproject.com/introducing-openzkp-1dea6b22dceb)：0x 的 STARK 开源 Rust 实现
+* [使用 MythX 来检查自定义的合理性属性](https://medium.com/consensys-diligence/checking-custom-correctness-properties-of-smart-contracts-using-mythx-25cbac5d7852)
+* Kovan 测试网上[成功激活 Istanbul 硬分叉](https://twitter.com/kovantestnet/status/1183326400784158721)
+* [Mutant 测试工具](https://medium.com/swlh/introduction-into-mutation-testing-d6512dc702b0)
+* [将 Eth 的数据实时加载到 BigQuery 和 Pub/sub 上](https://medium.com/google-cloud/live-ethereum-and-bitcoin-data-in-google-bigquery-and-pub-sub-765b71cd57b5)
+* [如何查询 ENS 和 0x 事件](https://medium.com/@medvedev1088/query-ens-and-0x-events-with-sql-in-google-bigquery-4d197206e644)
+* [Remix 桌面 IDE](https://medium.com/remix-ide/remix-desktop-8c1e9e946ee1)
 
 ### 生态 <a id="&#x751F;&#x6001;"></a>
 
-* ENS 短域名拍卖[遇上了一些 OpenSea 的 bug](https://medium.com/opensea/how-were-resolving-the-issues-with-the-ens-short-name-auctions-93c78158de48)，不过一些被盗的域名已经通过奖金计划还回来了。因为拍卖现已暂停，一些域名的拍卖会延期。ENS 也为域名加入了[文字记录](https://medium.com/the-ethereum-name-service/new-text-records-now-available-for-ens-names-in-manager-a0ebb9cda73a)
-* 基准测试表明 [GPU 矿工可以一边在 Livepeer 上转码](https://medium.com/livepeer-blog/livepeer-gpu-miner-update-663a3e19de56)、一边挖矿还保持同等算力，甚至降低能耗
-* 以太坊上的 Mimblewimble：[使用 zk-SNARKs 隐秘地发送 ERC20 代币](https://ethresear.ch/t/ethereum-9-send-erc20-privately-using-mimblewimble-and-zk-snarks/6217)
-* [一个找寻 Uniswap 最佳流动性池的工具](https://pools.fyi/#/)
-* UMA 的论文 [BitDEX](https://twitter.com/UMAprotocol/status/1179045704918011906)：一个去中心化的 Bitmex
+* [Devcon 的全部演讲视频](https://slideslive.com/ethereum)（配合 [议程表](https://devcon.org/agenda) 使用更佳）
+* Unstoppable Domains [在以太坊上开发 .crypto 域名](https://medium.com/unstoppabledomain/crypto-ac3eec150768)
+* [EthDNS](https://medium.com/the-ethereum-name-service/ethdns-9d56298fa38a)：ENS+IPFS
+* [在 ARM 上部署以太坊节点](https://www.reddit.com/r/ethereum/comments/dehcq9/ethereum_on_arm_nanopct4_rockpro64_and_raspberry/)。给 NanoPC-T4，Rockpro64 和树莓派准备的新镜像。除了用 Geth/Parity/Trinity 运行一个全节点，还可以加上 Status.im、Raiden、IPFS、Swarm 和 Vipnode。或者用 Prysmatic 搭建一个 eth2 测试网
+* 多抵押 DAI 计划在 [11 月 18 号上线](https://blog.makerdao.com/breaking-launch-date-of-multi-collateral-dai-announced-at-devcon-5/)
+* [Compound 对多抵押 DAI 的计划](https://medium.com/compound-finance/support-for-multi-collateral-dai-c8691d0ef794)。用户有责任迁移自己的 DAI
+* SetProtocol 的[再平衡面板](https://medium.com/set-protocol/introducing-the-rebalancing-dashboard-9130e31435d9)，现在你也可以参与再平衡过程了
+* Alethion 的 devcon 前一周 [DeFi/dex 数据可视化](https://twitter.com/AlethioEthstats/status/1181055545987366912)
+* Brave 已有 [800 万月活用户](https://twitter.com/BrendanEich/status/1181370032032321536)
 
 
 
