@@ -34,53 +34,53 @@
 * \*\*\*\*[**Bitwise LMD GHOST**](https://ethresear.ch/t/bitwise-lmd-ghost/4749/5)\*\*\*\*
 * \*\*\*\*[**LMD GHOST 执行**](https://ethresear.ch/t/comparing-lmd-ghost-implementations/4945/3)\*\*\*\*
 
-#### Validator set rotation <a id="Validator-set-rotation"></a>
+#### 验证者集轮替 <a id="Validator-set-rotation"></a>
 
-* **Rate-limiting entry/exits instead of withdrawals**: [https://ethresear.ch/t/rate-limiting-entry-exits-not-withdrawals/4942/](https://ethresear.ch/t/rate-limiting-entry-exits-not-withdrawals/4942/)
+* \*\*\*\*[**限速进入/退出而非立即撤出**](https://ethresear.ch/t/rate-limiting-entry-exits-not-withdrawals/4942/)\*\*\*\*
 
-#### Light clients <a id="Light-clients"></a>
+#### 轻客户端 <a id="Light-clients"></a>
 
-* **Beacon chain light client syncing**: [https://notes.ethereum.org/Irbhsn63R0W6o-r0K9mBOA](https://notes.ethereum.org/Irbhsn63R0W6o-r0K9mBOA)
-* **Casper FFG light client syncing**: [https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light\_client/sync\_protocol.md](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light_client/sync_protocol.md)
+* \*\*\*\*[**信标连轻客户端同步**](https://notes.ethereum.org/Irbhsn63R0W6o-r0K9mBOA)\*\*\*\*
+* \*\*\*\*[**Casper FFG 轻客户端同步**](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light_client/sync_protocol.md)\*\*\*\*
 
-#### Signature aggregation <a id="Signature-aggregation"></a>
+#### 签名集合 <a id="Signature-aggregation"></a>
 
-* **BLS and STARK aggregate signatures**: [https://ethresear.ch/t/pragmatic-signature-aggregation-with-bls/2105](https://ethresear.ch/t/pragmatic-signature-aggregation-with-bls/2105)
+* \*\*\*\*[**BLS 和 STARK 集合签名**](https://ethresear.ch/t/pragmatic-signature-aggregation-with-bls/2105)\*\*\*\*
 
-#### Stateless block verification <a id="Stateless-block-verification"></a>
+#### 无状态区块验证 <a id="Stateless-block-verification"></a>
 
-* **The stateless client concept**: [https://ethresear.ch/t/the-stateless-client-concept/172](https://ethresear.ch/t/the-stateless-client-concept/172)
-* **Efficiency gains from batching and multi-state roots**: [https://ethresear.ch/t/detailed-analysis-of-stateless-client-witness-size-and-gains-from-batching-and-multi-state-roots/862/9](https://ethresear.ch/t/detailed-analysis-of-stateless-client-witness-size-and-gains-from-batching-and-multi-state-roots/862/9) and [https://ethresear.ch/t/multi-tries-vs-partial-statelessness/391](https://ethresear.ch/t/multi-tries-vs-partial-statelessness/391)
-* **Accumulators**: [https://ethresear.ch/t/history-state-and-asynchronous-accumulators-in-the-stateless-model/287](https://ethresear.ch/t/history-state-and-asynchronous-accumulators-in-the-stateless-model/287) and [https://ethresear.ch/t/batching-and-cyclic-partitioning-of-logs/536](https://ethresear.ch/t/batching-and-cyclic-partitioning-of-logs/536) and [https://ethresear.ch/t/double-batched-merkle-log-accumulator/571](https://ethresear.ch/t/double-batched-merkle-log-accumulator/571)
-* **State-minimized executions**: [https://ethresear.ch/t/state-minimised-executions/748](https://ethresear.ch/t/state-minimised-executions/748)
-* **A cryptoeconomic accumulator for state-minimized contracts**: [https://ethresear.ch/t/a-cryptoeconomic-accumulator-for-state-minimised-contracts/385](https://ethresear.ch/t/a-cryptoeconomic-accumulator-for-state-minimised-contracts/385)
+* \*\*\*\*[**什么是无状态客户端**](%20https://ethresear.ch/t/the-stateless-client-concept/172)\*\*\*\*
+* **分批处理和多状态根的效率提升**[ **\[1\]**](%20https://ethresear.ch/t/detailed-analysis-of-stateless-client-witness-size-and-gains-from-batching-and-multi-state-roots/862/9)\*\*\*\*[ **\[2\]**](https://ethresear.ch/t/multi-tries-vs-partial-statelessness/391)\*\*\*\*
+* **Accumulators** [**\[1\]**](https://ethresear.ch/t/history-state-and-asynchronous-accumulators-in-the-stateless-model/287) ****[**\[2\]**](%20https://ethresear.ch/t/batching-and-cyclic-partitioning-of-logs/536) ****[**\[3\]**](https://ethresear.ch/t/double-batched-merkle-log-accumulator/571)
+* \*\*\*\*[**状态最小化执行**](https://ethresear.ch/t/state-minimised-executions/748)\*\*\*\*
+* \*\*\*\*[**面向状态最小合约的加密经济累加器**](%20https://ethresear.ch/t/a-cryptoeconomic-accumulator-for-state-minimised-contracts/385)\*\*\*\*
 
-#### Cross-shard communication <a id="Cross-shard-communication"></a>
+#### 跨分片交流 <a id="Cross-shard-communication"></a>
 
-* **Merge blocks anc synchronous cross-shard state execution**: [https://ethresear.ch/t/merge-blocks-and-synchronous-cross-shard-state-execution/1240](https://ethresear.ch/t/merge-blocks-and-synchronous-cross-shard-state-execution/1240)
-* **Cross-shard locking**: [https://ethresear.ch/t/cross-shard-locking-scheme-1/1269](https://ethresear.ch/t/cross-shard-locking-scheme-1/1269) and [https://ethresear.ch/t/cross-shard-locking-resolving-deadlock/1275](https://ethresear.ch/t/cross-shard-locking-resolving-deadlock/1275) and [https://ethresear.ch/t/sharded-byzantine-atomic-commit/1285](https://ethresear.ch/t/sharded-byzantine-atomic-commit/1285)
-* **Cross-shard yanking**: [https://ethresear.ch/t/cross-shard-contract-yanking/1450](https://ethresear.ch/t/cross-shard-contract-yanking/1450)
-* **A simple synchronous cross-shard transaction protocol**: [https://ethresear.ch/t/simple-synchronous-cross-shard-transaction-protocol/3097](https://ethresear.ch/t/simple-synchronous-cross-shard-transaction-protocol/3097)
-* **Cross-shard receipt and hibernation/waking anti-double-spending**: [https://ethresear.ch/t/cross-shard-receipt-and-hibernation-waking-anti-double-spending/4748](https://ethresear.ch/t/cross-shard-receipt-and-hibernation-waking-anti-double-spending/4748)
-* **Fast cross shard on top of slow cross shard via optimistic conditional state objects**: [https://ethresear.ch/t/a-layer-2-computing-model-using-optimistic-state-roots/4481](https://ethresear.ch/t/a-layer-2-computing-model-using-optimistic-state-roots/4481) and [https://ethresear.ch/t/fast-cross-shard-transfers-via-optimistic-receipt-roots/5337](https://ethresear.ch/t/fast-cross-shard-transfers-via-optimistic-receipt-roots/5337)
+* \*\*\*\*[**区块合并以及同步跨分片状态执行**](https://ethresear.ch/t/merge-blocks-and-synchronous-cross-shard-state-execution/1240)\*\*\*\*
+* **跨分片锁定** [**\[1\]**](https://ethresear.ch/t/cross-shard-locking-scheme-1/1269)\*\*\*\*[ **\[2\]**](https://ethresear.ch/t/cross-shard-locking-resolving-deadlock/1275)\*\*\*\*[ **\[3\]**](https://ethresear.ch/t/sharded-byzantine-atomic-commit/1285) ****
+* \*\*\*\*[**跨分片拉取操作 \(Yanking\)**](https://ethresear.ch/t/cross-shard-contract-yanking/1450)
+* \*\*\*\*[**简单的同步跨分片交易协议**](https://ethresear.ch/t/simple-synchronous-cross-shard-transaction-protocol/3097)\*\*\*\*
+* \*\*\*\*[**跨分片收据及休眠/唤醒反双花机制**](%20https://ethresear.ch/t/cross-shard-receipt-and-hibernation-waking-anti-double-spending/4748)\*\*\*\*
+* **如何在基础层建立快速跨分片通信**[ **\[1\]**](https://ethresear.ch/t/a-layer-2-computing-model-using-optimistic-state-roots/4481) ****[**\[2\]**](https://ethresear.ch/t/fast-cross-shard-transfers-via-optimistic-receipt-roots/5337) 
 
-#### Storage maintenace fees / Rent <a id="Storage-maintenace-fees--Rent"></a>
+#### 存储费用/租金 <a id="Storage-maintenace-fees--Rent"></a>
 
-* **A simple and principled way to compute rent fees**: [https://ethresear.ch/t/a-simple-and-principled-way-to-compute-rent-fees/1455](https://ethresear.ch/t/a-simple-and-principled-way-to-compute-rent-fees/1455)
-* **Improving UX via a sleep/wake mechanism**: [https://ethresear.ch/t/improving-the-ux-of-rent-with-a-sleeping-waking-mechanism/1480](https://ethresear.ch/t/improving-the-ux-of-rent-with-a-sleeping-waking-mechanism/1480)
-* **Actor/asset model**: [https://ethresear.ch/t/ethereum-2-0-data-model-actors-and-assets/4117](https://ethresear.ch/t/ethereum-2-0-data-model-actors-and-assets/4117)
-* **Common classes of contracts and how they would handle ongoing storage maintenance fees**: [https://ethresear.ch/t/common-classes-of-contracts-and-how-they-would-handle-ongoing-storage-maintenance-fees-rent/4441](https://ethresear.ch/t/common-classes-of-contracts-and-how-they-would-handle-ongoing-storage-maintenance-fees-rent/4441)
+* \*\*\*\*[**计算租金的简单原则**](https://ethresear.ch/t/a-simple-and-principled-way-to-compute-rent-fees/1455)\*\*\*\*
+* \*\*\*\*[**通过休眠/唤醒机制提升用户体验**](https://ethresear.ch/t/improving-the-ux-of-rent-with-a-sleeping-waking-mechanism/1480)\*\*\*\*
+* \*\*\*\*[**Actor 和资产模型**](%20https://ethresear.ch/t/ethereum-2-0-data-model-actors-and-assets/4117)\*\*\*\*
+* \*\*\*\*[**常见合约种类及其存储租金**](https://ethresear.ch/t/common-classes-of-contracts-and-how-they-would-handle-ongoing-storage-maintenance-fees-rent/4441)
 
-#### Proofs of custody <a id="Proofs-of-custody"></a>
+#### 托管证明 P**roofs of custody** <a id="Proofs-of-custody"></a>
 
-* **Availability traps**: [https://ethresear.ch/t/proposer-withholding-and-collation-availability-traps/1294](https://ethresear.ch/t/proposer-withholding-and-collation-availability-traps/1294)
-* **Hash-based proofs of custody**: [https://ethresear.ch/t/extending-skin-in-the-game-of-notarization-with-proofs-of-custody/1639](https://ethresear.ch/t/extending-skin-in-the-game-of-notarization-with-proofs-of-custody/1639) and [https://ethresear.ch/t/bitwise-xor-custody-scheme/5139](https://ethresear.ch/t/bitwise-xor-custody-scheme/5139)
-* **1-bit aggregation-friendly custody bonds**: [https://ethresear.ch/t/1-bit-aggregation-friendly-custody-bonds/2236](https://ethresear.ch/t/1-bit-aggregation-friendly-custody-bonds/2236)
-* **Current scheme**: [https://github.com/ethereum/eth2.0-specs/blob/dev/specs/core/1\_custody-game.md](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/core/1_custody-game.md)
+* \*\*\*\*[**可用性陷阱**](https://ethresear.ch/t/proposer-withholding-and-collation-availability-traps/1294)\*\*\*\*
+* **基于哈希算法的托管证明** [**\[1\]**](https://ethresear.ch/t/extending-skin-in-the-game-of-notarization-with-proofs-of-custody/1639) ****[**\[2\]**](%20https://ethresear.ch/t/bitwise-xor-custody-scheme/5139)\*\*\*\*
+* \*\*\*\*[**易于聚合的1-bit托管bond** ](https://ethresear.ch/t/1-bit-aggregation-friendly-custody-bonds/2236)\*\*\*\*
+* \*\*\*\*[**目前的机制**](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/core/1_custody-game.md)\*\*\*\*
 
-#### Data availability proofs <a id="Data-availability-proofs"></a>
+#### 数据可用性证明 <a id="Data-availability-proofs"></a>
 
-* **Fraud proofs and data availability proofs via erasure coding**: [https://arxiv.org/abs/1809.09044](https://arxiv.org/abs/1809.09044)
+* \*\*\*\*[**欺诈证明和数据可用性证明**](%20https://arxiv.org/abs/1809.09044)\*\*\*\*
 
 #### Randomness <a id="Randomness"></a>
 
