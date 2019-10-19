@@ -20,7 +20,7 @@
 * \*\*\*\*[**Casper FFG 论文**](https://arxiv.org/abs/1710.09437)\*\*\*\*
 * \*\*\*\*[**基于认证委员会的完全PoS链**](https://ethresear.ch/t/attestation-committee-based-full-pos-chains/2259)\*\*\*\*
 
-## Casper FFG/GHOST/信标连模拟
+## Casper FFG/GHOST/信标链模拟
 
 * \*\*\*\*[**主文件夹**](https://github.com/ethereum/research/tree/master/clock_disparity)\*\*\*\*
   * Node: `lmd_node.py`
@@ -40,7 +40,7 @@
 
 #### 轻客户端 <a id="Light-clients"></a>
 
-* \*\*\*\*[**信标连轻客户端同步**](https://notes.ethereum.org/Irbhsn63R0W6o-r0K9mBOA)\*\*\*\*
+* \*\*\*\*[**信标链轻客户端同步**](https://notes.ethereum.org/Irbhsn63R0W6o-r0K9mBOA)\*\*\*\*
 * \*\*\*\*[**Casper FFG 轻客户端同步**](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light_client/sync_protocol.md)\*\*\*\*
 
 #### 签名集合 <a id="Signature-aggregation"></a>
