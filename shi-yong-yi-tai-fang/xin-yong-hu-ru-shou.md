@@ -12,6 +12,8 @@
 
 我们建议你先将ETH转移到MetaMask钱包。MetaMask是一个浏览器扩展程序，安装了它，你就可以在Chrome、Brave、Firefox或Opera浏览器中使用以太坊Dapps。
 
+![](../.gitbook/assets/wei-xin-tu-pian-20191019115516.png)
+
 MetaMask安装完了，现在你有了属于自己的钱包地址\(0x……\)。你可以去Coinbase交易所，把你获得的ETH发送到你的新钱包地址。大概一分钟后，你会就看到ETH出现在你的MetaMask钱包里。
 
 ## 安装移动钱包（可选）
