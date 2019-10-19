@@ -12,7 +12,31 @@
 
 我们建议你先将ETH转移到MetaMask钱包。MetaMask是一个浏览器扩展程序，安装了它，你就可以在Chrome、Brave、Firefox或Opera浏览器中使用以太坊Dapps。
 
+第一步 访问[https://metamask.io/](https://metamask.io/)，点击下图所示“Get Chrome Extension”\(获取Chrome扩展程序\)
+
 ![](../.gitbook/assets/wei-xin-tu-pian-20191019115516.png)
+
+第二步 点击“添加至Chrome”。
+
+![](../.gitbook/assets/tu-pian-2.png)
+
+第三步 在弹出窗口点击“添加扩展程序”。
+
+![](../.gitbook/assets/tu-pian-3.png)
+
+第四步
+
+![](../.gitbook/assets/tu-pian-4.png)
+
+第五步 仔细阅读条款，选择“I agree”\(我同意条款\)。
+
+![](../.gitbook/assets/tu-pian-5.png)
+
+第六步 出现每个账户专属的私密备份密语\(也称种子密语、助记词\)，一定要记住哦！！只有这完完整整的12个种子密语才能恢复你的钱包，忘了的话，钱包里的加密货币就找不回来了！！
+
+![](../.gitbook/assets/tu-pian-6.png)
+
+最后确认种子密语就完成钱包的安装下载了。
 
 MetaMask安装完了，现在你有了属于自己的钱包地址\(0x……\)。你可以去Coinbase交易所，把你获得的ETH发送到你的新钱包地址。大概一分钟后，你会就看到ETH出现在你的MetaMask钱包里。
 
@@ -28,25 +52,25 @@ MetaMask安装完了，现在你有了属于自己的钱包地址\(0x……\)。
 
 有许多不同类型的应用程序构建在以太坊上，但在开始使用前，请你看看这里的一些建议:
 
-#### 去中心化金融
+### 去中心化金融
 
 [Compound](https://compound.finance/)：借出和借入ETH或其他通证。
 
 Uniswap：能轻易地用ETH交换其他通证。
 
-#### 游戏
+### 游戏
 
 [CryptoKitties](https://www.cryptokitties.co/)：收集和养育数字猫。
 
 [Gods Unchained](https://godsunchained.com/)：建立在以太坊上的免费数字交易纸牌游戏。
 
-#### 收藏品
+### 收藏品
 
 [OpenSea](https://opensea.io/)：购买、出售和发现稀有的数字产品。
 
 [Origin Protocol](https://www.originprotocol.com/en)：区块链上的去中心化市场。
 
-#### 其他
+### 其他
 
 [ENS](https://app.ens.domains/)：购买一个ENS名，让你的地址更具有人类可读性\(myetheraddress.eth\)。
 
