@@ -82,33 +82,33 @@
 
 * \*\*\*\*[**欺诈证明和数据可用性证明**](%20https://arxiv.org/abs/1809.09044)\*\*\*\*
 
-#### Randomness <a id="Randomness"></a>
+#### 随机性 <a id="Randomness"></a>
 
-* **30% sharding attack**: [https://ethresear.ch/t/30-sharding-attack/1340](https://ethresear.ch/t/30-sharding-attack/1340)
-* **An \(impractical\) idea for unmanipulable entropy**: [https://ethresear.ch/t/an-impractical-idea-for-unmanipulable-entropy/1355](https://ethresear.ch/t/an-impractical-idea-for-unmanipulable-entropy/1355)
-* **RNG exploitability analysis \(RANDAO\)**: [https://ethresear.ch/t/rng-exploitability-analysis-assuming-pure-randao-based-main-chain/1825](https://ethresear.ch/t/rng-exploitability-analysis-assuming-pure-randao-based-main-chain/1825)
-* **RANDAO exploitability analysis, round 2**: [https://ethresear.ch/t/randao-beacon-exploitability-analysis-round-2/1980](https://ethresear.ch/t/randao-beacon-exploitability-analysis-round-2/1980)
-* **Low-influence functions \(Iddo Bentov\)**: [https://arxiv.org/pdf/1406.5694.pdf](https://arxiv.org/pdf/1406.5694.pdf)
-* **Swap-or-not shuffle**: [https://github.com/ethereum/eth2.0-specs/issues/563](https://github.com/ethereum/eth2.0-specs/issues/563)
+* \*\*\*\*[**30% 分片攻击**](https://ethresear.ch/t/30-sharding-attack/1340)\*\*\*\*
+* \*\*\*\*[**不可操作的熵**](%20https://ethresear.ch/t/an-impractical-idea-for-unmanipulable-entropy/1355)\*\*\*\*
+* \*\*\*\*[**RNG \(随机数生成器\) 可利用性分析 \(RANDAO\)**](https://ethresear.ch/t/rng-exploitability-analysis-assuming-pure-randao-based-main-chain/1825)\*\*\*\*
+* \*\*\*\*[**RANDAO 可利用性分析之二**](https://ethresear.ch/t/randao-beacon-exploitability-analysis-round-2/1980)\*\*\*\*
+* \*\*\*\*[**使用低影响函数 \(Iddo Bentov\)**](%20https://arxiv.org/pdf/1406.5694.pdf)\*\*\*\*
+* \*\*\*\*[**Shuffle\(打乱验证者\) 方法：Swap-or-not**](https://github.com/ethereum/eth2.0-specs/issues/563)\*\*\*\*
 
-#### Timestamps <a id="Timestamps"></a>
+#### 时间戳 <a id="Timestamps"></a>
 
-* **Incentive worries around timestamps**: [https://ethresear.ch/t/highlighting-a-problem-stability-of-the-equilibrium-of-minimum-timestamp-enforcement/2257](https://ethresear.ch/t/highlighting-a-problem-stability-of-the-equilibrium-of-minimum-timestamp-enforcement/2257)
-* **Network-adjusted timestamps**: [https://ethresear.ch/t/network-adjusted-timestamps/4187](https://ethresear.ch/t/network-adjusted-timestamps/4187)
+* \*\*\*\*[**时间戳的激励性问题**](https://ethresear.ch/t/highlighting-a-problem-stability-of-the-equilibrium-of-minimum-timestamp-enforcement/2257)\*\*\*\*
+* \*\*\*\*[**根据网络调整的时间戳**](https://ethresear.ch/t/network-adjusted-timestamps/4187)\*\*\*\*
 
-#### Data structures <a id="Data-structures"></a>
+#### 数据结构 <a id="Data-structures"></a>
 
-* **Optimizing sparse Merkle trees**: [https://ethresear.ch/t/optimizing-sparse-merkle-trees/3751](https://ethresear.ch/t/optimizing-sparse-merkle-trees/3751)
-* **Implementation of sparse Merkle trees**: [https://github.com/ethereum/research/tree/master/trie\_research/bintrie2](https://github.com/ethereum/research/tree/master/trie_research/bintrie2)
-* **Double-batched Merkle log accumulator**: [https://ethresear.ch/t/double-batched-merkle-log-accumulator/571](https://ethresear.ch/t/double-batched-merkle-log-accumulator/571)
-* * **Efficient Merkle proofs and generalized SSZ light client proofs**: [https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light\_client/merkle\_proofs.md](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light_client/merkle_proofs.md)
+* \*\*\*\*[**优化稀疏默克尔树**](https://ethresear.ch/t/optimizing-sparse-merkle-trees/3751)\*\*\*\*
+* \*\*\*\*[**稀疏默克尔树的执行**](https://github.com/ethereum/research/tree/master/trie_research/bintrie2)\*\*\*\*
+* \*\*\*\*[**双层默克尔记录累加器**](https://ethresear.ch/t/double-batched-merkle-log-accumulator/571)\*\*\*\*
+* \*\*\*\*[**高效默克尔证明和广义 SSZ 轻客户端证明**](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/light_client/merkle_proofs.md)\*\*\*\*
 
-#### Miscellaneous <a id="Miscellaneous"></a>
+#### 杂项 <a id="Miscellaneous"></a>
 
-* **Cheats, weaknesses and attacks**: [http://notes.ethereum.org/MwNgJgpgHFbAtAQwKwQvALNA7PW2p4AzAYwCYAjARgrGxIE4jgg=](http://notes.ethereum.org/MwNgJgpgHFbAtAQwKwQvALNA7PW2p4AzAYwCYAjARgrGxIE4jgg=)
-* **Data forgetfulness**: [https://ethresear.ch/t/sharding-and-data-forgetfulness/61](https://ethresear.ch/t/sharding-and-data-forgetfulness/61)
-* **Security in the bribing model**: [https://ethresear.ch/t/shard-security-in-the-bribing-model/1366](https://ethresear.ch/t/shard-security-in-the-bribing-model/1366)
-* **Better Merkle trees**: [https://ethresear.ch/t/data-availability-proof-friendly-state-tree-transitions/1453/6](https://ethresear.ch/t/data-availability-proof-friendly-state-tree-transitions/1453/6)
+* \*\*\*\*[**分片的缺陷/可能面临的作弊和攻击问题**](http://notes.ethereum.org/MwNgJgpgHFbAtAQwKwQvALNA7PW2p4AzAYwCYAjARgrGxIE4jgg=)\*\*\*\*
+* \*\*\*\*[**分片数据遗忘可能性**](https://ethresear.ch/t/sharding-and-data-forgetfulness/61)\*\*\*\*
+* [**如何提高安全性以抵御参与者腐败**](https://ethresear.ch/t/shard-security-in-the-bribing-model/1366)\*\*\*\*
+* \*\*\*\*[**更优的默克尔树**](%20https://ethresear.ch/t/data-availability-proof-friendly-state-tree-transitions/1453/6)\*\*\*\*
 
 \*\*\*\*
 
