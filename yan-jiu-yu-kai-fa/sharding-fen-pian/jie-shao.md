@@ -51,7 +51,7 @@
 
 * \*\*\*\*[**什么是无状态客户端**](%20https://ethresear.ch/t/the-stateless-client-concept/172)\*\*\*\*
 * **分批处理和多状态根的效率提升**[ **\[1\]**](%20https://ethresear.ch/t/detailed-analysis-of-stateless-client-witness-size-and-gains-from-batching-and-multi-state-roots/862/9)\*\*\*\*[ **\[2\]**](https://ethresear.ch/t/multi-tries-vs-partial-statelessness/391)\*\*\*\*
-* **Accumulators** [**\[1\]**](https://ethresear.ch/t/history-state-and-asynchronous-accumulators-in-the-stateless-model/287) ****[**\[2\]**](%20https://ethresear.ch/t/batching-and-cyclic-partitioning-of-logs/536) ****[**\[3\]**](https://ethresear.ch/t/double-batched-merkle-log-accumulator/571)
+* **累加器** [**\[1\]**](https://ethresear.ch/t/history-state-and-asynchronous-accumulators-in-the-stateless-model/287) ****[**\[2\]**](%20https://ethresear.ch/t/batching-and-cyclic-partitioning-of-logs/536) ****[**\[3\]**](https://ethresear.ch/t/double-batched-merkle-log-accumulator/571)
 * \*\*\*\*[**状态最小化执行**](https://ethresear.ch/t/state-minimised-executions/748)\*\*\*\*
 * \*\*\*\*[**面向状态最小合约的加密经济累加器**](%20https://ethresear.ch/t/a-cryptoeconomic-accumulator-for-state-minimised-contracts/385)\*\*\*\*
 

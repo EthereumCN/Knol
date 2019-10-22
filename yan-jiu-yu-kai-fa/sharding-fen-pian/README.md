@@ -1,40 +1,23 @@
+---
+description: Sharding + Casper / shasper 是以太坊2.0计划中的扩容性解决方案，研发工作正在进行当中，目前阶段0的信标链规范已经完成冻结。
+---
+
 # Sharding 分片
 
-Ethereum 1.0 can only process 7-15 transactions per second, the goal of sharding is to partition all network computational resources into shards, so that a node \(a single computer as a peer connected to the network\) doesn't have to process \(download, compute, store, read\) every transaction in the history of the blockchain, in order to make a new transaction \(write and upload\) or otherwise participate in securing and using Ethereum; rather a node can just participate in a single shard, or more if it so chooses. Multiple shards are handled separately by different subsets of securing participants, aka securitors \(which include notaries, proposers, miners and validators\)[\[1\]](https://eprint.iacr.org/2017/406.pdf). The primary goal is a massive scalability improvement, potentially exponential in phase 6 of the [roadmap](https://github.com/ethereum/wiki/wiki/Sharding-roadmap), although Vitalik questioned whether exponential sharding will even be tenable in an ethresear.ch thread. Quadratic sharding involves having shards at a depth of at most 1 from the main chain, that is, there are no shards within a shard, or a manager shard managing sub-shards; whereas exponential sharding has shards within shards, recursively.
+目前以太坊1.0每秒只能处理7-15笔交易，Sharding 的目的是将所有网络计算资源划分为分片，这样一来节点（一台计算机设备连接到网络作为点对点节点）就不需要必须处理（包括下载、计算、存储、读取）区块链历史中的每笔交易，来进行新的交易（写入和上传）或参与维护和使用以太坊。在分片机制中，一个节点可以根据选择只参与一个或多个分片中。多个分片由不同的可靠参与者子集独立运行，又称为安全检查者（包括公证人、提议者、矿工和验证者）。其主要目标是对可扩展性进行大规模改进，分片在路线图的第6阶段可能呈指数级增长，尽管 Vitalik 曾在 ethresear.ch 上的讨论中质疑指数分片是否还能成立。二次分片只包含距离主链最多1个深度的分片，也就是说，分片内不存在分片，也没有管理子分片的管理者分片，而指数分片使得分片递归地包含在其他分片中。‌
 
-Each one of the shards \(currently set to 1024 in the [latest spec](https://github.com/ethereum/eth2.0-specs)\) will have as high a capacity \(and likely more with phase 1\) than the current existing Ethereum chain. The latest spec combines sharding with Casper FFG PoS \(see e.g. the [PoS FAQ](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQs) and [compendium](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium) for details\) using a RANDAO beacon chain. Previously a contract was planned to exist on the main chain, however that has been scrapped, in order to make sharding implementation easier, as explained e.g. [here](https://threadreaderapp.com/thread/1029900695925706753.html) in a Tweet storm by Vitalik.
+每个分片（最新规范中设置为1024个分片）将具有比当前现有的以太坊主链更大的容量。最新规范使用 RANDAO 信标链将分片与 Casper FFG PoS 结合在一起。
 
+获取更多的分片相关信息，请继续阅读：
 
-
-For information on sharding, refer to \(sorted roughly from the most recent/important information to less recent\):
-
-* [https://github.com/ethereum/eth2.0-specs/blob/master/specs/beacon-chain.md](https://github.com/ethereum/eth2.0-specs/blob/master/specs/beacon-chain.md)
-* [Sharding FAQs](https://github.com/ethereum/wiki/wiki/Sharding-FAQs)
-* sharding [roadmap](https://github.com/ethereum/wiki/wiki/Sharding-roadmap)
-* a summary [here](https://twitter.com/sinahab/status/992755776765792256);
-* [ethresear.ch sharding category](https://ethresear.ch/c/sharding) \(watch new posts\);
-* [sharding protocol research tracker](https://github.com/Drops-of-Diamond/diamond_drops/issues/13)
-* [Sharding Fork Choice rule PoC and more info, 2018 May 1](https://twitter.com/VitalikButerin/status/991021062811930624). Also see [here](https://github.com/Drops-of-Diamond/diamond_drops/issues/13) for an issue tracking protocol specification updates.
-* [Sharding introduction](https://docs.google.com/presentation/d/1mdmmgQlRFUvznq1jdmRwkwEyQB0YON5yAg4ArxtanE4/edit?usp=sharing)
-  * networking diagram on slides 82–87
-* [Sharding workshop notes](https://hackmd.io/s/HJ_BbgCFz#%E2%9F%A0-General-Introduction)
-* [Ethereum sharding workshop blog post](https://medium.com/@icebearhww/ethereum-sharding-workshop-in-taipei-a44c0db8b8d9)
-* [HackMD note: Ethereum Research Sharding Compendium](http://notes.ethereum.org/s/BJc_eGVFM)
-* [Wiki: ethresear.ch Sharding Compendium](https://github.com/ethereum/wiki/wiki/Wiki:-ethresear.ch-Sharding-Compendium)
-
-### 
-
-### 
-
-## Ethereum Sharding Research Compendium <a id="Ethereum-Sharding-Research-Compendium"></a>
-
-### [https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view](https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view)
-
-### Grant program
-
-[https://blog.ethereum.org/2018/01/02/ethereum-scalability-research-development-subsidy-programs/](https://blog.ethereum.org/2018/01/02/ethereum-scalability-research-development-subsidy-programs/)
-
-See also [https://github.com/ethereum/wiki/wiki/Grants-and-funding-sources](https://github.com/ethereum/wiki/wiki/Grants-and-funding-sources).
+* [已经冻结的信标链规范](https://github.com/ethereum/eth2.0-specs/blob/dev/specs/core/0_beacon-chain.md)
+* [分片常见问题解答](https://github.com/ethereum/wiki/wiki/Sharding-FAQ)
+* [分片路线图](https://github.com/ethereum/wiki/wiki/Sharding-roadmap)
+* [关于分片的总结性概括](https://github.com/ethereum/wiki/wiki/Sharding-roadmap)
+* [分片在Reddit上的最新讨论](https://ethresear.ch/c/sharding)
+* [以太坊研发者对分片的介绍](https://docs.google.com/presentation/d/1mdmmgQlRFUvznq1jdmRwkwEyQB0YON5yAg4ArxtanE4/edit#slide=id.p4)
+* [ethresear.ch上的分片研究汇编](https://github.com/ethereum/wiki/wiki/Wiki:-ethresear.ch-Sharding-Compendium)
+* [分片研究汇编](https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view)
 
 
 
