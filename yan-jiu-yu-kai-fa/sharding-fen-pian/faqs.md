@@ -1,3 +1,7 @@
+---
+description: 'https://eth.wiki/en/sharding-faqs'
+---
+
 # Sharding FAQ
 
 ## Introduction

@@ -30,7 +30,7 @@
   * [Sharding 分片](yan-jiu-yu-kai-fa/sharding-fen-pian/README.md)
     * [分片研究概况](yan-jiu-yu-kai-fa/sharding-fen-pian/jie-shao.md)
     * [路线图](yan-jiu-yu-kai-fa/sharding-fen-pian/lu-xian-tu.md)
-    * [执行情况](yan-jiu-yu-kai-fa/sharding-fen-pian/yan-jiu-kai-fa.md)
+    * [实现情况](yan-jiu-yu-kai-fa/sharding-fen-pian/yan-jiu-kai-fa.md)
     * [Sharding FAQ](yan-jiu-yu-kai-fa/sharding-fen-pian/faqs.md)
   * [Casper PoS](yan-jiu-yu-kai-fa/casper-pos/README.md)
     * [Proof-of-Stake 权益证明](yan-jiu-yu-kai-fa/casper-pos/proof-of-stake.md)

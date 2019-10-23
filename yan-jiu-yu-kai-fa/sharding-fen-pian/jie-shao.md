@@ -32,7 +32,7 @@
 * \*\*\*\*[**简单解释 CBC Casper**](https://medium.com/@aditya.asgaonkar/casper-cbc-simplified-2370922f9aa6)\*\*\*\*
 * \*\*\*\*[**信标链友好的 CBC Casper**](https://ethresear.ch/t/beacon-chain-friendly-cbc-casper/4710/2)\*\*\*\*
 * \*\*\*\*[**Bitwise LMD GHOST**](https://ethresear.ch/t/bitwise-lmd-ghost/4749/5)\*\*\*\*
-* \*\*\*\*[**LMD GHOST 执行**](https://ethresear.ch/t/comparing-lmd-ghost-implementations/4945/3)\*\*\*\*
+* \*\*\*\*[**LMD GHOST** ](https://ethresear.ch/t/comparing-lmd-ghost-implementations/4945/3)
 
 #### 验证者集轮替 <a id="Validator-set-rotation"></a>
 
@@ -57,7 +57,7 @@
 
 #### 跨分片交流 <a id="Cross-shard-communication"></a>
 
-* \*\*\*\*[**区块合并以及同步跨分片状态执行**](https://ethresear.ch/t/merge-blocks-and-synchronous-cross-shard-state-execution/1240)\*\*\*\*
+* \*\*\*\*[**区块合并以及同步跨分片**](https://ethresear.ch/t/merge-blocks-and-synchronous-cross-shard-state-execution/1240)
 * **跨分片锁定** [**\[1\]**](https://ethresear.ch/t/cross-shard-locking-scheme-1/1269)\*\*\*\*[ **\[2\]**](https://ethresear.ch/t/cross-shard-locking-resolving-deadlock/1275)\*\*\*\*[ **\[3\]**](https://ethresear.ch/t/sharded-byzantine-atomic-commit/1285) ****
 * \*\*\*\*[**跨分片拉取操作 \(Yanking\)**](https://ethresear.ch/t/cross-shard-contract-yanking/1450)
 * \*\*\*\*[**简单的同步跨分片交易协议**](https://ethresear.ch/t/simple-synchronous-cross-shard-transaction-protocol/3097)\*\*\*\*

@@ -1,48 +1,20 @@
+---
+description: Casper Proof of Stake (权益证明) 研究汇编
+---
+
 # Casper PoS
 
+## 什么是 Proof of Stake \(权益证明\)？
 
+**Proof of Stake \(PoS\) is a category of consensus algorithms for public blockchains that depend on a validator's economic stake in the network**. In proof of work \(PoW\) based public blockchains \(e.g. Bitcoin and the current implementation of Ethereum\), the algorithm rewards participants who solve cryptographic puzzles in order to validate transactions and create new blocks \(i.e. mining\). In PoS-based public blockchains \(e.g. Ethereum's upcoming Casper implementation\), a set of validators take turns proposing and voting on the next block, and the weight of each validator's vote depends on the size of its deposit \(i.e. stake\). Significant advantages of PoS include **security, reduced risk of centralization, and energy efficiency**.
 
-## Casper Proof of Stake compendium
+In general, a proof of stake algorithm looks as follows. The blockchain keeps track of a set of validators, and anyone who holds the blockchain's base cryptocurrency \(in Ethereum's case, ether\) can become a validator by sending a special type of transaction that **locks up their ether into a deposit**. The process of creating and agreeing to new blocks is then done through a consensus algorithm that all current validators can participate in.
 
-Rachit Phetrahsa edited this page on 17 Apr · [34 revisions](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium/_history)
+There are many kinds of consensus algorithms, and many ways to assign rewards to validators who participate in the consensus algorithm, so there are many "flavors" of proof of stake. From an algorithmic perspective, there are two major types: chain-based proof of stake and [BFT](https://en.wikipedia.org/wiki/Byzantine_fault_tolerance)-style proof of stake.
 
-**Contents**
+In **chain-based proof of stake**, the algorithm pseudo-randomly selects a validator during each time slot \(e.g. every period of 10 seconds might be a time slot\), and assigns that validator the right to create a single block, and this block must point to some previous block \(normally the block at the end of the previously longest chain\), and so over time most blocks converge into a single constantly growing chain.
 
-* [Casper FFG](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium#casper-ffg)
-* [Casper CBC](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium#casper-cbc)
-  * [Further reading](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium#further-reading)
-* [Applications/Infrastructure using Casper](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium#applicationsinfrastructure-using-casper)
+In **BFT-style proof of stake**, validators are **randomly** assigned the right to _propose_ blocks, but _agreeing on which block is canonical_ is done through a multi-round process where every validator sends a "vote" for some specific block during each round, and at the end of the process all \(honest and online\) validators permanently agree on whether or not any given block is part of the chain. Note that blocks may still be _chained together_; the key difference is that consensus on a block can come within one block, and does not depend on the length or size of the chain after it.
 
-For an introduction to PoS, see [PoS FAQs](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQs).
-
-### Casper FFG
-
-[Casper the Friendly Finality Gadget \(FFG\)](https://github.com/ethereum/research/tree/master/papers/casper-basics), AKA for short as Casper FFG, for PoS validation with Proof-of-Work \(PoW\). Resources include:
-
-* sharding + casper \(= [shasper](https://notes.ethereum.org/SCIg8AH5SA-O4C1G1LYZHQ)\) spec
-* [EIP 1011](https://eips.ethereum.org/EIPS/eip-1011) \(deprecated\)
-* [implementation doc](https://github.com/ethereum/casper/blob/master/IMPLEMENTATION.md); and
-* a [testnet](https://hackmd.io/s/Hk6UiFU7z)
-* [repo](https://github.com/ethereum/casper)
-
-### Casper CBC
-
-[Casper the Friendly GHOST: Correct by Construction \(CBC\)](https://github.com/ethereum/research/blob/master/papers/CasperTFG/CasperTFG.pdf), AKA Casper CBC; for full Proof-of-Stake \(PoS\). [GHOST](https://eprint.iacr.org/2013/881) stands for Greediest Heaviest Observed Sub-Tree, and is a blockchain fork-choice rule protocol. PoS will be essential for the sustainability of Ethereum, drastically reducing its energy consumption while increasing scalability and performance. Resources include:
-
-* See this [repo](https://github.com/ethereum/cbc-casper).
-* [wiki](https://github.com/ethereum/cbc-casper/wiki)
-
-#### Further reading
-
-* [a comparison of FFG and CBC](https://ethereum.stackexchange.com/a/31814/9584)
-* the [https://ethresear.ch](https://ethresear.ch/) Casper category, e.g.:
-  * [CBC-Casper in the face of the new PoS+Sharding plans on Ethereum](https://ethresear.ch/t/cbc-casper-in-the-face-of-the-new-pos-sharding-plans-on-ethereum/2444/7), includes a comparison of FFG and CBC with a link to a [draft formal proof of FFG](https://ethresear.ch/t/epoch-less-casper-ffg-liveness-safety-argument/2702)
-
-### Applications/Infrastructure using Casper
-
-* [Rocket Pool](https://github.com/rocket-pool/rocketpool): allows pooling, in alpha as of August 2018. "Unlike traditional centralised proof-of-work \(PoW\) pools, Rocket Pool utilises the power of smart contracts to create a self-regulating decentralised network of smart nodes that allows users with any amount of ether to earn interest on their deposits and help secure the Ethereum network at the same time."
-
-
-
-[https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view](https://notes.ethereum.org/@serenity/H1PGqDhpm?type=view)
+更多相关信息参见：[PoS F](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)[AQs](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ).
 

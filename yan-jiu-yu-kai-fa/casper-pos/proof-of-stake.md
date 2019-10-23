@@ -1,7 +1,5 @@
 # Proof-of-Stake 权益证明
 
-**Contents**
-
 * [What is Proof of Stake](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-proof-of-stake)
 * [What are the benefits of proof of stake as opposed to proof of work?](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-are-the-benefits-of-proof-of-stake-as-opposed-to-proof-of-work)
 * [How does proof of stake fit into traditional Byzantine fault tolerance research?](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#how-does-proof-of-stake-fit-into-traditional-byzantine-fault-tolerance-research)

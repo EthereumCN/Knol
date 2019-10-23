@@ -6,5 +6,7 @@
 
 {% embed url="https://github.com/ethereum/wiki/wiki/Sharding-introduction-R&D-compendium" %}
 
+{% embed url="https://eth.wiki/en/home" %}
+
 
 

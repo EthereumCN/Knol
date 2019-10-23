@@ -1,14 +1,13 @@
-# 执行情况
+# 实现情况
 
-Implementations under development include:
+处于开发中的具体实现包括：
 
-* [sharding implementers call](https://github.com/ethresearch/eth2.0-pm)
-* [sharding utils](https://github.com/ethereum/sharding): has the sharding manager contract and interfaces.
-* py-evm/Trinity: [Gitter](https://gitter.im/ethereum/py-evm), [Github: sharding](https://github.com/ethereum/py-evm/tree/sharding), [Github: Trinity](https://github.com/ethereum/py-evm/tree/trinity). Trinity is the planned/under development EVM that will run a node and network.
-* Geth-sharding: [Github](https://github.com/prysmaticlabs/geth-sharding), [Gitter](https://gitter.im/prysmaticlabs/geth-sharding), [website](https://prysmaticlabs.com/).
-* [Drops of Diamond](https://github.com/Drops-of-Diamond/diamond_drops): using the fast, safe and concurrent [Rust](https://www.rust-lang.org/en-US/) programming language.
-* Nimbus \([doc](https://docs.google.com/document/d/14u65XVNLOd83cq3t7wNC9UPweZ6kPWvmXwRTWWn0diQ/edit#)\): an implementation in Nim which compiles to C, and would be good for integrating with [Hera](https://github.com/ewasm/hera), an eWASM implementation in C++. Developed by Status, they are looking to support mobile phones.
-* [Artemis](https://github.com/PegaSysEng/artemis) [PegaSys](https://twitter.com/PegasysEng) [ConsenSys](https://consensys.net/): Java Implementation of the Ethereum 2.0 Beacon Chain
-* [Lodestar](https://github.com/ChainSafeSystems/lodestar_chain) [ChainSafe Systems](https://chainsafe.io/): an implementation of the beacon chain in JavaScript.
-* [Shasper](https://github.com/paritytech/shasper) [Parity Technologies](https://parity.io/): Shasper beacon chain implementation using the Substrate framework.
+* [分片实现者会议](https://github.com/ethresearch/eth2.0-pm)
+* [分片实用菜单](https://github.com/ethereum/sharding)：包括管理者合约和接口
+* Py-evm/Trinity：[Gitter](https://gitter.im/ethereum/py-evm) / [Github: sharding](https://github.com/ethereum/py-evm/tree/sharding) / [Github: Trinity](https://github.com/ethereum/py-evm/tree/trinity)
+* Geth-sharding: [Github](https://github.com/prysmaticlabs/geth-sharding) / [Gitter](https://gitter.im/prysmaticlabs/geth-sharding) / [Website](https://prysmaticlabs.com/)
+* Nimbus \([文档](https://docs.google.com/document/d/14u65XVNLOd83cq3t7wNC9UPweZ6kPWvmXwRTWWn0diQ/edit#)\)：由Status开发，信标链 Nim 语言实现，可以编译为C语言，并且可以很好地与 [Hera](https://github.com/ewasm/hera) 整合（C ++语言的eWASM实现）
+* [Artemis](https://github.com/PegaSysEng/artemis)：由 [ConsenSys PegaSys](https://consensys.net/) 团队开发，以太坊2.0信标链的 Java 实现
+* [Lodestar](https://github.com/ChainSafeSystems/lodestar_chain)：由 [Chainsafe](https://chainsafe.io/) 开发，信标链的 JavaScript 实现
+* [Shasper](https://github.com/paritytech/shasper)：由 [Parity Technologies](https://parity.io/) 开发，使用 Substrate 框架的信标链实现
 
