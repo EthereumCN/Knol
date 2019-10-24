@@ -33,7 +33,7 @@
     * [实现情况](yan-jiu-yu-kai-fa/sharding-fen-pian/yan-jiu-kai-fa.md)
     * [Sharding FAQ](yan-jiu-yu-kai-fa/sharding-fen-pian/faqs.md)
   * [Casper PoS](yan-jiu-yu-kai-fa/casper-pos/README.md)
-    * [Proof-of-Stake 权益证明](yan-jiu-yu-kai-fa/casper-pos/proof-of-stake.md)
+    * [Proof of Stake 权益证明](yan-jiu-yu-kai-fa/casper-pos/proof-of-stake.md)
     * [Casper FFG](yan-jiu-yu-kai-fa/casper-pos/casper-ffg.md)
     * [Casper CBC](yan-jiu-yu-kai-fa/casper-pos/casper-cbc/README.md)
       * [延伸阅读](yan-jiu-yu-kai-fa/casper-pos/casper-cbc/yan-shen-yue-du.md)

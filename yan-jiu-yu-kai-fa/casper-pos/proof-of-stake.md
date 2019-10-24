@@ -1,4 +1,4 @@
-# Proof-of-Stake 权益证明
+# Proof of Stake 权益证明
 
 * [What is Proof of Stake](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-proof-of-stake)
 * [What are the benefits of proof of stake as opposed to proof of work?](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-are-the-benefits-of-proof-of-stake-as-opposed-to-proof-of-work)
