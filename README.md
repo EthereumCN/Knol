@@ -1,5 +1,5 @@
 ---
-description: 欢迎登陆 Eth Land 以太坊之境！
+description: 欢迎登陆 Eth Land 以太坊之境！（内容持续完善中）
 ---
 
 # 探秘以太坊
