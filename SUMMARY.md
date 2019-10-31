@@ -122,13 +122,6 @@
   * [Swarm for Node-Operators](swarm/swarm-for-node-operators.md)
   * [Swarm for Go-Client Contributors](swarm/swarm-for-go-client-contributors.md)
   * [Team and Organisation](swarm/team-and-organisation.md)
-* [ETH2.0](eth2.0-1/README.md)
-  * [ETH2.0 Specifications](eth2.0-1/eth2.0.md)
-  * [Phase 0 -- The Beacon Chain](eth2.0-1/phase-0-the-beacon-chain.md)
-  * [Phase 1-- Custody Game](eth2.0-1/phase-1-custody-game.md)
-  * [Phase 2 - 研究中](eth2.0-1/phase-2-yan-jiu-zhong.md)
-  * [Phase 3 研究中](eth2.0-1/untitled-2.md)
-  * [超越Serenity](eth2.0-1/untitled-1.md)
 * [以太坊生态](yi-tai-fang-sheng-tai/README.md)
   * [钱包](yi-tai-fang-sheng-tai/untitled-4/README.md)
     * [桌面钱包](yi-tai-fang-sheng-tai/untitled-4/qian-bao.md)
@@ -180,4 +173,16 @@
     * [Twitter](yi-tai-fang-she-qu/she-jiao-zhang-hao/twitter.md)
   * [人物](yi-tai-fang-she-qu/ren-wu/README.md)
     * [天才Vitalik Buterin](yi-tai-fang-she-qu/ren-wu/vitalik-buterin.md)
+
+## 延申阅读
+
+* [以太坊简史](yan-shen-yue-du/yi-tai-fang-jian-shi.md)
+* [ETH2.0路线图](yan-shen-yue-du/eth2.0-1/README.md)
+  * [ETH2.0 Specifications](yan-shen-yue-du/eth2.0-1/eth2.0.md)
+  * [Phase 0 -- The Beacon Chain](yan-shen-yue-du/eth2.0-1/phase-0-the-beacon-chain.md)
+  * [Phase 1-- Custody Game](yan-shen-yue-du/eth2.0-1/phase-1-custody-game.md)
+  * [Phase 2 - 研究中](yan-shen-yue-du/eth2.0-1/phase-2-yan-jiu-zhong.md)
+  * [Phase 3 研究中](yan-shen-yue-du/eth2.0-1/untitled-2.md)
+  * [超越Serenity](yan-shen-yue-du/eth2.0-1/untitled-1.md)
+* [Untitled](yan-shen-yue-du/untitled.md)
 
