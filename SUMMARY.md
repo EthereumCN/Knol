@@ -178,6 +178,7 @@
 ## 延申阅读
 
 * [以太坊简史](yan-shen-yue-du/yi-tai-fang-jian-shi.md)
+* [官方博客归档](yan-shen-yue-du/guan-fang-bo-ke-gui-dang.md)
 * [ETH2.0路线图](yan-shen-yue-du/eth2.0-1/README.md)
   * [ETH2.0 Specifications](yan-shen-yue-du/eth2.0-1/eth2.0.md)
   * [Phase 0 -- The Beacon Chain](yan-shen-yue-du/eth2.0-1/phase-0-the-beacon-chain.md)
