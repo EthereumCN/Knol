@@ -8,15 +8,13 @@
 
 必须指出的是，在以太坊世界里，发展速度极快，核心开发和dapps（去中心化应用）不断涌现，我们这里可能不能够囊括所有的关于以太坊发展的实际情况。我们会及时更新相关发展。
 
-## 关于区块链
+## About blockchains
 
-网上有很多关于区块链的教学视频，可以看看这个 [TED talk](https://www.youtube.com/watch?v=RplnSVTzvnU)。
+For an introduction to blockchains, see [this TED talk](https://www.youtube.com/watch?v=RplnSVTzvnU).
 
-## 关于以太坊
+## About Ethereum
 
-> 这里有一篇文章从技术上简要概述了以太坊。                                                                                    —[https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
-
-
+> Ethereum is a decentralized, self-contained economy for transactional computation and related data. —[https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
 
 [Ethereum](https://www.ethereum.org/) is a [decentralized](https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274) blockchain platform for "building unstoppable applications", while Ether is the cryptocurrency used on this platform. Ethereum can be used for virtually any kind of transaction or agreement \(to put it another way, any kind of activity that has an economic or governance aspect\), at a lower cost than conventional alternatives, such as debit card payments, PayPal, and ballot voting, in a way that is decentralized, trustless \(no intermediary like a bank is needed, Bob can send X ETH directly to Alice\), secure, safe and live \(with some assumptions like an honest majority of securitors\), and censorship-resistant.
 
