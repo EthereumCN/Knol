@@ -184,5 +184,5 @@
   * [Phase 2 - 研究中](yan-shen-yue-du/eth2.0-1/phase-2-yan-jiu-zhong.md)
   * [Phase 3 研究中](yan-shen-yue-du/eth2.0-1/untitled-2.md)
   * [超越Serenity](yan-shen-yue-du/eth2.0-1/untitled-1.md)
-* [Untitled](yan-shen-yue-du/untitled.md)
+* [品牌相关资源](yan-shen-yue-du/untitled.md)
 
