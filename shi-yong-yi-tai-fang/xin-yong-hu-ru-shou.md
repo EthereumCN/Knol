@@ -1,6 +1,6 @@
 # 新用户入手
 
-## Buy ETH 购买以太币
+## 购买以太币
 
 与以太坊网络交互的前提是，你拥有以太币\(ETH\)。获得ETH最简单的方法就是[在Coinbase交易所上购买](https://www.coinbase.com/price/ethereum?r=conner_k3)。
 
