@@ -18,7 +18,7 @@
       * [版本发布](basics-ji-chu/xu-ni-ji-evm-jie-shao/py-evm/release-notes.md)
   * [术语列表](basics-ji-chu/glossary.md)
 * [使用以太坊](shi-yong-yi-tai-fang/README.md)
-  * [新用户入手](shi-yong-yi-tai-fang/xin-yong-hu-ru-shou.md)
+  * [新用户入手](shi-yong-yi-tai-fang/new-user.md)
   * [如何购买以太币](shi-yong-yi-tai-fang/ru-he-gou-mai-yi-tai-bi.md)
   * [运行以太坊节点](shi-yong-yi-tai-fang/yun-hang-yi-tai-fang-jie-dian.md)
   * [交易](shi-yong-yi-tai-fang/jiao-yi.md)
