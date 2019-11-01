@@ -142,5 +142,15 @@ warp同步模式是parity默认的同步模式。通过下载记录了第30,000�
 
 🤓 [驱散有关以太坊磁盘空间的不实之论](https://www.tokendaily.co/blog/dispelling-myths-about-ethereum-s-disk-space)
 
+## 以太坊客户端安装链接
+
+Geth 1.9.6版本官网下载地址：[https://geth.ethereum.org/downloads/](https://geth.ethereum.org/downloads/)
+
+Parity Ethereum v2.6.4-beta版本github下载地址：[https://github.com/paritytech/parity-ethereum/releases](https://github.com/paritytech/parity-ethereum/releases)
+
+选择相应系统，点击“Binary”一栏下蓝色文字，即可进行下载以太坊Parity最新客户端。
+
+![](../.gitbook/assets/image.png)
+
 
 
