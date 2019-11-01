@@ -2,7 +2,7 @@
 
 ## 迈向宁静Serenity
 
-![](../../.gitbook/assets/image%20%282%29.png)
+![](../../.gitbook/assets/image%20%283%29.png)
 
 ### _What is Serenity, what are the plans for Ethereum 2.0, and when will it happen?_
 

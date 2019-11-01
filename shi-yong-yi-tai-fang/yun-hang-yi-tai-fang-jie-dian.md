@@ -142,15 +142,53 @@ warp同步模式是parity默认的同步模式。通过下载记录了第30,000�
 
 🤓 [驱散有关以太坊磁盘空间的不实之论](https://www.tokendaily.co/blog/dispelling-myths-about-ethereum-s-disk-space)
 
-## 以太坊客户端安装链接
+## 以太坊客户端安装教程
 
-Geth 1.9.6版本官网下载地址：[https://geth.ethereum.org/downloads/](https://geth.ethereum.org/downloads/)
+### Geth客户端安装教程
+
+#### Windows安装
+
+![](../.gitbook/assets/image.png)
+
+访问官网下载地址[https://geth.ethereum.org/downloads/](https://geth.ethereum.org/downloads/)，点击“Release”栏下版本，下载exe的安装程序即可，简单方便快捷。
+
+#### 
+
+#### Linux安装
+
+Ubunt是日常常见的Linux系统，以其为例，安装Geth客户端需要执行以下命令：
+
+**sudo apt-get install software-properties-common**
+
+**sudo add-apt-repository -y ppa:ethereum/ethereum**
+
+**sudo apt-get update**
+
+**sudo apt-get install ethereum**
+
+#### 
+
+#### Mac OS安装
+
+先安装Mac系统上的软件管理神器brew，执行下面的命令即可安装：
+
+/usr/bin/ruby -e "$\(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install\)"
+
+已经安装brew的话，可直接打开terminal 命令行工具，执行下面的命令：
+
+**brew tap ethereum/ethereum**
+
+**brew install ethereum**
+
+
+
+### Parity客户端安装教程
 
 Parity Ethereum v2.6.4-beta版本github下载地址：[https://github.com/paritytech/parity-ethereum/releases](https://github.com/paritytech/parity-ethereum/releases)
 
 选择相应系统，点击“Binary”一栏下蓝色文字，即可进行下载以太坊Parity最新客户端。
 
-![](../.gitbook/assets/image.png)
+![](../.gitbook/assets/image%20%281%29.png)
 
 
 
