@@ -1,12 +1,12 @@
 # 以太坊通识
 
-## 以太坊介绍
+## 以太坊简介
 
-以太坊，翻译自Etheruem，是Vitalik借鉴比特币及社区后来所提出的一些想法所创造的一个通用区块链项目。名字来源与Ether\(以太\)和后缀ruem\(希腊语义是“石油”\)，国内的早期社区成员将其翻译成“以太坊”。不同于比特币的货币定义，以太坊释放了区块链前所未有的潜力，通过一些列的重新设计包括虚拟机\(EVM, Etheruem Virtual Machine\)，账户系统，在其上可以运行智能合约。智能合约的概念由Nick Szabo（尼克 萨博）于1997年提出的一个自动执行的合约形式。
+以太坊，翻译自 Etheruem，是 Vitalik 借鉴比特币及社区后来所提出的一些想法所创造的一个通用区块链项目。名字来源与 Ether \(以太\) 和后缀 ruem \(希腊语义是“石油”\)，国内的早期社区成员将其翻译成“以太坊”。不同于比特币的货币定义，以太坊释放了区块链前所未有的潜力，通过一些列的重新设计，包括虚拟机\(EVM, Etheruem Virtual Machine\)，账户系统，在其上可以运行智能合约。智能合约的概念由Nick Szabo（尼克 萨博）于1997年提出的一个自动执行的合约形式。
 
 以太坊是去中心化的、可以运行可转移计算和数据的自洽经济系统。
 
-必须指出的是，在以太坊世界里，发展速度极快，核心开发和dapps（去中心化应用）不断涌现，我们这里可能不能够囊括所有的关于以太坊发展的实际情况。我们会及时更新相关发展。
+必须指出的是，在以太坊世界里，发展速度极快，核心开发和 DApps（去中心化应用）不断涌现，我们这里可能无法囊括所有关于以太坊发展的实际情况，我们会及时更新相关发展。
 
 ## 关于区块链
 
@@ -14,22 +14,22 @@
 
 ## 关于以太坊
 
-> 这里有一篇文章从技术上简要概述了以太坊。                                                                                    —[https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
+> 这篇文章从技术方面简要介绍了以太坊。
+>
+> [https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec](https://medium.com/@djrtwo/ethereum-in-a-sentence-ba2db11c6bec)
 
+[以太坊](https://www.ethereum.org/)是一个[去中心化](https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274)的区块链平台，用于构建去中心化应用程序（DApp），以太币（Ether）是该平台所使用的加密货币。以太坊几乎可以用于任何类型的交易或协议（换句话说，具有经济或治理属性的任何类型的活动），其成本比传统的替代方案要低，例如银行卡支付，PayPal 和投票，并且全程采用去中心化、去信任（无需中介）、安全有效并且抗审查的形式。
 
+以太坊有许多不同的诠释。
 
-[Ethereum](https://www.ethereum.org/) is a [decentralized](https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274) blockchain platform for "building unstoppable applications", while Ether is the cryptocurrency used on this platform. Ethereum can be used for virtually any kind of transaction or agreement \(to put it another way, any kind of activity that has an economic or governance aspect\), at a lower cost than conventional alternatives, such as debit card payments, PayPal, and ballot voting, in a way that is decentralized, trustless \(no intermediary like a bank is needed, Bob can send X ETH directly to Alice\), secure, safe and live \(with some assumptions like an honest majority of securitors\), and censorship-resistant.
+要了解以太坊，最简单的方法就是知道它能用来做些什么。就像我们不必为了使用汽车的功能而全面了解汽车的工作原理，了解以太坊已有的和潜在的用途，不失为一个好的开端。以太坊的功能包含但不限于[这些用例](https://github.com/ethereum/wiki/wiki/Decentralized-apps-%28dapps%29)。
 
-Ethereum has been described in several ways.
+以下是更为宏观的介绍，最后一条是关于以太坊虚拟机的技术介绍和规范。
 
-The simplest way to understand Ethereum is to know what it does. Just like how it is not necessary to fully understand the intricate workings of how a car works in order to appreciate its utility, or to understand how electricity arrives in your light bulb when you turn it on, understanding the current and potential utility of Ethereum is a good start. Ethereum can be used for virtually any kind of transaction or agreement \(to put it another way, any kind of activity that has an economic or governance aspect\), at a lower cost than conventional alternatives, such as debit card payments, in a way that is trustless, secure, safe and censorship-resistant, all with high probability. An extensive and growing list of uses is available [here](https://github.com/ethereum/wiki/wiki/Decentralized-apps-%28dapps%29).
-
-The sources for the first and third bullet points are more general introductions, while the second is a technical introduction and specification of the Ethereum Virtual Machine. Another introduction is available [here](https://bitsonblocks.net/2016/10/02/gentle-introduction-ethereum/), but it is outdated.
-
-* ["A Next-Generation Smart Contract and Decentralized Application Platform"—Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
+* [”一代智能合约和去中心化应用平台“——以太坊白皮书](https://github.com/ethereum/wiki/wiki/White-Paper)
+* [一个开源的”可编程区块链“——Ethdocs](http://ethdoc.cn/)
 * ["A secure decentralised generalised transaction ledger" and a generalised "transactional singleton machine with shared-state". Also described as crypto-law, and: "Ethereum, taken as a whole, can be viewed as a transaction-based state machine: we begin with a genesis state and incrementally execute transactions to morph it into some final state. It is this final state which we accept as the canonical \`\`version'' of the world of Ethereum. The state can include such information as account balances, reputations, trust arrangements, data pertaining to information of the physical world; in short, anything that can currently be represented by a computer is admissible. Transactions thus represent a valid arc between two states; the \`valid' part is important---there exist far more invalid state changes than valid state changes. Invalid state changes might, \eg, be things such as reducing an account balance without an equal and opposite increase elsewhere. A valid state transition is one which comes about through a transaction."—Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
-* [an open source "programmable blockchain"—Ethdocs](http://ethdocs.org/en/latest/introduction/what-is-ethereum.html)
-* "Ethereum transactions perform financial and database operations contingent on the evaluation of more complex computational scripts."—[TrueBit](https://people.cs.uchicago.edu/~teutsch/papers/truebit.pdf)
+* ”一种安全的去中心化的通用交易账本“以及通用的”具有共享状态的交易化单例状态机“。也被诠释为”加密法律“，”以太坊在整体上可以看作一个基于交易的状态机：起始于一个创世状态，然后随着交易的执行状态逐步改变达到一个最终状态。该最终状态将被看作以太坊世界的权威”版本“。状态中包含的信息有：账户余额、信誉度、现实世界相关数据等。简而言之，能包含电脑可以表现的任何信息。因此交易成为了两个状态之间的有效桥梁，”有效性"十分重要，因为无效状态改变远多于有效状态改变。例如，无效状态改变可能是减少账户余额，但同时没有在另一个账户上增加同等的额度。而有效的状态改变是通过交易发生的。“——以太坊黄皮书（中文版）
 
 Let's briefly breakdown what the terms above mean.
 
