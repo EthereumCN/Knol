@@ -1,111 +1,121 @@
+---
+description: 细数以太坊在Serenity (ETH 2.0)阶段来临之前经历的升级和硬分叉
+---
+
 # 以太坊简史
 
-## A Short History of Ethereum
+‌
 
-### _An overview of the upgrades and hard forks of Ethereum’s past, with an eye towards what lies ahead._
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LmIy8em4qT3WADrCUlZ%2F-LmJk04UOCgcC0-sUuBj%2F-LmJmPpFxrvGeo3mhiDP%2F1_8LYqOKwJRQ4fvBWLavPP3A.jpeg?alt=media&token=76126e3d-a613-4aa8-ac83-46b416f46f90)
 
-[![ConsenSys](https://miro.medium.com/fit/c/48/48/1*HWsBYAT2n833Op1P3T_Osw.png)](https://media.consensys.net/@ConsenSys?source=post_page-----a8fdc5b4362c----------------------)[ConsenSys](https://media.consensys.net/@ConsenSys?source=post_page-----a8fdc5b4362c----------------------)Follow[May 14](https://media.consensys.net/a-short-history-of-ethereum-a8fdc5b4362c?source=post_page-----a8fdc5b4362c----------------------) · 9 min read![](https://miro.medium.com/max/30/1*8LYqOKwJRQ4fvBWLavPP3A.jpeg?q=20)![](https://miro.medium.com/max/1668/1*8LYqOKwJRQ4fvBWLavPP3A.jpeg)
+时至今日当我们鸟瞰区块链技术的发展，它仍旧算得上是一个新事物。尽管有关区块链的基础核心概念（例如密码学、去中心化及点对点网络和交易）的研究已经进行了数十年，但可以说是直到2008年比特币的滥觞，这些零散的概念才被整合起来创造出了一个功能性产品。‌
 
-From a bird’s eye view, blockchain technology has not been around for a long time. Though the foundational concepts \(cryptography, decentralization, peer-to-peer networking & transaction\) have been studied for decades, not until Bitcoin’s release in 2008 can all those components be confidently seen as having come together to create a functional product. Ethereum in particular has been around in usable, public format only since 2015. Though the dates and details of its projected evolution have changed, Ethereum has stuck with its plan to consistently upgrade the protocol to ensure improved usability, security, functionality, and decentralization.
+直到2015年，以太坊逐渐走入人们的视线。至此，以太坊区块链得以成型并且实际可用。尽管计划内升级的日期和细节发生了变化，但以太坊仍坚持不断对协议进行升级，以确保提高其可用性、安全性、功能性和去中心化。‌
 
-With the recent [Constantinople](https://media.consensys.net/the-constantinople-hard-fork-what-you-need-to-know-d438a91dec3f) upgrade in February, Ethereum is on the cusp of Serenity \(also known as Ethereum 2.0\), to be reached through a series of hard forks and upgrade phases, including “Ethereum 1.x.” To understand where we are going, however, we must look back at and understand from where we came. This timeline looks at the history of Ethereum’s significant \(un\)planned hard forks and upgrades in preparation of its next phase of evolution.
+在今年2月的君士坦丁堡升级完成之后，以太坊目前正处于Serenity阶段的风口浪尖，Serenity升级需要通过一系列更新方能达成。然而，居安当思归来源，我们不能忘记自己从哪里来，如此方知来者之可追。以下时间线着眼于以太坊计划内（或计划外）的硬分叉和升级历史，为其下一阶段的升级做好准备。‌
 
-## **Olympic \| May 9, 2015** <a id="894c"></a>
+## **奥林匹克 2015/5/9** <a id="ao-lin-pi-ke-2015-5-9"></a>
 
-The Ethereum blockchain sprung into public existence in July 2015. The immediate step before that, however, was Olympic — the ninth and final proof of concept open testnet, available to developers to explore what the Ethereum blockchain would look like once released. [Vitalik announced](https://blog.ethereum.org/2015/05/09/olympic-frontier-pre-release/) a total reward of 25,000 ETH to developers who spent their time stress-testing the network. The request was clear: try to overload the network and do “crazy things with the state” to provide insight into how the protocol would handle high traffic. Developers were given four categories to test: Transaction Activity, Virtual Machine Usage, Mining Prowess, and General Punishment.
+以太坊区块链于2015年7月正式向用户开放使用。以太坊在此之前开放了九个版本的开放测试网络以进行概念证明，其中最后一个版本便是奥林匹克，供开发人员提前探索以太网区块链开放以后的运作方式。Vitalik曾宣布向耗费时间精力对以太坊网络进行压力测试的开发人员提供总额为25,000 ETH的奖励。测试要求很明确：尝试使网络过载，并对网络状态进行极限测试，以便深入了解协议如何处理流量巨大的情况。开发人员需要对四个方面进行测试：交易活动、虚拟机使用、挖矿方式和惩罚机制。‌
 
-## **Frontier \| July 30, 2015** <a id="5248"></a>
+## **边疆 2015/7/30** <a id="bian-jiang-2015-7-30"></a>
 
-After a couple months of stress testing, the Ethereum network was ready for the official public mainnet launch. On July 20, Ethereum’s genesis block was mined into existence and the community began to grow. A few months before the Frontier launch, [Vinay Gupta published a note](https://ethereum.github.io/blog/2015/03/03/ethereum-launch-process/) about Ethereum’s launch process. Amidst paragraphs of excitement are warnings to potential users. Frontier, he claimed, was Ethereum “in its barest form” and developers should take caution. Just days before the Frontier launch, [Stephen Taul echoed](https://ethereum.github.io/blog/2015/07/22/frontier-is-coming-what-to-expect-and-how-to-prepare/) Gupta’s warning to developers: “Like their counterparts during the American Frontier, these settlers will be presented with vast opportunities, but will also face many dangers.”
+经过几个月的压力测试，以太坊网络已准备好发布官方公共主网。7月20日，以太坊的创世区块产生，社区开始逐渐壮大。在Frontier发布前几个月，Vinay Gupta发表了关于以太坊开发过程的说明。该说明的大部分内容虽然十分令人振奋，但同时也发出了对潜在用户的警示。Gupta表示，Frontier是“处于最初始形态”的以太坊版本，开发者应该谨慎行事。Frontier发布前几天，Stephen Taul对开发者作出了与Gupta类似的提醒：“目前的开发者就如同美国边疆扩张时期的拓荒者一般，他们和自己的同伴在开辟新家园时将获得无穷的机会，但同时也将面临许多危险。”‌
 
-The Frontier protocol contained a series of crucial characteristics:
+**“边疆”协议包含了以下一系列关键特征：**‌
 
-* **Block Reward:** When miners successfully mines a block into existence on the Ethereum blockchain, they receive a reward in ETH. Frontier was launched with block reward of 5 ETH per block.
-* [**Gas:**](https://media.consensys.net/a-guide-to-gas-12b40d03605d) ****During the first few days of Frontier’s existence, the gas limit per block was hardcoded at 5000 gas. Basically, this meant nothing could happen on the network. This was purposefully implemented to give a few days of buffer time to allow miners to start their operations on Ethereum and to allow early adopters to install their clients. After a few days, the gas limit was automatically removed and the network became capable of handling transactions and smart contracts as it was meant to.
-* **Canary Contracts:** Canary contracts were included into Frontier to notify users that a particular chain was bad or vulnerable. Canary contracts were given either a 0 or a 1. Contracts that had an issue were given a 1 and clients were notified so they would not mine off that broken chain. Essentially, the canary contracts capabilities gave the core Ethereum dev group the ability to stop an operation or transaction on the network should something begin to go wrong. Canary contracts were a heavily centralized but necessary protection mechanism early in Ethereum’s existence.
-* **Usability:** All developer actions were done with command lines; there was no Graphical User Interface in existence. The network was usable, but the UI was rough and its capabilities were largely limited to people with existing knowledge and experience with Ethereum.
+* **区块奖励：**在以太坊区块链上，当矿工成功挖掘出一个新区块并使其存在得到确认之后，他们会得到ETH形式的奖励。在此阶段，奖励被定为每个新区快5个ETH。
+* **Gas：**在“边疆”诞生之初，每个区块的gas上限被硬编码为5000。这个数量基本上意味着以太坊网络不支持进一步开发。此阶段Gas上限的制定旨在为矿工提供一段缓冲时间，以帮助他们在以太坊网络上的操作走上正轨，同时使得早期开发者安装他们的客户端。几天之后，gas上限被自动移除，以太坊网络能按预期处理交易和智能合约。
+* **金丝雀合约：**金丝雀合约被引入“边疆”的目的是提醒用户存在不正当或易受攻击的某条链。它给出的数值只能是0或1。有问题的合约会被赋值为1，因此客户端就能进行识别，避免在无效链上进行挖矿。金丝雀合约的重要意义在于它使得以太坊核心开发团队能够及时制止网络中出现错误的操作或交易。在以太坊发展初期，金丝雀合约虽然显得十分中心化，但却是不可或缺的保护机制。
+* **可用性：**所有开发人员的操作都是经由命令行实现，因为完全不存在图形用户界面。虽然可以在以太坊网络中进行操作，但是其用户界面还十分粗糙，它的使用者也在很大程度上局限于具有以太坊背景知识和经验的专业人士。
 
-## **Homestead \| March 14, 2016** <a id="a14b"></a>
+## **家园 2016/3/14** <a id="jia-yuan-2016-3-14"></a>
 
-The Homestead upgrade was the first planned hard fork of the Ethereum network and was implemented on May 14th, 2016 with block number 1,150,000. Overall, the Homestead upgrade included three major improvements to Ethereum. First, it removed the canary contract functionality, removing that point of centralization on the network. Second, it introduced new codes in Solidity, the programming language used on Ethereum. Last, it introduced the Mist wallet, which allowed users to hold/transact ETH and write/deploy smart contracts.
+“家园”是以太坊网络的首次硬分叉计划，于2016年3月14日发生在第1,150,000个区块上。总的来说，“家园”版本主要为以太坊带来了三大主要更新。第一，取消了金丝雀合约功能，去除了网络中的中心化成分。第二，在以太坊编程语言Solidity中引入了新代码。第三，上线Mist钱包，使用户能够持有或交易ETH、编写或部署智能合约。‌
 
-The Homestead upgrade was one of the earliest implementations of Ethereum Improvement Proposals. EIPs are recommendations made to the community that then, if approved, are included in network upgrades. The Homestead upgrade included three EIPs:
+“家园”升级是最早的以太坊改进提案（EIP）实施案例之一。EIPs是面向社区提出的改进建议，一旦获得批准，则会囊括在网络升级中。‌
 
-### **EIP-2: Main Homestead upgrades** <a id="3074"></a>
+**“家园”升级主要包括三个EIPs**‌
 
-_EIP 2.1:_ Increased the cost for creating smart contracts via a transaction from 21,000 gas to 53,000 gas. The cost to create a contract via another contract — the preferred method — had cost more than creating it via a transaction. By increasing the gas cost to create contracts via transactions, EIP 2.1 incentivized users to return to creating contracts via other contracts.
+**EIP-2：“家园”阶段主要更新**‌
 
-_EIP 2.2:_ “All transaction signatures whose s-value is greater than secp256k1n/2 considered invalid. The ECDSA recover precompiled contract remained unchanged and kept accepting high s-values; this is useful e.g. if a contract recovers old Bitcoin signatures.” \[[source](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2.md)\]
+EIP 2.1：通过交易创建智能合约的成本被提高至21,000至53,000个gas。通过一个合约创建另一个合约（首选方式）的成本高于通过交易创建合约。通过提高以交易形式创建智能合约的成本，EIP2.1鼓励用户转向以合约创建合约的方式。‌
 
-_EIP 2.3:_ Dictated that if a contract did not have enough gas to complete the operation, the contract would “fail” rather than create an empty contract. This changed the possible outputs of a transaction from \[success\] \[fail\] or \[empty\] to just \[success\] or \[fail\].
+EIP 2.2：“s值大于secp256k1n/2的所有交易签名均视为无效。ECDSA恢复预编译合同保持不变并保持接收高s值；这个功能在某些情境下将发挥作用，例如某合同恢复旧的比特币签名。”‌
 
-_EIP 2.4:_ Eliminated an incentive that allowed users to create blocks with slightly higher difficulty — i.e. blocks that would be more likely to be mined. This upgrade stabilized block times between 10–20 seconds and restored the network to its overall target time of ~15 seconds per block.
+EIP 2.3：当合约创建过程中没有足够的gas用以完成操作，该合约将“作废”而非创建一个空白合约。之前的交易可能输出结果包括\[成功\] \[失败\]或者\[空白\]，这一改进则删除了\[空白\]结果。‌
 
-### **EIP-7** <a id="24b0"></a>
+EIP 2.4：取消用户挖掘稍高难度区块的激励，即增加可挖掘的区块。此升级将新区快产生的时间稳定在每10-20秒之间，并将网络恢复至每块约15秒的总目标时间。‌
 
-“Adds a new opcode, DELEGATECALL at 0xf4, which is similar in idea to CALLCODE, except that it propagates the sender and value from the parent scope to the child scope, ie. the call created has the same sender and value as the original call.” \[[source](https://github.com/ethereum/EIPs/issues/23)\]
+**EIP-7**‌
 
-### **EIP-8: Future Upgrades** <a id="cbe4"></a>
+“在0xf4添加一个新的操作码，DELEGATECALL，它与CALLCODE的理念类似，不同之处在于前者将发送方和发送值从父范围扩散到子范围，即创建的调用与原始调用具有相同的发送方和发送值。”‌
 
-EIP-8 was an Improvement Proposal with an eye towards future, planned network upgrades. The improvement ensured all client software on Ethereum could accommodate future network protocol updates.![](https://miro.medium.com/max/30/1*bFE84TMMIf-z_zG3NQ8GyQ.png?q=20)![](https://miro.medium.com/max/500/1*bFE84TMMIf-z_zG3NQ8GyQ.png)
+**EIP-8：面向未来升级**‌
 
-## **DAO Fork \| July 20, 2016** <a id="d38c"></a>
+EIP-8是一项着眼于未来网络升级计划的改进提案。这一改进旨在确保以太坊上的所有客户端软件都能适应未来的网络协议更新。‌
 
-In the history of planned Ethereum upgrades and hard forks, the unplanned DAO incident deserves inclusion. In 2016, a [Decentralized Autonomous Organization called The DAO](https://media.consensys.net/the-dao-heist-faq-ef95a7f310f0) raised $150 million USD in a token sale for funding. In June, the DAO was hacked and $50 million worth of ETH was stolen by an unknown hacker. The Ethereum community at large decided to hard fork the chain in order to restore the funds to their original wallets and patch the vulnerability. The hard fork, however, was contentious, and some in the Ethereum community continued to mine and transact on the _original_ chain. The _original_ chain — with the stolen ether not returned — became [Ethereum Classic, which has become weaker and subject to exploitation over time](https://cryptobriefing.com/ethereum-51-percent-attack-myth/). The majority of the community and the core developers continued working off the forked chain — with the stolen ETH returned to their original owners — which is what we now know as the Ethereum blockchain.
+## **DAO分叉 2016/7/20** <a id="dao-fen-cha-2016-7-20"></a>
 
-## **Metropolis: Byzantium \| October 16, 2017** <a id="2102"></a>
+在以太坊计划内的升级和硬分叉历史中，计划外的DAO事件值得记录。2016年，一个名为The DAO的去中心化自治组织通过发售通证募集了1.5亿美元的资金。同年6月，the DAO遭到黑客入侵，价值5千万美元的ETH被一未知黑客窃取。以太坊社区的大部分成员决定实行硬分叉，将资金返还到原钱包并修复漏洞。然而，这次硬分叉却引来了争议，以太坊社区的小部分成员选择继续在原链上进行挖矿和交易。未返还被盗资金的原链则演变成了以太坊经典（ETC），久而久之受到削弱的原链成为了容易被侵入的对象。而大多数社区成员和核心开发人员选择了分叉链（被盗资金返还至原持有者），这就是我们现在所知的以太坊区块链。‌
 
-The next stage of Ethereum’s roadmap was known as Metropolis, and it would take place in two phases: Byzantium and Constantinople. Byzantium went live in 2017 at block 4,370,000 and included nine EIPs, including:
+## **大都会 2017-2018** <a id="da-du-hui-20172018"></a>
 
-### EIP 100 <a id="140d"></a>
+### **拜占庭硬分叉** <a id="bai-zhan-ting-ying-fen-cha"></a>
 
-Adjusted the formula to assess the difficulty of a block to take into account uncle blocks. The new formula provided stability to the issuance rate, ensuring it could not be forced upward by manipulating uncle blocks.
+**2017/10/16**‌
 
-### EIP 658 <a id="ebe8"></a>
+以太坊路线图的下一阶段被称为“大都会”，它将分两个阶段进行：拜占庭和君士坦丁堡。拜占庭将于2017年在第4,370,000个区块上激活。‌
 
-For blocks following the Byzantium upgrade, transaction receipts included a status field to indicate success \(represented by 1\) or failure \(represented by 0\).
+**其中包括9个EIPs：**‌
 
-### EIP 649 <a id="77cc"></a>
+**EIP 100**‌
 
-The Difficulty Bomb is a mechanism that, if activated, would increase the energy required \(i.e. the ‘difficulty\) to mine a new block until it becomes impossible and no new blocks can be mined. At this point, the Ethereum network would become ‘frozen.’ The Difficulty Bomb was originally included in the network in September 2015. Its purpose is to support the eventual transition away from Proof of Work towards Proof of Stake. When PoS is implemented, miners could theoretically choose to support the old PoW chain, thus causing a split in the community and the creation of two separate chains — one maintained by stakers and one maintained by miners. The solution for this not to happen is to implement the Difficulty Bomb, which would eventually phase out the efficacy of mining and allow for the complete transition of the network over to PoS without the threat of a contentious hard fork. Delay of the ice age / difficulty bomb by 1 year, and reduction of block reward from 5 ETH to 3 ETH
+调整公式以评估将叔块考虑在内的区块难度。新公式为保证了区块产生速度的稳定性，确保无法通过操纵叔块来强制增加区块高度。‌
 
-An overview of the remaining Byzantium EIPs \(140, 196, 197, 198, 211, 214\) [found here.](https://github.com/ethereum/wiki/wiki/Byzantium-Hard-Fork-changes)
+**EIP 658**‌
 
-## **Metropolis: Constantinople \| February 28, 2019** <a id="3fe6"></a>
+对于拜占庭硬分叉升级后的区块，交易收据包括了一个状态字段，用于表示成功（由1表示）或失败（由0表示）。‌
 
-The second part of the Metropolis upgrade, [named Constantinople,](https://media.consensys.net/the-constantinople-hard-fork-what-you-need-to-know-d438a91dec3f) was scheduled to go live at block 7,080,000 — estimated in mid-January 2019. On January 15th, an independent security auditing firm named ChainSecurity published a report that indicated one of the five main system upgrades could provide attackers with the opportunity to steal funds. In response to the report, core Ethereum developers and the extended community voted to delay the upgrade until the security loophole could be resolved. Later that month, the core developers announced the upgrade would take place at block 7,280,000. Block 7,280,000 arrived on February 28th and the Constantinople hard fork upgrade went live. Today’s Ethereum network is in the Constantinople phase.
+**EIP 649**‌
 
-### **EIP 145: Bitwise Shifting Instructions** <a id="71b1"></a>
+“难度炸弹”\(Difficulty Bomb\)是这样一种机制：一旦被激活，将增加挖掘新区块所耗费的成本（即“难度”），直到难度系数变为不可能或者没有新区块等待挖掘。此时，以太坊网络将处于“冻结”状态。“难度炸弹”机制最初于2015年9月被引入以太坊网络。它的目的是为以太坊最终从工作量证明\(PoW\)转向权益证明\(PoS\)提供支持。从理论上来说，未来在PoS机制下，矿工仍然可以选择在旧的PoW链上作业，而这种行为将导致社区分裂，从而形成两条独立的链：PoS链由验证人\(stakers\)维护，PoW条则由矿工维护。为了预防这种情况的发生，“难度炸弹”机制应运而生。通过增加难度，它将最终淘汰PoW挖矿，并催使网络完全过渡到PoS机制，并且在这个过程中避免了产生具有争议的硬分叉。在此建议中，也被称作“冰河时期”的“难度炸弹”时期将延迟一年，并且区块奖励从5 ETH减少到3 ETH。‌
 
-Added Bitwise shifting instructions to the Ethereum Virtual Machine \(EVM\). The instructions allow for bits of binary information to move to the left and to the right. This improvement means the execution of shifts in smart contracts will be 10x cheaper.
+了解其他拜占庭硬分叉EIPs可前往Github。‌
 
-### **EIP 1052: Smart Contract Verification** <a id="22c5"></a>
+### **君士坦丁堡硬分叉** <a id="jun-shi-tan-ding-bao-ying-fen-cha"></a>
 
-Allowed for smart contracts to verify one another by pulling just the hash of the other smart contract. Before Constantinople, smart contracts would have to pull the entire code of another in order to verify, which took time and energy to perform.
+ **2019/2/28**‌
 
-### **EIP 1014: CREATE2** <a id="9bdf"></a>
+“大都会”升级的第二阶段被称作“君士坦丁堡”，计划于2019年1月中旬在第7,080,000个区块上执行。1月15日，一家名为ChainSecurity的独立安全审计公司发布了一份报告，该报告指出五大主要系统升级其中之一可能会使攻击者有机可乘，以窃取资金。针对该报告，以太坊核心开发者和社区其他成员投票决定推迟升级，直到该安全漏洞得以修复。当月末，以太坊核心开发者宣布升级将于第7,280,000个区块上进行。2月28日，区块高度达到7,280,000，君士坦丁堡硬分叉升级如期执行。目前的以太坊网络处于君士坦丁堡阶段。‌
 
-Improved the enablement of [state channels](https://media.consensys.net/the-state-of-scaling-ethereum-b4d095dbafae), an Ethereum scaling solution based on off-chain transactions.
+**其中主要的EIPs包括：**‌
 
-### **EIP 1283: SSTORE** <a id="d4b4"></a>
+**EIP 145：按位移动指令**‌
 
-Reduced the gas cost for the SSTORE operation. This reduction enables multiple updates to occur within a transaction more cheaply.
+在以太坊虚拟机\(EVM\)上增加按位移动指令。这个指令允许二进制信息左右移动。这个改进意味着智能合约的变更执行将便宜10倍。‌
 
-### **EIP 1234: Block Rewards & Difficulty Bomb Delay** <a id="3424"></a>
+**EIP 1052：智能合约验证**‌
 
-Comprised of two components: Block Reward Reduction and Difficulty Bomb Delay.
+允许智能合约只需通过检查另一个智能合约的哈希值来验证彼此。在君士坦丁堡升级之前，智能合约必须提取另一个合约的整个代码才能进行验证，而这样的验证方式需要花费大量时间和精力。‌
 
-[_Block Reward Reduction_](https://media.consensys.net/the-thirdening-what-you-need-to-know-df96599ad857)  
-__Rewards for miners were reduced from 3 ETH per block to 2 ETH per block. This reduction is known as the “[Thirdening](https://media.consensys.net/the-thirdening-what-you-need-to-know-df96599ad857).”
+**EIP 1014：智能合约函数CREATE2**‌
 
-_Difficulty Bomb Delay_  
-EIP 1234 delays the implementation of the Difficulty Bomb for another twelve months, at which point it will be voted upon again.
+将状态信道引入以太坊网络，促进基于“链下”\(off-chain\)交易的以太坊扩容解决方案。‌
 
-## **Looking Ahead: Istanbul & Serenity** <a id="e568"></a>
+**EIP 1283：SSTORE操作码**‌
 
-Looking ahead, Serenity is the eventual destination for the Ethereum blockchain, but not before the Istanbul hard fork and “Ethereum 1.x.” The Istanbul hard fork will be defined largely by the decision around ProgPoW. Serenity will be defined by the complete switch from Proof of Work to Proof of Stake, but will include other important upgrades. Notably, the introduction of the Beacon Chain, Sharding, and the switch from the Ethereum Virtual Machine \(EVM\) to Ethereum-flavored Web Assembly \(eWASM\). All of Serenity’s upgrades will be shipped in phases, and during that time, Ethereum 1.x will continue to be improved upon to ensure the continuation of the original PoW chain. Keep an eye out for the next article on future hard forks and Serenity.
+减少SStore操作码的GAS耗费。这使得交易中多个更新操作的价格更加友好。‌
 
+**EIP 1234：区块奖励&难度炸弹**‌
 
+此改进提案包含两大内容：减少区块奖励和延迟难度炸弹。
 
-我们向Consensys致敬，他们给我们提供了很好的文章作为来源，[A Short History of Ethereum](https://media.consensys.net/a-short-history-of-ethereum-a8fdc5b4362c)。
+> **减少区块奖励：**
+>
+> 将区块采矿奖励从每块3 ETH减少到2 ETH。这个改变也被称作“Thirdening”，即以太坊第三次区块奖励减半。
+>
+> **推迟“难度炸弹”：**
+>
+> EIP 1234将“难度炸弹”时期推迟12个月，届时将会进行再次投票。
 

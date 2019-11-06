@@ -42,11 +42,11 @@
 
 **加密货币**指一种使用加密代码以保护交易的数字货币，该加密代码能够通过硬件计算能力（称为“挖矿”或proof-of-work“工作量证明”）或其他能耗较低的方式（例如proof-of-stake“权益证明”）来解决。 
 
-Zero knowledge proofs like [ZK SNARKs](https://crypto.stackexchange.com/questions/19884/what-are-snarks) can also be used to make cryptocurrency transactions more private 🕵️ or secret 🤐 \(which is different to being secure 🔒\), thus negating the need to run applications on a permissioned private network like the [Ethereum Enterprise Alliance](https://entethalliance.org/). Ethereum uses [precompiled contracts for addition and scalar multiplication on the elliptic curve alt\_bn128](https://github.com/ethereum/EIPs/pull/213), for [pairing checks](https://github.com/ethereum/EIPs/pull/212), which permit [zk-SNARKs](https://blog.ethereum.org/2017/10/12/byzantium-hf-announcement/), also see [here](https://medium.com/@VitalikButerin/zk-snarks-under-the-hood-b33151a013f6), [as implemented](https://github.com/ethereum/EIPs#finalized-eips-standards-that-have-been-adopted) in the [Byzantium hard fork](https://blog.ethereum.org/2017/10/12/byzantium-hf-announcement/). There is also the Zerocoin protocol which is demonstrated by [Zcoin](https://zcoin.io/) \(which plans to integrate Ethereum\).
+像[ZK SNARKs](https://crypto.stackexchange.com/questions/19884/what-are-snarks)这样的零知识证明也可以用于增强加密货币交易的私密性🤐（私密性与安全性有所不同），从而无需在以太坊企业联盟\([EEA](https://entethalliance.org/)\)等须授权\( permissioned\)的私有网络上运行应用程序。
 
-### History
+### 以太坊历史
 
-Here is a blog post from Vitalik Buterin, the founder of Ethereum, on [Ethereum pre-history](https://vitalik.ca/2017-09-15-prehistory.html). [Here](https://blog.ethereum.org/2016/02/09/cut-and-try-building-a-dream/) is another blog post with more history.
+
 
 ## Uses
 
