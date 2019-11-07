@@ -4,8 +4,6 @@ description: 细数以太坊在Serenity (ETH 2.0)阶段来临之前经历的升�
 
 # 以太坊简史
 
-‌
-
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LmIy8em4qT3WADrCUlZ%2F-LmJk04UOCgcC0-sUuBj%2F-LmJmPpFxrvGeo3mhiDP%2F1_8LYqOKwJRQ4fvBWLavPP3A.jpeg?alt=media&token=76126e3d-a613-4aa8-ac83-46b416f46f90)
 
 时至今日当我们鸟瞰区块链技术的发展，它仍旧算得上是一个新事物。尽管有关区块链的基础核心概念（例如密码学、去中心化及点对点网络和交易）的研究已经进行了数十年，但可以说是直到2008年比特币的滥觞，这些零散的概念才被整合起来创造出了一个功能性产品。‌

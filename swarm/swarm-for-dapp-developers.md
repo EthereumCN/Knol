@@ -73,71 +73,37 @@ If you omit the trailing slash from the url then the request will result in a HT
 Tar is a traditional unix/linux file format for packing a directory structure into a single file. Swarm provides a convenient way of using this format to make it possible to perform recursive uploads using the HTTP API.
 
 ```text
-# create two directories with a file in each
-$ mkdir dir1 dir2
-$ echo "some-data" > dir1/file.txt
-$ echo "some-data" > dir2/file.txt
-
-# create a tar archive containing the two directories (this will tar everything in the working directory)
-tar cf files.tar .
-
-# upload the tar archive to Swarm to create a manifest
-$ curl -H "Content-Type: application/x-tar" --data-binary @files.tar http://localhost:8500/bzz:/
-> 1e0e21894d731271e50ea2cecf60801fdc8d0b23ae33b9e808e5789346e3355e
+# create two directories with a file in each$ mkdir dir1 dir2$ echo "some-data" > dir1/file.txt$ echo "some-data" > dir2/file.txt# create a tar archive containing the two directories (this will tar everything in the working directory)tar cf files.tar .# upload the tar archive to Swarm to create a manifest$ curl -H "Content-Type: application/x-tar" --data-binary @files.tar http://localhost:8500/bzz:/> 1e0e21894d731271e50ea2cecf60801fdc8d0b23ae33b9e808e5789346e3355e
 ```
 
 You can then download the files using:
 
 ```text
-$ curl http://localhost:8500/bzz:/1e0e21894d731271e50ea2cecf60801fdc8d0b23ae33b9e808e5789346e3355e/dir1/file.txt
-> some-data
-
-$ curl http://localhost:8500/bzz:/1e0e21894d731271e50ea2cecf60801fdc8d0b23ae33b9e808e5789346e3355e/dir2/file.txt
-> some-data
+$ curl http://localhost:8500/bzz:/1e0e21894d731271e50ea2cecf60801fdc8d0b23ae33b9e808e5789346e3355e/dir1/file.txt> some-data$ curl http://localhost:8500/bzz:/1e0e21894d731271e50ea2cecf60801fdc8d0b23ae33b9e808e5789346e3355e/dir2/file.txt> some-data
 ```
 
 GET requests work the same as before with the added ability to download multiple files by setting Accept: application/x-tar:
 
 ```text
-$ curl -s -H "Accept: application/x-tar" http://localhost:8500/bzz:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/ | tar t
-> dir1/file.txt
-  dir2/file.txt
+$ curl -s -H "Accept: application/x-tar" http://localhost:8500/bzz:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/ | tar t> dir1/file.txt  dir2/file.txt
 ```
 
 **4.2.2.2. Multipart form upload**
 
 ```text
-$ curl -F 'dir1/file.txt=some-data;type=text/plain' -F 'dir2/file.txt=some-data;type=text/plain' http://localhost:8500/bzz:/
-> 9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177
-
-$ curl http://localhost:8500/bzz:/9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177/dir1/file.txt
-> some-data
-
-$ curl http://localhost:8500/bzz:/9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177/dir2/file.txt
-> some-data
+$ curl -F 'dir1/file.txt=some-data;type=text/plain' -F 'dir2/file.txt=some-data;type=text/plain' http://localhost:8500/bzz:/> 9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177$ curl http://localhost:8500/bzz:/9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177/dir1/file.txt> some-data$ curl http://localhost:8500/bzz:/9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177/dir2/file.txt> some-data
 ```
 
 **4.2.2.3. Add files to an existing manifest using multipart form**
 
 ```text
-$ curl -F 'dir3/file.txt=some-other-data;type=text/plain' http://localhost:8500/bzz:/9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177
-> ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8
-
-$ curl http://localhost:8500/bzz:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/dir1/file.txt
-> some-data
-
-$ curl http://localhost:8500/bzz:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/dir3/file.txt
-> some-other-data
+$ curl -F 'dir3/file.txt=some-other-data;type=text/plain' http://localhost:8500/bzz:/9557bc9bb38d60368f5f07aae289337fcc23b4a03b12bb40a0e3e0689f76c177> ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8$ curl http://localhost:8500/bzz:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/dir1/file.txt> some-data$ curl http://localhost:8500/bzz:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/dir3/file.txt> some-other-data
 ```
 
 **4.2.2.4. Upload files using a simple HTML form**
 
 ```text
-<form method="POST" action="/bzz:/" enctype="multipart/form-data">
-  <input type="file" name="dir1/file.txt">
-  <input type="file" name="dir2/file.txt">
-  <input type="submit" value="upload">
-</form>
+<form method="POST" action="/bzz:/" enctype="multipart/form-data">  <input type="file" name="dir1/file.txt">  <input type="file" name="dir2/file.txt">  <input type="submit" value="upload"></form>
 ```
 
 **4.2.2.5. Listing files**
@@ -149,29 +115,11 @@ The `jq` command mentioned below is a separate application that can be used to p
 A GET request with `bzz-list` URL scheme returns a list of files contained under the path, grouped into common prefixes which represent directories:
 
 ```text
-$ curl -s http://localhost:8500/bzz-list:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/ | jq .
-> {
-   "common_prefixes": [
-     "dir1/",
-     "dir2/",
-     "dir3/"
-   ]
- }
+$ curl -s http://localhost:8500/bzz-list:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/ | jq .> {   "common_prefixes": [     "dir1/",     "dir2/",     "dir3/"   ] }
 ```
 
 ```text
-$ curl -s http://localhost:8500/bzz-list:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/dir1/ | jq .
-> {
-  "entries": [
-    {
-      "path": "dir1/file.txt",
-      "contentType": "text/plain",
-      "size": 9,
-      "mod_time": "2017-03-12T15:19:55.112597383Z",
-      "hash": "94f78a45c7897957809544aa6d68aa7ad35df695713895953b885aca274bd955"
-    }
-  ]
-}
+$ curl -s http://localhost:8500/bzz-list:/ccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8/dir1/ | jq .> {  "entries": [    {      "path": "dir1/file.txt",      "contentType": "text/plain",      "size": 9,      "mod_time": "2017-03-12T15:19:55.112597383Z",      "hash": "94f78a45c7897957809544aa6d68aa7ad35df695713895953b885aca274bd955"    }  ]}
 ```
 
 Setting `Accept: text/html` returns the list as a browsable HTML document.
@@ -187,9 +135,7 @@ Once a file is uploaded to your local Swarm node, your node will sync the chunks
 The basic command for uploading to your local node is `swarm up FILE`. For example, let’s create a file called example.md and issue the following command to upload the file example.md file to your local Swarm node.
 
 ```text
-$ echo "this is an example" > example.md
-$ swarm up example.md
-> d1f25a870a7bb7e5d526a7623338e4e9b8399e76df8b634020d11d969594f24a
+$ echo "this is an example" > example.md$ swarm up example.md> d1f25a870a7bb7e5d526a7623338e4e9b8399e76df8b634020d11d969594f24a
 ```
 
 The hash returned is the hash of a [swarm manifest](https://swarm-guide.readthedocs.io/en/latest/features/manifests.html#swarm-manifest). This manifest is a JSON file that contains the `example.md` file as its only entry. Both the primary content and the manifest are uploaded by default.
@@ -209,8 +155,7 @@ You can encrypt your file using the `--encrypt` flag. See the [Encryption](https
 You may wish to prevent a manifest from being created alongside with your content and only upload the raw content. You might want to include it in a custom index, or handle it as a data-blob known and used only by a certain application that knows its MIME type. For this you can set `--manifest=false`:
 
 ```text
-$ swarm --manifest=false up FILE
-> 7149075b7f485411e5cc7bb2d9b7c86b3f9f80fb16a3ba84f5dc6654ac3f8ceb
+$ swarm --manifest=false up FILE> 7149075b7f485411e5cc7bb2d9b7c86b3f9f80fb16a3ba84f5dc6654ac3f8ceb
 ```
 
 This option suppresses automatic manifest upload. It uploads the content as-is. However, if you wish to retrieve this file, the browser can not be told unambiguously what that file represents. In the context, the hash `7149075b7f485411e5cc7bb2d9b7c86b3f9f80fb16a3ba84f5dc6654ac3f8ceb` does not refer to a manifest. Therefore, any attempt to retrieve it using the `bzz:/` scheme will result in a `404 Not Found` error. In order to access this file, you would have to use the [bzz-raw](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-raw) scheme.
@@ -220,9 +165,7 @@ This option suppresses automatic manifest upload. It uploads the content as-is. 
 To download single files, use the `swarm down` command. Single files can be downloaded in the following different manners. The following examples assume `<hash>` resolves into a single-file manifest:
 
 ```text
-$ swarm down bzz:/<hash>            #downloads the file at <hash> to the current working directory
-$ swarm down bzz:/<hash> file.tmp   #downloads the file at <hash> as ``file.tmp`` in the current working dir
-$ swarm down bzz:/<hash> dir1/      #downloads the file at <hash> to ``dir1/``
+$ swarm down bzz:/<hash>            #downloads the file at <hash> to the current working directory$ swarm down bzz:/<hash> file.tmp   #downloads the file at <hash> as ``file.tmp`` in the current working dir$ swarm down bzz:/<hash> dir1/      #downloads the file at <hash> to ``dir1/``
 ```
 
 You can also specify a custom proxy with –bzzapi:
@@ -234,9 +177,7 @@ $ swarm --bzzapi http://localhost:8500 down bzz:/<hash>            #downloads th
 Downloading a single file from a multi-entry manifest can be done with \(`<hash>` resolves into a multi-entry manifest\):
 
 ```text
-$ swarm down bzz:/<hash>/index.html            #downloads index.html to the current working directory
-$ swarm down bzz:/<hash>/index.html file.tmp   #downloads index.html as file.tmp in the current working directory
-$ swarm down bzz:/<hash>/index.html dir1/      #downloads index.html to dir1/
+$ swarm down bzz:/<hash>/index.html            #downloads index.html to the current working directory$ swarm down bzz:/<hash>/index.html file.tmp   #downloads index.html as file.tmp in the current working directory$ swarm down bzz:/<hash>/index.html dir1/      #downloads index.html to dir1/
 ```
 
 ..If you try to download from a multi-entry manifest without specifying the file, you will get a got too many matches for this path error. You will need to specify a –recursive flag \(see below\).
@@ -258,8 +199,7 @@ This gateway currently only accepts uploads of limited size. In future, the abil
 Uploading directories is achieved with the `--recursive` flag.
 
 ```text
-$ swarm --recursive up /path/to/directory
-> ab90f84c912915c2a300a94ec5bef6fc0747d1fbaf86d769b3eed1c836733a30
+$ swarm --recursive up /path/to/directory> ab90f84c912915c2a300a94ec5bef6fc0747d1fbaf86d769b3eed1c836733a30
 ```
 
 The returned hash refers to a root manifest referencing all the files in the directory.
@@ -269,8 +209,7 @@ The returned hash refers to a root manifest referencing all the files in the dir
 It is possible to declare a default entry in a manifest. In the example above, if `index.html` is declared as the default, then a request for a resource with an empty path will show the contents of the file `/index.html`
 
 ```text
-$ swarm --defaultpath /path/to/directory/index.html --recursive up /path/to/directory
-> ef6fc0747d1fbaf86d769b3eed1c836733a30ab90f84c912915c2a300a94ec5b
+$ swarm --defaultpath /path/to/directory/index.html --recursive up /path/to/directory> ef6fc0747d1fbaf86d769b3eed1c836733a30ab90f84c912915c2a300a94ec5b
 ```
 
 You can now access index.html at
@@ -300,8 +239,7 @@ You can toggle automatic default entry detection with the `SWARM_AUTO_DEFAULTPAT
 To download a directory, use the `swarm down --recursive` command. Directories can be downloaded in the following different manners. The following examples assume &lt;hash&gt; resolves into a multi-entry manifest:
 
 ```text
-$ swarm down --recursive bzz:/<hash>            #downloads the directory at <hash> to the current working directory
-$ swarm down --recursive bzz:/<hash> dir1/      #downloads the file at <hash> to dir1/
+$ swarm down --recursive bzz:/<hash>            #downloads the directory at <hash> to the current working directory$ swarm down --recursive bzz:/<hash> dir1/      #downloads the file at <hash> to dir1/
 ```
 
 Similarly as with a single file, you can also specify a custom proxy with `--bzzapi`:
@@ -362,24 +300,19 @@ Up/downloadingUp/down as isManipulate manifests
 Let’s create a dummy file and upload it to Swarm:
 
 ```text
-$ echo "this is a test" > myfile.md
-$ swarm up myfile.md
-> <reference hash>
+$ echo "this is a test" > myfile.md$ swarm up myfile.md> <reference hash>
 ```
 
 We can download it using the `bzz:/` scheme and give it a name.
 
 ```text
-$ swarm down bzz:/<reference hash> iwantmyfileback.md
-$ cat iwantmyfileback.md
-> this is a test
+$ swarm down bzz:/<reference hash> iwantmyfileback.md$ cat iwantmyfileback.md> this is a test
 ```
 
 We can also `curl` it using the HTTP API.
 
 ```text
-$ curl http://localhost:8500/bzz:/<reference hash>/
-> this is a test
+$ curl http://localhost:8500/bzz:/<reference hash>/> this is a test
 ```
 
 We can use the `bzz-raw` scheme to see the manifest of the upload.
@@ -391,18 +324,7 @@ $ curl http://localhost:8500/bzz-raw:/<reference hash>/
 This returns the manifest:
 
 ```text
-{
-  "entries": [
-    {
-      "hash": "<file hash>",
-      "path": "myfile.md",
-      "contentType": "text/markdown; charset=utf-8",
-      "mode": 420,
-      "size": 15,
-      "mod_time": "<timestamp>"
-    }
-  ]
-}
+{  "entries": [    {      "hash": "<file hash>",      "path": "myfile.md",      "contentType": "text/markdown; charset=utf-8",      "mode": 420,      "size": 15,      "mod_time": "<timestamp>"    }  ]}
 ```
 
 ### 4.3. Example Dapps
@@ -431,8 +353,7 @@ Currently The bzz scheme is not supported in major browsers such as Chrome, Fire
 Suppose we upload a directory to Swarm containing \(among other things\) the file `example.pdf`.
 
 ```text
-$ swarm --recursive up /path/to/dir
->2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d
+$ swarm --recursive up /path/to/dir>2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d
 ```
 
 If we register the root hash as the `content` for `theswarm.eth`, then we can access the pdf at
@@ -491,10 +412,7 @@ If you are using _Feeds_ in conjunction with an ENS resolver contract, only one 
 You can think of a Feed as a user’s Twitter account, where he/she posts updates about a particular Topic. In fact, the Feed object is simply defined as:
 
 ```text
-type Feed struct {
-  Topic Topic
-  User  common.Address
-}
+type Feed struct {  Topic Topic  User  common.Address}
 ```
 
 That is, a specific user posting updates about a specific Topic.
@@ -541,17 +459,7 @@ Note
 You will receive a JSON like the below:
 
 ```text
-{
-  "feed": {
-    "topic": "0x6a61766900000000000000000000000000000000000000000000000000000000",
-    "user": "0xdfa2db618eacbfe84e94a71dda2492240993c45b"
-  },
-  "epoch": {
-    "level": 16,
-    "time": 1534237239
-  }
-  "protocolVersion" : 0,
-}
+{  "feed": {    "topic": "0x6a61766900000000000000000000000000000000000000000000000000000000",    "user": "0xdfa2db618eacbfe84e94a71dda2492240993c45b"  },  "epoch": {    "level": 16,    "time": 1534237239  }  "protocolVersion" : 0,}
 ```
 
 1. Post the update
@@ -662,34 +570,7 @@ Returns the resulting `Feed manifest address` that you can set in an ENS Resolve
 **4.4.3.6. Example Go code**
 
 ```text
-// Build a `Feed` object to track a particular user's updates
-f := new(feed.Feed)
-f.User = signer.Address()
-f.Topic, _ = feed.NewTopic("weather",nil)
-
-// Build a `Query` to retrieve a current Request for this feed
-query := feeds.NewQueryLatest(&f, lookup.NoClue)
-
-// Retrieve a ready-to-sign request using our query
-// (queries can be reused)
-request, err := client.GetFeedRequest(query, "")
-if err != nil {
-    utils.Fatalf("Error retrieving feed status: %s", err.Error())
-}
-
-// set the new data
-request.SetData([]byte("Weather looks bright and sunny today, we should merge this PR and go out enjoy"))
-
-// sign update
-if err = request.Sign(signer); err != nil {
-    utils.Fatalf("Error signing feed update: %s", err.Error())
-}
-
-// post update
-err = client.UpdateFeed(request)
-if err != nil {
-    utils.Fatalf("Error updating feed: %s", err.Error())
-}
+// Build a `Feed` object to track a particular user's updatesf := new(feed.Feed)f.User = signer.Address()f.Topic, _ = feed.NewTopic("weather",nil)// Build a `Query` to retrieve a current Request for this feedquery := feeds.NewQueryLatest(&f, lookup.NoClue)// Retrieve a ready-to-sign request using our query// (queries can be reused)request, err := client.GetFeedRequest(query, "")if err != nil {    utils.Fatalf("Error retrieving feed status: %s", err.Error())}// set the new datarequest.SetData([]byte("Weather looks bright and sunny today, we should merge this PR and go out enjoy"))// sign updateif err = request.Sign(signer); err != nil {    utils.Fatalf("Error signing feed update: %s", err.Error())}// post updateerr = client.UpdateFeed(request)if err != nil {    utils.Fatalf("Error updating feed: %s", err.Error())}
 ```
 
 **4.4.3.7. Command-Line**
@@ -795,88 +676,7 @@ The digest is computed concatenating the following:
 #### 4.4.4. JavaScript example
 
 ```text
-var web3 = require("web3");
-
-if (module !== undefined) {
-  module.exports = {
-    digest: feedUpdateDigest
-  }
-}
-
-var topicLength = 32;
-var userLength = 20;
-var timeLength = 7;
-var levelLength = 1;
-var headerLength = 8;
-var updateMinLength = topicLength + userLength + timeLength + levelLength + headerLength;
-
-
-
-
-function feedUpdateDigest(request /*request*/, data /*UInt8Array*/) {
-  var topicBytes = undefined;
-    var userBytes = undefined;
-    var protocolVersion = 0;
-
-    protocolVersion = request.protocolVersion
-
-  try {
-    topicBytes = web3.utils.hexToBytes(request.feed.topic);
-  } catch(err) {
-    console.error("topicBytes: " + err);
-    return undefined;
-  }
-
-  try {
-    userBytes = web3.utils.hexToBytes(request.feed.user);
-  } catch(err) {
-    console.error("topicBytes: " + err);
-    return undefined;
-  }
-
-  var buf = new ArrayBuffer(updateMinLength + data.length);
-  var view = new DataView(buf);
-    var cursor = 0;
-
-    view.setUint8(cursor, protocolVersion) // first byte is protocol version.
-    cursor+=headerLength; // leave the next 7 bytes (padding) set to zero
-
-  topicBytes.forEach(function(v) {
-    view.setUint8(cursor, v);
-    cursor++;
-  });
-
-  userBytes.forEach(function(v) {
-    view.setUint8(cursor, v);
-    cursor++;
-  });
-
-  // time is little-endian
-  view.setUint32(cursor, request.epoch.time, true);
-  cursor += 7;
-
-  view.setUint8(cursor, request.epoch.level);
-  cursor++;
-
-  data.forEach(function(v) {
-    view.setUint8(cursor, v);
-    cursor++;
-    });
-    console.log(web3.utils.bytesToHex(new Uint8Array(buf)))
-
-  return web3.utils.sha3(web3.utils.bytesToHex(new Uint8Array(buf)));
-}
-
-// data payload
-data = new Uint8Array([5,154,15,165,62])
-
-// request template, obtained calling http://localhost:8500/bzz-feed:/?user=<0xUSER>&topic=<0xTOPIC>&meta=1
-request = {"feed":{"topic":"0x1234123412341234123412341234123412341234123412341234123412341234","user":"0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"},"epoch":{"time":1538650124,"level":25},"protocolVersion":0}
-
-// obtain digest
-digest = feedUpdateDigest(request, data)
-
-console.log(digest)
+var web3 = require("web3");if (module !== undefined) {  module.exports = {    digest: feedUpdateDigest  }}var topicLength = 32;var userLength = 20;var timeLength = 7;var levelLength = 1;var headerLength = 8;var updateMinLength = topicLength + userLength + timeLength + levelLength + headerLength;function feedUpdateDigest(request /*request*/, data /*UInt8Array*/) {  var topicBytes = undefined;    var userBytes = undefined;    var protocolVersion = 0;    protocolVersion = request.protocolVersion  try {    topicBytes = web3.utils.hexToBytes(request.feed.topic);  } catch(err) {    console.error("topicBytes: " + err);    return undefined;  }  try {    userBytes = web3.utils.hexToBytes(request.feed.user);  } catch(err) {    console.error("topicBytes: " + err);    return undefined;  }  var buf = new ArrayBuffer(updateMinLength + data.length);  var view = new DataView(buf);    var cursor = 0;    view.setUint8(cursor, protocolVersion) // first byte is protocol version.    cursor+=headerLength; // leave the next 7 bytes (padding) set to zero  topicBytes.forEach(function(v) {    view.setUint8(cursor, v);    cursor++;  });  userBytes.forEach(function(v) {    view.setUint8(cursor, v);    cursor++;  });  // time is little-endian  view.setUint32(cursor, request.epoch.time, true);  cursor += 7;  view.setUint8(cursor, request.epoch.level);  cursor++;  data.forEach(function(v) {    view.setUint8(cursor, v);    cursor++;    });    console.log(web3.utils.bytesToHex(new Uint8Array(buf)))  return web3.utils.sha3(web3.utils.bytesToHex(new Uint8Array(buf)));}// data payloaddata = new Uint8Array([5,154,15,165,62])// request template, obtained calling http://localhost:8500/bzz-feed:/?user=<0xUSER>&topic=<0xTOPIC>&meta=1request = {"feed":{"topic":"0x1234123412341234123412341234123412341234123412341234123412341234","user":"0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"},"epoch":{"time":1538650124,"level":25},"protocolVersion":0}// obtain digestdigest = feedUpdateDigest(request, data)console.log(digest)
 ```
 
 #### 4.4.5. Manifests
@@ -886,28 +686,7 @@ In general manifests declare a list of strings associated with Swarm hashes. A m
 Let’s create a directory containing the two orange papers and an html index file listing the two pdf documents.
 
 ```text
-$ ls -1 orange-papers/
-index.html
-smash.pdf
-sw^3.pdf
-
-$ cat orange-papers/index.html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <ul>
-      <li>
-        <a href="./sw^3.pdf">Viktor Trón, Aron Fischer, Dániel Nagy A and Zsolt Felföldi, Nick Johnson: swap, swear and swindle: incentive system for swarm.</a>  May 2016
-      </li>
-      <li>
-        <a href="./smash.pdf">Viktor Trón, Aron Fischer, Nick Johnson: smash-proof: auditable storage for swarm secured by masked audit secret hash.</a> May 2016
-      </li>
-    </ul>
-  </body>
-</html>
+$ ls -1 orange-papers/index.htmlsmash.pdfsw^3.pdf$ cat orange-papers/index.html<!DOCTYPE html><html lang="en">  <head>    <meta charset="utf-8">  </head>  <body>    <ul>      <li>        <a href="./sw^3.pdf">Viktor Trón, Aron Fischer, Dániel Nagy A and Zsolt Felföldi, Nick Johnson: swap, swear and swindle: incentive system for swarm.</a>  May 2016      </li>      <li>        <a href="./smash.pdf">Viktor Trón, Aron Fischer, Nick Johnson: smash-proof: auditable storage for swarm secured by masked audit secret hash.</a> May 2016      </li>    </ul>  </body></html>
 ```
 
 We now use the `swarm up` command to upload the directory to Swarm to create a mini virtual site.
@@ -917,8 +696,7 @@ Note
 In this example we are using the public gateway through the bzz-api option in order to upload. The examples below assume a node running on localhost to access content. Make sure to run a local node to reproduce these examples.
 
 ```text
-$ swarm --recursive --defaultpath orange-papers/index.html --bzzapi http://swarm-gateways.net/ up orange-papers/ 2> up.log
-> 2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d
+$ swarm --recursive --defaultpath orange-papers/index.html --bzzapi http://swarm-gateways.net/ up orange-papers/ 2> up.log> 2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d
 ```
 
 The returned hash is the hash of the manifest for the uploaded content \(the orange-papers directory\):
@@ -926,31 +704,7 @@ The returned hash is the hash of the manifest for the uploaded content \(the ora
 We now can get the manifest itself directly \(instead of the files they refer to\) by using the bzz-raw protocol `bzz-raw`:
 
 ```text
-$ wget -O- "http://localhost:8500/bzz-raw:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d"
-
-> {
-  "entries": [
-    {
-      "hash": "4b3a73e43ae5481960a5296a08aaae9cf466c9d5427e1eaa3b15f600373a048d",
-      "contentType": "text/html; charset=utf-8"
-    },
-    {
-      "hash": "4b3a73e43ae5481960a5296a08aaae9cf466c9d5427e1eaa3b15f600373a048d",
-      "contentType": "text/html; charset=utf-8",
-      "path": "index.html"
-    },
-    {
-      "hash": "69b0a42a93825ac0407a8b0f47ccdd7655c569e80e92f3e9c63c28645df3e039",
-      "contentType": "application/pdf",
-      "path": "smash.pdf"
-    },
-    {
-      "hash": "6a18222637cafb4ce692fa11df886a03e6d5e63432c53cbf7846970aa3e6fdf5",
-      "contentType": "application/pdf",
-      "path": "sw^3.pdf"
-    }
-  ]
-}
+$ wget -O- "http://localhost:8500/bzz-raw:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d"> {  "entries": [    {      "hash": "4b3a73e43ae5481960a5296a08aaae9cf466c9d5427e1eaa3b15f600373a048d",      "contentType": "text/html; charset=utf-8"    },    {      "hash": "4b3a73e43ae5481960a5296a08aaae9cf466c9d5427e1eaa3b15f600373a048d",      "contentType": "text/html; charset=utf-8",      "path": "index.html"    },    {      "hash": "69b0a42a93825ac0407a8b0f47ccdd7655c569e80e92f3e9c63c28645df3e039",      "contentType": "application/pdf",      "path": "smash.pdf"    },    {      "hash": "6a18222637cafb4ce692fa11df886a03e6d5e63432c53cbf7846970aa3e6fdf5",      "contentType": "application/pdf",      "path": "sw^3.pdf"    }  ]}
 ```
 
 Note
@@ -966,10 +720,7 @@ http://localhost:8500/bzz-raw:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f
 Now you can also check that the manifest hash matches the content \(in fact, Swarm does this for you\):
 
 ```text
-$ wget -O- http://localhost:8500/bzz-raw:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d?content_type="text/plain" > manifest.json
-
-$ swarm hash manifest.json
-> 2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d
+$ wget -O- http://localhost:8500/bzz-raw:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d?content_type="text/plain" > manifest.json$ swarm hash manifest.json> 2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f030cf7d750e894d
 ```
 
 **4.4.5.1. Path Matching**
@@ -997,40 +748,19 @@ you get served the index page \(with content type `text/html`\) at `4b3a73e43ae5
 Swarm manifests don’t “break” like a file system. In a file system, the directory matches at the path separator \(/ in linux\) at the end of a directory name:
 
 ```text
--- dirname/
-----subdir1/
-------subdir1file.ext
-------subdir2file.ext
-----subdir2/
-------subdir2file.ext
+-- dirname/----subdir1/------subdir1file.ext------subdir2file.ext----subdir2/------subdir2file.ext
 ```
 
 In Swarm, path matching does not happen on a given path separator, but **on common prefixes**. Let’s look at an example: The current manifest for the `theswarm.eth` homepage is as follows:
 
 ```text
-wget -O- "http://swarm-gateways.net/bzz-raw:/theswarm.eth/ > manifest.json
-
-> {"entries":[{"hash":"ee55bc6844189299a44e4c06a4b7fbb6d66c90004159c67e6c6d010663233e26","path":"LICENSE","mode":420,"size":1211,"mod_time":"2018-06-12T15:36:29Z"},
-            {"hash":"57fc80622275037baf4a620548ba82b284845b8862844c3f56825ae160051446","path":"README.md","mode":420,"size":96,"mod_time":"2018-06-12T15:36:29Z"},
-            {"hash":"8919df964703ccc81de5aba1b688ff1a8439b4460440a64940a11e1345e453b5","path":"Swarm_files/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"acce5ad5180764f1fb6ae832b624f1efa6c1de9b4c77b2e6ec39f627eb2fe82c","path":"css/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"0a000783e31fcf0d1b01ac7d7dae0449cf09ea41731c16dc6cd15d167030a542","path":"ethersphere/orange-papers/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"b17868f9e5a3bf94f955780e161c07b8cd95cfd0203d2d731146746f56256e56","path":"f","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"977055b5f06a05a8827fb42fe6d8ec97e5d7fc5a86488814a8ce89a6a10994c3","path":"i","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"48d9624942e927d660720109b32a17f8e0400d5096c6d988429b15099e199288","path":"js/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"294830cee1d3e63341e4b34e5ec00707e891c9e71f619bc60c6a89d1a93a8f81","path":"talks/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},
-            {"hash":"12e1beb28d86ed828f9c38f064402e4fac9ca7b56dab9cf59103268a62a2b35f","contentType":"text/html; charset=utf-8","mode":420,"size":31371,"mod_time":"2018-06-12T15:36:29Z"}
-  ]}
+wget -O- "http://swarm-gateways.net/bzz-raw:/theswarm.eth/ > manifest.json> {"entries":[{"hash":"ee55bc6844189299a44e4c06a4b7fbb6d66c90004159c67e6c6d010663233e26","path":"LICENSE","mode":420,"size":1211,"mod_time":"2018-06-12T15:36:29Z"},            {"hash":"57fc80622275037baf4a620548ba82b284845b8862844c3f56825ae160051446","path":"README.md","mode":420,"size":96,"mod_time":"2018-06-12T15:36:29Z"},            {"hash":"8919df964703ccc81de5aba1b688ff1a8439b4460440a64940a11e1345e453b5","path":"Swarm_files/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"acce5ad5180764f1fb6ae832b624f1efa6c1de9b4c77b2e6ec39f627eb2fe82c","path":"css/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"0a000783e31fcf0d1b01ac7d7dae0449cf09ea41731c16dc6cd15d167030a542","path":"ethersphere/orange-papers/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"b17868f9e5a3bf94f955780e161c07b8cd95cfd0203d2d731146746f56256e56","path":"f","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"977055b5f06a05a8827fb42fe6d8ec97e5d7fc5a86488814a8ce89a6a10994c3","path":"i","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"48d9624942e927d660720109b32a17f8e0400d5096c6d988429b15099e199288","path":"js/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"294830cee1d3e63341e4b34e5ec00707e891c9e71f619bc60c6a89d1a93a8f81","path":"talks/","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"},            {"hash":"12e1beb28d86ed828f9c38f064402e4fac9ca7b56dab9cf59103268a62a2b35f","contentType":"text/html; charset=utf-8","mode":420,"size":31371,"mod_time":"2018-06-12T15:36:29Z"}  ]}
 ```
 
 Note the `path` for entry `b17868...`: It is `f`. This means, there are more than one entries for this manifest which start with an f, and all those entries will be retrieved by requesting the hash `b17868...` and through that arrive at the matching manifest entry:
 
 ```text
-$ wget -O- http://localhost:8500/bzz-raw:/b17868f9e5a3bf94f955780e161c07b8cd95cfd0203d2d731146746f56256e56/
-
-{"entries":[{"hash":"25e7859eeb7366849f3a57bb100ff9b3582caa2021f0f55fb8fce9533b6aa810","path":"avicon.ico","mode":493,"size":32038,"mod_time":"2018-06-12T15:36:29Z"},
-            {"hash":"97cfd23f9e36ca07b02e92dc70de379a49be654c7ed20b3b6b793516c62a1a03","path":"onts/glyphicons-halflings-regular.","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"}
- ]}
+$ wget -O- http://localhost:8500/bzz-raw:/b17868f9e5a3bf94f955780e161c07b8cd95cfd0203d2d731146746f56256e56/{"entries":[{"hash":"25e7859eeb7366849f3a57bb100ff9b3582caa2021f0f55fb8fce9533b6aa810","path":"avicon.ico","mode":493,"size":32038,"mod_time":"2018-06-12T15:36:29Z"},            {"hash":"97cfd23f9e36ca07b02e92dc70de379a49be654c7ed20b3b6b793516c62a1a03","path":"onts/glyphicons-halflings-regular.","contentType":"application/bzz-manifest+json","mod_time":"0001-01-01T00:00:00Z"} ]}
 ```
 
 So we can see that the `f` entry in the root hash resolves to a manifest containing `avicon.ico` and `onts/glyphicons-halflings-regular`. The latter is interesting in itself: its `content_type` is `application/bzz-manifest+json`, so it points to another manifest. Its `path` also does contain a path separator, but that does not result in a new manifest after the path separator like a directory \(e.g. at `onts/`\). The reason is that on the file system on the hard disk, the `fonts` directory only contains _one_ directory named `glyphicons-halflings-regular`, thus creating a new manifest for just `onts/` would result in an unnecessary lookup. This general approach has been chosen to limit unnecessary lookups that would only slow down retrieval, and manifest “forks” happen in order to have the logarythmic bandwidth needed to retrieve a file in a directory with thousands of files.
@@ -1076,22 +806,19 @@ $ echo "testfile" > mytest.txt
 We upload the test file **without** encryption,
 
 ```text
-$ swarm up mytest.txt
-> <file reference>
+$ swarm up mytest.txt> <file reference>
 ```
 
 and **with** encryption.
 
 ```text
-$ swarm up --encrypt mytest.txt
-> <encrypted reference>
+$ swarm up --encrypt mytest.txt> <encrypted reference>
 ```
 
 Note that the reference of the encrypted upload is **longer** than that of the unencrypted upload. Note also that, because of the random encryption key, repeating the encrypted upload results in a different reference:
 
 ```text
-$ swarm up --encrypt mytest.txt
-<another encrypted reference>
+$ swarm up --encrypt mytest.txt<another encrypted reference>
 ```
 
 #### 4.4.7. Access Control
@@ -1129,9 +856,7 @@ Restricting access to content on Swarm is a 2-step process - you first upload yo
 First, we create a simple test file. We upload it to Swarm \(with encryption\).
 
 ```text
-$ echo "testfile" > mytest.txt
-$ swarm up --encrypt mytest.txt
-> <reference hash>
+$ echo "testfile" > mytest.txt$ swarm up --encrypt mytest.txt> <reference hash>
 ```
 
 Then, for the sake of this example, we create a file with our password in it.
@@ -1145,8 +870,7 @@ This password will protect the access-controlled content that we upload. We can 
 The `swarm access` command sets a new password using the `new pass` argument. It expects you to input the password file and the uploaded Swarm content hash you’d like to limit access to.
 
 ```text
-$ swarm access new pass --password mypassword.txt <reference hash>
-> <reference of access controlled manifest>
+$ swarm access new pass --password mypassword.txt <reference hash>> <reference of access controlled manifest>
 ```
 
 The returned hash is the hash of the access controlled manifest.
@@ -1154,10 +878,7 @@ The returned hash is the hash of the access controlled manifest.
 When requesting this hash through the HTTP gateway you should receive an `HTTP Unauthorized 401` error:
 
 ```text
-$ curl http://localhost:8500/bzz:/<reference of access controlled manifest>/
-> Code: 401
-> Message: cant decrypt - forbidden
-> Timestamp: XXX
+$ curl http://localhost:8500/bzz:/<reference of access controlled manifest>/> Code: 401> Message: cant decrypt - forbidden> Timestamp: XXX
 ```
 
 You can retrieve the content in three ways:
@@ -1172,9 +893,7 @@ $ curl http://x:mypassword@localhost:8500/bzz:/<reference of access controlled m
 1. You can also use `swarm down` with the `--password` flag.
 
 ```text
-$ swarm  --password mypassword.txt down bzz:/<reference of access controlled manifest>/ mytest2.txt
-$ cat mytest2.txt
-> testfile
+$ swarm  --password mypassword.txt down bzz:/<reference of access controlled manifest>/ mytest2.txt$ cat mytest2.txt> testfile
 ```
 
 **4.4.7.2. Selective access using EC keys**
@@ -1200,8 +919,7 @@ The `pk` strategy requires a `bzzaccount` to encrypt with. The most comfortable 
 Grantee public keys are expected to be in an _secp256 compressed_ form - 66 characters long string \(an example would be `02e6f8d5e28faaa899744972bb847b6eb805a160494690c9ee7197ae9f619181db`\). Comments and other characters are not allowed.
 
 ```text
-$ swarm --bzzaccount <your account> access new pk --grant-key <your public key> <reference hash>
-> <reference of access controlled manifest>
+$ swarm --bzzaccount <your account> access new pk --grant-key <your public key> <reference hash>> <reference of access controlled manifest>
 ```
 
 The returned hash `4b964a75ab19db960c274058695ca4ae21b8e19f03ddf1be482ba3ad3c5b9f9b` is the hash of the access controlled manifest.
@@ -1217,8 +935,7 @@ Note
 the `act` strategy expects a grantee public-key list and/or a list of permitted passwords to be communicated to the CLI. This is done using the `--grant-keys` flag and/or the `--password` flag. Grantee public keys are expected to be in an _secp256 compressed_ form - 66 characters long string \(e.g. `02e6f8d5e28faaa899744972bb847b6eb805a160494690c9ee7197ae9f619181db`\). Each grantee should appear in a separate line. Passwords are also expected to be line-separated. Comments and other characters are not allowed.
 
 ```text
-swarm --bzzaccount 2f1cd699b0bf461dcfbf0098ad8f5587b038f0f1 access new act --grant-keys /path/to/public-keys/file --password /path/to/passwords/file  <reference hash>
-4b964a75ab19db960c274058695ca4ae21b8e19f03ddf1be482ba3ad3c5b9f9b
+swarm --bzzaccount 2f1cd699b0bf461dcfbf0098ad8f5587b038f0f1 access new act --grant-keys /path/to/public-keys/file --password /path/to/passwords/file  <reference hash>4b964a75ab19db960c274058695ca4ae21b8e19f03ddf1be482ba3ad3c5b9f9b
 ```
 
 The returned hash `4b964a75ab19db960c274058695ca4ae21b8e19f03ddf1be482ba3ad3c5b9f9b` is the hash of the access controlled manifest.
@@ -1250,41 +967,31 @@ PasswordsElliptic curve keys
 First, we create a simple test file. We upload it to Swarm using encryption.
 
 ```text
-$ echo "testfile" > mytest.txt
-$ swarm up  --encrypt mytest.txt
-> <reference hash>
+$ echo "testfile" > mytest.txt$ swarm up  --encrypt mytest.txt> <reference hash>
 ```
 
 Then, we define a password file and use it to create an access-controlled manifest.
 
 ```text
-$ echo "mypassword" > mypassword.txt
-$ swarm access new pass --password mypassword.txt <reference hash>
-> <reference of access controlled manifest>
+$ echo "mypassword" > mypassword.txt$ swarm access new pass --password mypassword.txt <reference hash>> <reference of access controlled manifest>
 ```
 
 We can create a passwords file with one password per line in plaintext \(`password1` is probably not a very good password\).
 
 ```text
-$ for i in {1..3}; do echo -e password$i; done > mypasswords.txt
-$ cat mypasswords.txt
-> password1
-> password2
-> password3
+$ for i in {1..3}; do echo -e password$i; done > mypasswords.txt$ cat mypasswords.txt> password1> password2> password3
 ```
 
 Then, we point to this list while wrapping our manifest.
 
 ```text
-$ swarm access new act --password mypasswords.txt <reference hash>
-> <reference of access controlled manifest>
+$ swarm access new act --password mypasswords.txt <reference hash>> <reference of access controlled manifest>
 ```
 
 We can access the returned manifest using any of the passwords in the password list.
 
 ```text
-$ echo password1 > password1.txt
-$ swarm --password1.txt down bzz:/<reference of access controlled manifest>
+$ echo password1 > password1.txt$ swarm --password1.txt down bzz:/<reference of access controlled manifest>
 ```
 
 We can also curl it.
@@ -1306,10 +1013,7 @@ FUSE needs to be installed on your Operating System for these commands to work. 
 1. Linux \(Ubuntu\)
 
 ```text
-$ sudo apt-get install fuse
-$ sudo modprobe fuse
-$ sudo chown <username>:<groupname> /etc/fuse.conf
-$ sudo chown <username>:<groupname> /dev/fuse
+$ sudo apt-get install fuse$ sudo modprobe fuse$ sudo chown <username>:<groupname> /etc/fuse.conf$ sudo chown <username>:<groupname> /dev/fuse
 ```
 
 1. Mac OS
@@ -1317,9 +1021,7 @@ $ sudo chown <username>:<groupname> /dev/fuse
    Either install the latest package from [https://osxfuse.github.io/](https://osxfuse.github.io/) or use brew as below
 
 ```text
-$ brew update
-$ brew install caskroom/cask/brew-cask
-$ brew cask install osxfuse
+$ brew update$ brew install caskroom/cask/brew-cask$ brew cask install osxfuse
 ```
 
 **4.4.8.2. CLI Usage**
@@ -1349,9 +1051,7 @@ $ swarm fs mount <manifest-hash> /home/user/swarmmount
 Your running Swarm node terminal output should show something similar to the following in case the command returned successfuly:
 
 ```text
-Attempting to mount /path/to/mount/point
-Serving 6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247 at /path/to/mount/point
-Now serving swarm FUSE FS                manifest=6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247 mountpoint=/path/to/mount/point
+Attempting to mount /path/to/mount/pointServing 6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247 at /path/to/mount/pointNow serving swarm FUSE FS                manifest=6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247 mountpoint=/path/to/mount/point
 ```
 
 You may get a “Fatal: had an error calling the RPC endpoint while mounting: context deadline exceeded” error if it takes too long to retrieve the content.
@@ -1367,8 +1067,7 @@ Through your terminal or file browser, you can interact with your new mount as i
 To unmount a `swarmfs` mount, either use the List Mounts command below, or use a known mount point:
 
 ```text
-$ swarm fs unmount <mount-point>
-> 41e422e6daf2f4b32cd59dc6a296cce2f8cce1de9f7c7172e9d0fc4c68a3987a
+$ swarm fs unmount <mount-point>> 41e422e6daf2f4b32cd59dc6a296cce2f8cce1de9f7c7172e9d0fc4c68a3987a
 ```
 
 The returned hash is the latest manifest version that was mounted. You can use this hash to remount the latest version with the most recent changes.
@@ -1384,11 +1083,7 @@ $ swarm fs list
 Example Output:
 
 ```text
-Found 1 swarmfs mount(s):
-0:
-        Mount point: /path/to/mount/point
-        Latest Manifest: 6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247
-        Start Manifest: 6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247
+Found 1 swarmfs mount(s):0:        Mount point: /path/to/mount/point        Latest Manifest: 6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247        Start Manifest: 6e4642148d0a1ea60e36931513f3ed6daf3deb5e499dcf256fa629fbc22cf247
 ```
 
 #### 4.4.9. Pinning Content
@@ -1416,11 +1111,7 @@ curl -H "Content-Type: application/x-tar" -H "x-swarm-pin: true"  --data-binary 
    If an already uploaded content needs to be pinned, the following HTTP API should be used.
 
 ```text
-# to pin a Swarm collection
-POST /bzz-pin:/<MANIFEST OR ENS NAME>
-
-# to pin a RAW file in Swarm
-POST /bzz-pin:/<SWARM RAW FILE HASH>/?raw=true
+# to pin a Swarm collectionPOST /bzz-pin:/<MANIFEST OR ENS NAME># to pin a RAW file in SwarmPOST /bzz-pin:/<SWARM RAW FILE HASH>/?raw=true
 ```
 
 Note
@@ -1440,20 +1131,7 @@ DELETE /bzz-pin:/<MANIFEST OR ENS NAME OR SWARM RAW FILE HASH>
 Pinned contents and their information can be viewed at any point using this API. Information includes The pinned hash, wether the pinned content is a collection or RAW file, the pinned content size in bytes and the no of time the content is pinned.
 
 ```text
-GET /bzz-pin:/
-
-[
- { "Address"    : "0x94f78a45c7897957809544aa6d68aa7ad35df695713895953b885aca274bd955",
-   "IsRaw"      : "false",
-   "FileSize"   : "12046",
-   "PinCounter" : "2",
- },
- { "Address"    : "0xccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8",
-   "IsRaw"      : "true",
-   "FileSize"   : "146",
-   "PinCounter" : "5",
- },
-]
+GET /bzz-pin:/[ { "Address"    : "0x94f78a45c7897957809544aa6d68aa7ad35df695713895953b885aca274bd955",   "IsRaw"      : "false",   "FileSize"   : "12046",   "PinCounter" : "2", }, { "Address"    : "0xccef599d1a13bed9989e424011aed2c023fce25917864cd7de38a761567410b8",   "IsRaw"      : "true",   "FileSize"   : "146",   "PinCounter" : "5", },]
 ```
 
 Note
@@ -1477,53 +1155,19 @@ GET http://localhost:8500/bzz:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b0143f
 returns a readme.md file if the manifest at the given hash address contains such an entry.
 
 ```text
-$ ls
-readme.md
-$ swarm --recursive up .
-c4c81dbce3835846e47a83df549e4cad399c6a81cbf83234274b87d49f5f9020
-$ curl http://localhost:8500/bzz-raw:/c4c81dbce3835846e47a83df549e4cad399c6a81cbf83234274b87d49f5f9020/readme.md
-## Hello Swarm!
-
-Swarm is awesome%
+$ lsreadme.md$ swarm --recursive up .c4c81dbce3835846e47a83df549e4cad399c6a81cbf83234274b87d49f5f9020$ curl http://localhost:8500/bzz-raw:/c4c81dbce3835846e47a83df549e4cad399c6a81cbf83234274b87d49f5f9020/readme.md## Hello Swarm!Swarm is awesome%
 ```
 
 If the manifest does not contain an file at `readme.md` itself, but it does contain multiple entries to which the URL could be resolved, e.g. in the example above, the manifest has entries for `readme.md.1` and `readme.md.2`, the API returns an HTTP response “300 Multiple Choices”, indicating that the request could not be unambiguously resolved. A list of available entries is returned via HTTP or JSON.
 
 ```text
-$ ls
-readme.md.1 readme.md.2
-$ swarm --recursive up .
-679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463
-$ curl -H "Accept:application/json" http://localhost:8500/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md
-{"Msg":"\u003ca href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.1'\u003ereadme.md.1\u003c/a\u003e\u003cbr/\u003e\u003ca href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.2'\u003ereadme.md.2\u003c/a\u003e\u003cbr/\u003e","Code":300,"Timestamp":"Fri, 15 Jun 2018 14:48:42 CEST","Details":""}
-$ curl -H "Accept:application/json" http://localhost:8500/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md | jq
-{
-    "Msg": "<a href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.1'>readme.md.1</a><br/><a href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.2'>readme.md.2</a><br/>",
-    "Code": 300,
-    "Timestamp": "Fri, 15 Jun 2018 14:49:02 CEST",
-    "Details": ""
-}
+$ lsreadme.md.1 readme.md.2$ swarm --recursive up .679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463$ curl -H "Accept:application/json" http://localhost:8500/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md{"Msg":"\u003ca href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.1'\u003ereadme.md.1\u003c/a\u003e\u003cbr/\u003e\u003ca href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.2'\u003ereadme.md.2\u003c/a\u003e\u003cbr/\u003e","Code":300,"Timestamp":"Fri, 15 Jun 2018 14:48:42 CEST","Details":""}$ curl -H "Accept:application/json" http://localhost:8500/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md | jq{    "Msg": "<a href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.1'>readme.md.1</a><br/><a href='/bzz:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.2'>readme.md.2</a><br/>",    "Code": 300,    "Timestamp": "Fri, 15 Jun 2018 14:49:02 CEST",    "Details": ""}
 ```
 
 `bzz` scheme also accepts POST requests to upload content and create manifest for them in one go:
 
 ```text
-$ curl -H "Content-Type: text/plain" --data-binary "some-data" http://localhost:8500/bzz:/
-635d13a547d3252839e9e68ac6446b58ae974f4f59648fe063b07c248494c7b2%
-$ curl http://localhost:8500/bzz:/635d13a547d3252839e9e68ac6446b58ae974f4f59648fe063b07c248494c7b2/
-some-data%
-$ curl -H "Accept:application/json" http://localhost:8500/bzz-raw:/635d13a547d3252839e9e68ac6446b58ae974f4f59648fe063b07c248494c7b2/ | jq .
-{
-    "entries": [
-        {
-            "hash": "379f234c04ed1a18722e4c76b5029ff6e21867186c4dfc101be4f1dd9a879d98",
-            "contentType": "text/plain",
-            "mode": 420,
-            "size": 9,
-            "mod_time": "2018-06-15T15:46:28.835066044+02:00"
-        }
-    ]
-}
+$ curl -H "Content-Type: text/plain" --data-binary "some-data" http://localhost:8500/bzz:/635d13a547d3252839e9e68ac6446b58ae974f4f59648fe063b07c248494c7b2%$ curl http://localhost:8500/bzz:/635d13a547d3252839e9e68ac6446b58ae974f4f59648fe063b07c248494c7b2/some-data%$ curl -H "Accept:application/json" http://localhost:8500/bzz-raw:/635d13a547d3252839e9e68ac6446b58ae974f4f59648fe063b07c248494c7b2/ | jq .{    "entries": [        {            "hash": "379f234c04ed1a18722e4c76b5029ff6e21867186c4dfc101be4f1dd9a879d98",            "contentType": "text/plain",            "mode": 420,            "size": 9,            "mod_time": "2018-06-15T15:46:28.835066044+02:00"        }    ]}
 ```
 
 **4.4.10.2. bzz-raw**
@@ -1537,36 +1181,7 @@ When responding to GET requests with the bzz-raw scheme, Swarm does not assume t
 E.g. continuing the example in the `bzz` section above with `readme.md.1` and `readme.md.2` in the manifest:
 
 ```text
-$ curl http://localhost:8500/bzz-raw:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/ | jq
-{
-    "entries": [
-        {
-        "hash": "efc6d4a7d7f0846973a321d1702c0c478a20f72519516ef230b63baa3da18c22",
-        "path": "readme.md.",
-        "contentType": "application/bzz-manifest+json",
-        "mod_time": "0001-01-01T00:00:00Z"
-        }
-    ]
-    }
-$ curl http://localhost:8500/bzz-raw:/efc6d4a7d7f0846973a321d1702c0c478a20f72519516ef230b63baa3da18c22/ | jq
-{
-    "entries": [
-        {
-            "hash": "d0675100bc4580a0ad890b5d6f06310c0705d4ab1e796cfa1a8c597840f9793f",
-            "path": "1",
-            "mode": 420,
-            "size": 33,
-            "mod_time": "2018-06-15T14:21:32+02:00"
-        },
-        {
-            "hash": "f97cf36ac0dd7178c098f3661cd0402fcc711ff62b67df9893d29f1db35adac6",
-            "path": "2",
-            "mode": 420,
-            "size": 35,
-            "mod_time": "2018-06-15T14:42:06+02:00"
-        }
-    ]
-    }
+$ curl http://localhost:8500/bzz-raw:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/ | jq{    "entries": [        {        "hash": "efc6d4a7d7f0846973a321d1702c0c478a20f72519516ef230b63baa3da18c22",        "path": "readme.md.",        "contentType": "application/bzz-manifest+json",        "mod_time": "0001-01-01T00:00:00Z"        }    ]    }$ curl http://localhost:8500/bzz-raw:/efc6d4a7d7f0846973a321d1702c0c478a20f72519516ef230b63baa3da18c22/ | jq{    "entries": [        {            "hash": "d0675100bc4580a0ad890b5d6f06310c0705d4ab1e796cfa1a8c597840f9793f",            "path": "1",            "mode": 420,            "size": 33,            "mod_time": "2018-06-15T14:21:32+02:00"        },        {            "hash": "f97cf36ac0dd7178c098f3661cd0402fcc711ff62b67df9893d29f1db35adac6",            "path": "2",            "mode": 420,            "size": 35,            "mod_time": "2018-06-15T14:42:06+02:00"        }    ]    }
 ```
 
 The `content_type` query parameter can be supplied to specify the MIME type you are requesting, otherwise content is served as an octet-stream per default. For instance if you have a pdf document \(not the manifest wrapping it\) at hash `6a182226...` then the following url will properly serve it.
@@ -1578,10 +1193,7 @@ GET http://localhost:8500/bzz-raw:/6a18222637cafb4ce692fa11df886a03e6d5e63432c53
 `bzz-raw` also supports POST requests to upload content to Swarm, the response is the hash of the uploaded content:
 
 ```text
-$ curl --data-binary "some-data" http://localhost:8500/bzz-raw:/
-379f234c04ed1a18722e4c76b5029ff6e21867186c4dfc101be4f1dd9a879d98%
-$ curl http://localhost:8500/bzz-raw:/379f234c04ed1a18722e4c76b5029ff6e21867186c4dfc101be4f1dd9a879d98/
-some-data%
+$ curl --data-binary "some-data" http://localhost:8500/bzz-raw:/379f234c04ed1a18722e4c76b5029ff6e21867186c4dfc101be4f1dd9a879d98%$ curl http://localhost:8500/bzz-raw:/379f234c04ed1a18722e4c76b5029ff6e21867186c4dfc101be4f1dd9a879d98/some-data%
 ```
 
 **4.4.10.3. bzz-list**
@@ -1593,25 +1205,7 @@ GET http://localhost:8500/bzz-list:/2477cc8584cc61091b5cc084cdcdb45bf3c6210c263b
 Returns a list of all files contained in &lt;manifest&gt; under &lt;path&gt; grouped into common prefixes using `/` as a delimiter. If no path is supplied, all files in manifest are returned. The response is a JSON-encoded object with `common_prefixes` string field and `entries` list field.
 
 ```text
-$ curl http://localhost:8500/bzz-list:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/ | jq
-{
-    "entries": [
-        {
-            "hash": "d0675100bc4580a0ad890b5d6f06310c0705d4ab1e796cfa1a8c597840f9793f",
-            "path": "readme.md.1",
-            "mode": 420,
-            "size": 33,
-            "mod_time": "2018-06-15T14:21:32+02:00"
-        },
-        {
-            "hash": "f97cf36ac0dd7178c098f3661cd0402fcc711ff62b67df9893d29f1db35adac6",
-            "path": "readme.md.2",
-            "mode": 420,
-            "size": 35,
-            "mod_time": "2018-06-15T14:42:06+02:00"
-        }
-    ]
-    }
+$ curl http://localhost:8500/bzz-list:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/ | jq{    "entries": [        {            "hash": "d0675100bc4580a0ad890b5d6f06310c0705d4ab1e796cfa1a8c597840f9793f",            "path": "readme.md.1",            "mode": 420,            "size": 33,            "mod_time": "2018-06-15T14:21:32+02:00"        },        {            "hash": "f97cf36ac0dd7178c098f3661cd0402fcc711ff62b67df9893d29f1db35adac6",            "path": "readme.md.2",            "mode": 420,            "size": 35,            "mod_time": "2018-06-15T14:42:06+02:00"        }    ]    }
 ```
 
 **4.4.10.4. bzz-hash**
@@ -1625,8 +1219,7 @@ Swarm accepts GET requests for bzz-hash url scheme and responds with the hash va
 Response content type is _text/plain_.
 
 ```text
-$ curl http://localhost:8500/bzz-hash:/theswarm.eth/
-7a90587bfc04ac4c64aeb1a96bc84f053d3d84cefc79012c9a07dd5230dc1fa4%
+$ curl http://localhost:8500/bzz-hash:/theswarm.eth/7a90587bfc04ac4c64aeb1a96bc84f053d3d84cefc79012c9a07dd5230dc1fa4%
 ```
 
 **4.4.10.5. bzz-immutable**
@@ -1638,17 +1231,7 @@ GET http://localhost:8500/bzz-immutable:/2477cc8584cc61091b5cc084cdcdb45bf3c6210
 The same as the generic scheme but there is no ENS domain resolution, the domain part of the path needs to be a valid hash. This is also a read-only scheme but explicit in its integrity protection. A particular bzz-immutable url will always necessarily address the exact same fixed immutable content.
 
 ```text
-$ curl http://localhost:8500/bzz-immutable:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.1
-## Hello Swarm!
-
-Swarm is awesome%
-$ curl -H "Accept:application/json" http://localhost:8500/bzz-immutable:/theswarm.eth/ | jq .
-{
-    "Msg": "cannot resolve theswarm.eth: immutable address not a content hash: \"theswarm.eth\"",
-    "Code": 404,
-    "Timestamp": "Fri, 15 Jun 2018 13:22:27 UTC",
-    "Details": ""
-}
+$ curl http://localhost:8500/bzz-immutable:/679bde3ccb6fb911db96a0ea1586c04899c6c0cc6d3426e9ee361137b270a463/readme.md.1## Hello Swarm!Swarm is awesome%$ curl -H "Accept:application/json" http://localhost:8500/bzz-immutable:/theswarm.eth/ | jq .{    "Msg": "cannot resolve theswarm.eth: immutable address not a content hash: \"theswarm.eth\"",    "Code": 404,    "Timestamp": "Fri, 15 Jun 2018 13:22:27 UTC",    "Details": ""}
 ```
 
 ### 4.5. Swarm Messaging for DAPP-Developers
@@ -1808,9 +1391,7 @@ Swarm currently supports a Javascript API through a few packages:
 [erebos](https://erebos.js.org/) is available through [NPM](https://www.npmjs.com/package/@erebos/swarm) by issuing the following command:
 
 ```text
-npm install @erebos/swarm-browser # browser only
-npm install @erebos/swarm-node # node only
-npm install @erebos/swarm # universal
+npm install @erebos/swarm-browser # browser onlynpm install @erebos/swarm-node # node onlynpm install @erebos/swarm # universal
 ```
 
 Note

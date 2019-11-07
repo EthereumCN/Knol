@@ -43,12 +43,7 @@ Blooms are formed by the bitwise OR operation on a number of bloomed topics. The
 The projection function is defined as a mapping from a a 4-byte slice `S` to a 512-bit slice `D`; for ease of explanation, `S` will dereference to bytes, whereas `D` will dereference to bits.
 
 ```text
-LET D[*] = 0
-FOREACH i IN { 0, 1, 2 } DO
-LET n = S[i]
-IF S[3] & (2 ** i) THEN n += 512
-D[n] = 1
-END FOR
+LET D[*] = 0FOREACH i IN { 0, 1, 2 } DOLET n = S[i]IF S[3] & (2 ** i) THEN n += 512D[n] = 1END FOR
 ```
 
 In formal notation:
