@@ -1,7 +1,5 @@
 # 介绍
 
-
-
 ## Introduction
 
 Py-EVM is a new implementation of the Ethereum Virtual Machine \(EVM\) written in Python.

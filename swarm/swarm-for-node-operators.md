@@ -23,13 +23,15 @@ The simplest way to install Swarm on **Ubuntu distributions** is via the built i
 To enable our launchpad repository please run:
 
 ```text
-$ sudo apt-get install software-properties-common$ sudo add-apt-repository -y ppa:ethereum/ethereum
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository -y ppa:ethereum/ethereum
 ```
 
 After that you can install the stable version of Swarm:
 
 ```text
-$ sudo apt-get update$ sudo apt-get install ethereum-swarm
+$ sudo apt-get update
+$ sudo apt-get install ethereum-swarm
 ```
 
 ### 5.3. Setting up Swarm in Docker
@@ -84,7 +86,15 @@ Building the Swarm binary requires the following packages:
 Grab the relevant prerequisites and build from source.Ubuntu / DebianArchlinuxGeneric LinuxmacOSWindows
 
 ```text
-$ sudo apt install git$ sudo add-apt-repository ppa:gophers/archive$ sudo apt-get update$ sudo apt-get install golang-1.11-go// Note that golang-1.11-go puts binaries in /usr/lib/go-1.11/bin. If you want them on your PATH, you need to make that change yourself.$ export PATH=/usr/lib/go-1.11/bin:$PATH
+$ sudo apt install git
+
+$ sudo add-apt-repository ppa:gophers/archive
+$ sudo apt-get update
+$ sudo apt-get install golang-1.11-go
+
+// Note that golang-1.11-go puts binaries in /usr/lib/go-1.11/bin. If you want them on your PATH, you need to make that change yourself.
+
+$ export PATH=/usr/lib/go-1.11/bin:$PATH
 ```
 
 #### 5.4.2. Configuring the Go environment
@@ -92,7 +102,10 @@ $ sudo apt install git$ sudo add-apt-repository ppa:gophers/archive$ sudo apt-ge
 You should then prepare your Go environment.LinuxmacOS
 
 ```text
-$ mkdir $HOME/go$ echo 'export GOPATH=$HOME/go' >> ~/.bashrc$ echo 'export PATH=$GOPATH/bin:$PATH' >> ~/.bashrc$ source ~/.bashrc
+$ mkdir $HOME/go
+$ echo 'export GOPATH=$HOME/go' >> ~/.bashrc
+$ echo 'export PATH=$GOPATH/bin:$PATH' >> ~/.bashrc
+$ source ~/.bashrc
 ```
 
 #### 5.4.3. Download and install Geth
@@ -104,13 +117,16 @@ Once all prerequisites are met, download and install Geth from [https://github.c
 Once all prerequisites are met, and you have `geth` on your system, clone the Swarm git repo and build from source:
 
 ```text
-$ git clone https://github.com/ethersphere/swarm$ cd swarm$ make swarm
+$ git clone https://github.com/ethersphere/swarm
+$ cd swarm
+$ make swarm
 ```
 
 Alternatively you could also use the Go tooling and download and compile Swarm from master via:
 
 ```text
-$ go get -d github.com/ethersphere/swarm$ go install github.com/ethersphere/swarm/cmd/swarm
+$ go get -d github.com/ethersphere/swarm
+$ go install github.com/ethersphere/swarm/cmd/swarm
 ```
 
 You can now run `swarm` to start your Swarm node. Let’s check if the installation of `swarm` was successful:
@@ -128,7 +144,13 @@ If your `PATH` is not set and the `swarm` command cannot be found, try:
 This should return some relevant information. For example:
 
 ```text
-SwarmVersion: 0.3Network Id: 0Go Version: go1.10.1OS: linuxGOPATH=/home/user/goGOROOT=/usr/local/go
+Swarm
+Version: 0.3
+Network Id: 0
+Go Version: go1.10.1
+OS: linux
+GOPATH=/home/user/go
+GOROOT=/usr/local/go
 ```
 
 #### 5.4.5. Updating your client
@@ -148,7 +170,9 @@ $ geth account new
 You will be prompted for a password:
 
 ```text
-Your new account is locked with a password. Please give a password. Do not forget this password.Passphrase:Repeat passphrase:
+Your new account is locked with a password. Please give a password. Do not forget this password.
+Passphrase:
+Repeat passphrase:
 ```
 
 Once you have specified the password, the output will be the Ethereum address representing that account. For example:
@@ -160,7 +184,9 @@ Address: {2f1cd699b0bf461dcfbf0098ad8f5587b038f0f1}
 Using this account, connect to Swarm with
 
 ```text
-$ swarm --bzzaccount <your-account-here># in our example$ swarm --bzzaccount 2f1cd699b0bf461dcfbf0098ad8f5587b038f0f1
+$ swarm --bzzaccount <your-account-here>
+# in our example
+$ swarm --bzzaccount 2f1cd699b0bf461dcfbf0098ad8f5587b038f0f1
 ```
 
 \(You should replace `2f1cd699b0bf461dcfbf0098ad8f5587b038f0f1` with your account address key\).
@@ -218,7 +244,8 @@ Note
 After the connection is established, open another terminal window and connect to Swarm:LinuxmacOSWindows
 
 ```text
-$ swarm --ens-api $HOME/.ethereum/geth.ipc \--bzzaccount $BZZKEY
+$ swarm --ens-api $HOME/.ethereum/geth.ipc \
+--bzzaccount $BZZKEY
 ```
 
 Verify that this was successful by pointing your browser to [http://localhost:8500/bzz:/theswarm.eth/](http://localhost:8500/bzz:/theswarm.eth/)
@@ -236,7 +263,8 @@ $ geth --testnet
 Then launch the `swarm`; connecting it to the geth node \(`--ens-api`\).LinuxmacOSWindows
 
 ```text
-$ swarm --ens-api $HOME/.ethereum/geth/testnet/geth.ipc \--bzzaccount $BZZKEY
+$ swarm --ens-api $HOME/.ethereum/geth/testnet/geth.ipc \
+--bzzaccount $BZZKEY
 ```
 
 Swarm will automatically use the ENS deployed on Ropsten.
@@ -244,7 +272,9 @@ Swarm will automatically use the ENS deployed on Ropsten.
 For other ethereum blockchains and other deployments of the ENS contracts, you can specify the contract addresses manually. For example the following command:
 
 ```text
-$ swarm --ens-api eth:<contract 1>@/home/user/.ethereum/geth.ipc \         --ens-api test:<contract 2>@ws:<address 1> \         --ens-api <contract 3>@ws:<address 2>
+$ swarm --ens-api eth:<contract 1>@/home/user/.ethereum/geth.ipc \
+         --ens-api test:<contract 2>@ws:<address 1> \
+         --ens-api <contract 3>@ws:<address 2>
 ```
 
 Will use the `geth.ipc` to resolve `.eth` names using the contract at address `<contract 1>` and it will use `ws:<address 1>` to resolve `.test` names using the contract at address `<contract 2>`. For all other names it will use the ENS contract at address `<contract 3>` on `ws:<address 2>`.
@@ -276,7 +306,10 @@ Below are examples on ways to run `swarm` beyond just the default network. You c
 If you **don’t** want your swarm node to connect to any existing networks, you can provide it with a custom network identifier using `--bzznetworkid` with a random large number.LinuxmacOSWindows
 
 ```text
-$ swarm --bzzaccount $BZZKEY \--datadir $HOME/.ethereum \--ens-api $HOME/.ethereum/geth.ipc \--bzznetworkid <random number between 15 and 256>
+$ swarm --bzzaccount $BZZKEY \
+--datadir $HOME/.ethereum \
+--ens-api $HOME/.ethereum/geth.ipc \
+--bzznetworkid <random number between 15 and 256>
 ```
 
 #### 5.8.2. Adding enodes manually
@@ -322,7 +355,19 @@ The nodes the team maintains function as a free-to-use public access gateway to 
 Swarm uses the go-metrics library for metrics collection. You can set your node to collect metrics and push them to an influxdb database \(called metrics by default\) with the default settings. Tracing is also supported. An example of a default configuration is given below:
 
 ```text
-$ swarm --bzzaccount <bzzkey> \--debug \--metrics \--metrics.influxdb.export \--metrics.influxdb.endpoint "http://localhost:8086" \--metrics.influxdb.username "user" \--metrics.influxdb.password "pass" \--metrics.influxdb.database "metrics" \--metrics.influxdb.host.tag "localhost" \--verbosity 4 \--tracing \--tracing.endpoint=jaeger:6831 \--tracing.svc myswarm
+$ swarm --bzzaccount <bzzkey> \
+--debug \
+--metrics \
+--metrics.influxdb.export \
+--metrics.influxdb.endpoint "http://localhost:8086" \
+--metrics.influxdb.username "user" \
+--metrics.influxdb.password "pass" \
+--metrics.influxdb.database "metrics" \
+--metrics.influxdb.host.tag "localhost" \
+--verbosity 4 \
+--tracing \
+--tracing.endpoint=jaeger:6831 \
+--tracing.svc myswarm
 ```
 
 ### 5.9. Go-Client Command line options Configuration
@@ -344,7 +389,21 @@ Swarm reuses code from ethereum, specifically some p2p networking protocol and o
 This is the list of flags inherited from `geth`:
 
 ```text
---identity--bootnodes--datadir--keystore--port--nodiscover--v5disc--netrestrict--nodekey--nodekeyhex--maxpeers--nat--ipcdisable--ipcpath--password
+--identity
+--bootnodes
+--datadir
+--keystore
+--port
+--nodiscover
+--v5disc
+--netrestrict
+--nodekey
+--nodekeyhex
+--maxpeers
+--nat
+--ipcdisable
+--ipcpath
+--password
 ```
 
 ### 5.10. Config File

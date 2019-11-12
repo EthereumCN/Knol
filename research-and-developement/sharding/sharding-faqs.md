@@ -4,394 +4,387 @@ description: 'https://eth.wiki/en/sharding-faqs'
 
 # Sharding FAQ
 
-## Introduction
+## 目录
 
-Currently, in all blockchain protocols each node stores the entire state \(account balances, contract code and storage, etc.\) and processes all transactions. This provides a large amount of security, but greatly limits scalability: a blockchain cannot process more transactions than a single node can. In large part because of this, Bitcoin is limited to ~3–7 transactions per second, Ethereum to 7–15, etc.
+* [简介](https://ethfans.org/posts/Sharding-FAQ#introduction)
+* [有哪些简单但有缺陷的方式来解决这个问题？](https://ethfans.org/posts/Sharding-FAQ#trivial-but-flawed-ways)
+* [这听起来像是有某种扩展性三难困境在起作用。这三难困境是什么呢，我们能突破它吗？](https://ethfans.org/posts/Sharding-FAQ#scalability-trilemma)
+* [有人认为，由于梅特卡夫定律，一个加密货币的市值应该与n ^ 2成正比，而不是n。 他们是正确的吗？](https://ethfans.org/posts/Sharding-FAQ#metcalfe's-law)
+* [有哪些适度简单但只部分解决了可扩展性问题的方法](https://ethfans.org/posts/Sharding-FAQ#moderately-simple-but-only-partical-ways)
+* [有哪些不试图"分片"任何东西的方法？](https://ethfans.org/posts/Sharding-FAQ#approaches-do-not-shard-anything)
+* [状态大小，历史，加密经济学，哦，我的天！在我们继续之前，先定义一些这样的术语！](https://ethfans.org/posts/Sharding-FAQ#state-size-history-cryptoeconomics)
+* [分片背后的基本思想？](https://ethfans.org/posts/Sharding-FAQ#basic-idea-behind-sharding)
+* [分片区块链的基本设计是怎么样的？](https://ethfans.org/posts/Sharding-FAQ#basic-design-of-a-sharded-blockchain)
+* [这里面临的挑战是什么？](https://ethfans.org/posts/Sharding-FAQ#challenges)
+* [但是CAP定理意味着完全安全的分布式系统是不可能的，因此分片是无法实现的？](https://ethfans.org/posts/Sharding-FAQ#CAP-theorem)
+* [我们如何促进跨分片通信？](https://ethfans.org/posts/Sharding-FAQ#cross-shard-communication)
+* [不同类型的应用程序如何与分片区块链融合？](https://ethfans.org/posts/Sharding-FAQ#different-kinds-of-application)
+* [什么是火车旅馆问题？](https://ethfans.org/posts/Sharding-FAQ#train-and-hotel)
+* [我们正在运行的是哪些安全模型？](https://ethfans.org/posts/Sharding-FAQ#security-model-operated)
+* [我们如何解决在不协调的大多数模型中的单分片接管攻击？](https://ethfans.org/posts/Sharding-FAQ#uncoordinated-model-solution-in-single-shard)
+* [你如何在工作量证明和权益证明中做这个抽样？](https://ethfans.org/posts/Sharding-FAQ#sampling-in-pow-and-pos)
+* [取样的频率高低有哪些折衷？](https://ethfans.org/posts/Sharding-FAQ#tradeoff-in-sampling-frequent)
+* [我们是否可以强制更多的状态保持在用户端，以便交易可以被验证，而不需要验证器来保存所有的状态数据？](https://ethfans.org/posts/Sharding-FAQ#force-more-of-state-to-be-held)
+* [随机抽样的随机性是如何产生的？](https://ethfans.org/posts/Sharding-FAQ#randomness-of-sampling)
+* [在贿赂攻击者或协调选择模式中通过随机抽样进行分片的关注点是什么？](https://ethfans.org/posts/Sharding-FAQ#point-in-sampling-in-coordinated-attack-model)
+* [什么是数据可用性问题，我们如何使用纠删码来解决它？](https://ethfans.org/posts/Sharding-FAQ#erasure-code)
+* [我们可以通过某种奇特的密码累加器方案来消除解决数据可用性的需要吗？](https://ethfans.org/posts/Sharding-FAQ#cryptographic-accumulator-scheme)
+* [那么这意味着我们实际上可以创建可扩展的分片区块链，其中发生不良事件的成本与整个验证人集的大小成正比？](https://ethfans.org/posts/Sharding-FAQ#the-size-of-the-entire-validator)
+* [如果有实时重组，我们是否真的需要这种复杂性？？](https://ethfans.org/posts/Sharding-FAQ#complexity-of-instant-shuffling)
+* [你提到透明分片。 我才12岁，这是什么？](https://ethfans.org/posts/Sharding-FAQ#transparent-sharding)
+* [同步跨分片消息将如何工作？](https://ethfans.org/posts/Sharding-FAQ#synchornous-cross-shard-messages)
+* [那么半异步消息呢？](https://ethfans.org/posts/Sharding-FAQ#semi-asynchronous-messages)
+* [什么是保证跨分片调用？](https://ethfans.org/posts/Sharding-FAQ#cross-shard-calls)
+* [等等，但是如果攻击者同时从每一个分片向分片X发送一个跨分片调用呢？在数学上不能及时包含所有这些调用吗？](https://ethfans.org/posts/Sharding-FAQ#mathematically-impossible-to-include)
+* [冻结gas？ 这听起来很有趣，不仅是跨分片操作，还有可靠的分片内调度](https://ethfans.org/posts/Sharding-FAQ#congealed-gas)
+* [是否内分片和跨分片有保证的调度，有助于抵制试图审查交易的大多数共谋？](https://ethfans.org/posts/Sharding-FAQ#against-majority-collusions)
+* [分片区块链可以更好地处理网络分区吗？](https://ethfans.org/posts/Sharding-FAQ#dealing-with-network-partitions)
+* [通过 n = O\(c^2\)推动扩展的独特挑战是什么？](https://ethfans.org/posts/Sharding-FAQ#unique-challenge-of-pushing)
 
-However, this poses a question: are there ways to create a new mechanism, where only a small subset of nodes verifies each transaction? As long as there are sufficiently many nodes verifying each transaction that the system is still highly secure, but a sufficiently small percentage of the total validator set so that the system can process many transactions in parallel, could we not split up transaction processing between smaller groups of nodes to greatly increase a blockchain's total throughput?
+## 简介
 
-**Contents**
+目前，在所有的区块链协议中每个节点存储所有的状态（账户余额，合约代码和存储等等）并且处理所有的交易。这提供了大量的安全性，但极大的限制了可扩展性：区块链不能处理比一个单节点更多的交易。很大程度上因为这个原因，比特币被限制在每秒3-7笔交易，以太坊每秒7-15笔交易，等等。然后，这提出了一个问题：是否有方法创建一个新的机制，只让一个小集合的节点来验证每笔交易？只要有足够多的节点验证每笔交易那么系统依然是高度安全的，但又足够少使得系统系统可以并行处理很多的交易，我们是否可以使用这种技术来大大增加区块链的吞吐量？
 
-* [What are some trivial but flawed ways of solving the problem?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-some-trivial-but-flawed-ways-of-solving-the-problem)
-* [This sounds like there’s some kind of scalability trilemma at play. What is this trilemma and can we break through it?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#this-sounds-like-theres-some-kind-of-scalability-trilemma-at-play-what-is-this-trilemma-and-can-we-break-through-it)
-* [What are some moderately simple but only partial ways of solving the scalability problem?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-some-moderately-simple-but-only-partial-ways-of-solving-the-scalability-problem)
-* [What about approaches that do not try to “shard” anything?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-about-approaches-that-do-not-try-to-shard-anything)
-* [How does Plasma, state channels and other layer 2 technologies fit into the trilemma?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-does-plasma-state-channels-and-other-layer-2-technologies-fit-into-the-trilemma)
-* [State size, history, cryptoeconomics, oh my! Define some of these terms before we move further!](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#state-size-history-cryptoeconomics-oh-my-define-some-of-these-terms-before-we-move-further)
-* [What is the basic idea behind sharding?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-is-the-basic-idea-behind-sharding)
-* [What might a basic design of a sharded blockchain look like?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-might-a-basic-design-of-a-sharded-blockchain-look-like)
-* [What are the challenges here?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-the-challenges-here)
-* [But doesn't the CAP theorem mean that fully secure distributed systems are impossible, and so sharding is futile?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#but-doesnt-the-cap-theorem-mean-that-fully-secure-distributed-systems-are-impossible-and-so-sharding-is-futile)
-* [What are the security models that we are operating under?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-the-security-models-that-we-are-operating-under)
-* [How can we solve the single-shard takeover attack in an uncoordinated majority model?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-can-we-solve-the-single-shard-takeover-attack-in-an-uncoordinated-majority-model)
-* [How do you actually do this sampling in proof of work, and in proof of stake?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-do-you-actually-do-this-sampling-in-proof-of-work-and-in-proof-of-stake)
-* [How is the randomness for random sampling generated?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-is-the-randomness-for-random-sampling-generated)
-* [What are the tradeoffs in making sampling more or less frequent?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-the-tradeoffs-in-making-sampling-more-or-less-frequent)
-* [Can we force more of the state to be held user-side so that transactions can be validated without requiring validators to hold all state data?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#can-we-force-more-of-the-state-to-be-held-user-side-so-that-transactions-can-be-validated-without-requiring-validators-to-hold-all-state-data)
-* [Can we split data and execution so that we get the security from rapid shuffling data validation without the overhead of shuffling the nodes that perform state execution?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#can-we-split-data-and-execution-so-that-we-get-the-security-from-rapid-shuffling-data-validation-without-the-overhead-of-shuffling-the-nodes-that-perform-state-execution)
-* [Can SNARKs and STARKs help?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#can-snarks-and-starks-help)
-* [How can we facilitate cross-shard communication?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-can-we-facilitate-cross-shard-communication)
-* [What is the train-and-hotel problem?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-is-the-train-and-hotel-problem)
-* [What are the concerns about sharding through random sampling in a bribing attacker or coordinated choice model?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-the-concerns-about-sharding-through-random-sampling-in-a-bribing-attacker-or-coordinated-choice-model)
-* [How can we improve on this?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-can-we-improve-on-this)
-* [What is the data availability problem, and how can we use erasure codes to solve it?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-is-the-data-availability-problem-and-how-can-we-use-erasure-codes-to-solve-it)
-* [Can we remove the need to solve data availability with some kind of fancy cryptographic accumulator scheme?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#can-we-remove-the-need-to-solve-data-availability-with-some-kind-of-fancy-cryptographic-accumulator-scheme)
-* [So this means that we can actually create scalable sharded blockchains where the cost of making anything bad happen is proportional to the size of the entire validator set?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#so-this-means-that-we-can-actually-create-scalable-sharded-blockchains-where-the-cost-of-making-anything-bad-happen-is-proportional-to-the-size-of-the-entire-validator-set)
-* [Let’s walk back a bit. Do we actually need any of this complexity if we have instant shuffling? Doesn’t instant shuffling basically mean that each shard directly pulls validators from the global validator pool so it operates just like a blockchain, and so sharding doesn’t actually introduce any new complexities?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#lets-walk-back-a-bit-do-we-actually-need-any-of-this-complexity-if-we-have-instant-shuffling-doesnt-instant-shuffling-basically-mean-that-each-shard-directly-pulls-validators-from-the-global-validator-pool-so-it-operates-just-like-a-blockchain-and-so-sharding-doesnt-actually-introduce-any-new-complexities)
-* [You mentioned transparent sharding. I’m 12 years old and what is this?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#you-mentioned-transparent-sharding-im-12-years-old-and-what-is-this)
-* [What are some advantages and disadvantages of this?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-some-advantages-and-disadvantages-of-this)
-* [How would synchronous cross-shard messages work?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#how-would-synchronous-cross-shard-messages-work)
-* [What about semi-asynchronous messages?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-about-semi-asynchronous-messages)
-* [What are guaranteed cross-shard calls?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-guaranteed-cross-shard-calls)
-* [Wait, but what if an attacker sends a cross-shard call from every shard into shard X at the same time? Wouldn’t it be mathematically impossible to include all of these calls in time?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#wait-but-what-if-an-attacker-sends-a-cross-shard-call-from-every-shard-into-shard-x-at-the-same-time-wouldnt-it-be-mathematically-impossible-to-include-all-of-these-calls-in-time)
-* [Congealed gas? This sounds interesting for not just cross-shard operations, but also reliable intra-shard scheduling](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#congealed-gas-this-sounds-interesting-for-not-just-cross-shard-operations-but-also-reliable-intra-shard-scheduling)
-* [Does guaranteed scheduling, both intra-shard and cross-shard, help against majority collusions trying to censor transactions?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#does-guaranteed-scheduling-both-intra-shard-and-cross-shard-help-against-majority-collusions-trying-to-censor-transactions)
-* [Could sharded blockchains do a better job of dealing with network partitions?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#could-sharded-blockchains-do-a-better-job-of-dealing-with-network-partitions)
-* [What are the unique challenges of pushing scaling past n = O\(c^2\)?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-are-the-unique-challenges-of-pushing-scaling-past-n--oc%5C%5E2)
-* [What about heterogeneous sharding?](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-about-heterogeneous-sharding)
-* [Footnotes](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#footnotes)
+### 有哪些简单但有缺陷的方式来解决这个问题？ <a id="trivial-but-flawed-ways"></a>
 
-## What are some trivial but flawed ways of solving the problem?
+”简单的解决方案“主要由三大类。第一个是直接放弃独立区块链缩放性，而是假设用户将使用许多不同的”altcoins"。这种方法极大提升了吞吐量，但是是以安全性为代价：使用这种方案在在吞吐量上N-factor的增加必然伴随在安全性上N-factor的下降。因此，对于大于N小值可以被论证是不可行的。
 
-There are three main categories of “easy solutions”. The first is to give up on scaling individual blockchains, and instead assume that applications will be split among many different chains. This greatly increases throughput, but at a cost of security: an N-factor increase in throughput using this method necessarily comes with an N-factor decrease in security, as a level of resources 1/N the size of the whole ecosystem will be sufficient to attack any individual chain. Hence, it is arguably non-viable for more than small values of N.
+第二个是简单增加区块大小限制。这种方式可以起作用，而且在某些情况下可能是正确的处理方法，因为区块链大小可能更多受到政治上的约束而不是现实的技术考量。但不管个人对于个别案例的信念如何，这个方案不可避免有它的局限性：如果区块链运行的足够长，那么运行在消费者硬件上的节点就会退出，网络将开始只能依赖于少数运行区块链的超级计算机，这可能导致极大的中心化风险。
 
-The second is to simply increase the block size limit. This can work and in some situations may well be the correct prescription, as block sizes may well be constrained more by politics than by realistic technical considerations. But regardless of one’s beliefs about any individual case such an approach inevitably has its limits: if one goes too far, then nodes running on consumer hardware will drop out, the network will start to rely exclusively on a very small number of supercomputers running the blockchain, which can lead to great centralization risk.
+第三个是“合并挖矿”，这是一种多区块链共存的技术，但所有的区块链共享同一的挖矿激励（或者权益证明系统中的赌注）。目前，Namecoin通过这样的技术从比特币区块链中获取了很大一部分的安全性。如果所有的矿工参与进来，理论上可以将吞吐量提升N倍而不会影响安全性。然而，这也存在这样的问题：它将每个矿工的计算和存储负载增加了N倍。所以，实际上这个方法仅仅是一个隐藏的区块大小限制提升方式。
 
-The third is “merge mining”, a technique where there are many chains, but all chains share the same mining power \(or, in proof of stake systems, stake\). Currently, Namecoin gets a large portion of its security from the Bitcoin blockchain by doing this. If all miners participate, this theoretically can increase throughput by a factor of N without compromising security. However, this also has the problem that it increases the computational and storage load on each miner by a factor of N, and so in fact this solution is simply a stealthy form of block size increase.
+即使这被认为可以接受的，依然存在这样的缺陷：这些区块链不是真正被“捆绑在一起"的；只需要少量的经济激励就能说服矿工放弃或妥协某个特定的区块链。这种可能性是非常真实的，并且有合并挖矿被攻击的\[真实历史事件\][\(actual historical incidents\)](https://web.archive.org/web/20170331105910/https://bitcoin.stackexchange.com/questions/3472/what-is-the-story-behind-the-attack-on-coiledcoin)，以及明确提倡使用合并挖矿攻击作为一种“[治理特性](http://www.truthcoin.info/blog/contracts-oracles-sidechains/)”的开发者，对于给定的联盟，破坏区块链并不是有利可图的。
 
-## This sounds like there’s some kind of scalability trilemma at play. What is this trilemma and can we break through it?
+如果每条链只有少数矿工参与合并挖矿，则集中化风险得到缓解，但合并挖矿的安全效益也大大降低。
 
-The trilemma claims that blockchain systems can only at most have two of the following three properties:
+### 这听起来像是有某种扩展性三难困境在起作用。这三难困境是什么呢，我们能突破它吗？ <a id="scalability-trilemma"></a>
 
-* **Decentralization** \(defined as the system being able to run in a scenario where each participant only has access to O\(c\) resources, i.e. a regular laptop or small VPS\)
-* **Scalability** \(defined as being able to process O\(n\) &gt; O\(c\) transactions\)
-* **Security** \(defined as being secure against attackers with up to O\(n\) resources\)
+这三难困境表明区块链系统最多只能拥有以下三个属性中的两个：
 
-In the rest of this document, we’ll continue using **c** to refer to the size of computational resources \(including computation, bandwidth and storage\) available to each node, and **n** to refer to the size of the ecosystem in some abstract sense; we assume that transaction load, state size, and the market cap of a cryptocurrency are all proportional to **n**. The key challenge of scalability is finding a way to achieve all three at the base layer.
+* **去中心化**（定义为系统可以在每个参与者只能访问O\(c\)资源的场景下运行，即普通笔记本电脑或小型VPS）
+* **扩展性**（定义为可以处理O\(n\) &gt; O\(c\)交易）
+* **安全性**（定义为最多使用O\(n\)资源就可以抵御安全攻击）
 
-## What are some moderately simple but only partial ways of solving the scalability problem?
+在这个文档的其余部分，我们继续使用c来指代每个节点的可用计算资源大小（包括计算，带宽和存储），以及用n指代抽象意义上生态系统的大小；我们假设交易负载，状态大小和加密货币市值都与n成正比。
 
-Many sharding proposals \(e.g. [this early BFT sharding proposal from Loi Luu et al at NUS](https://www.comp.nus.edu.sg/~loiluu/papers/elastico.pdf), more recent application of similar ideas in [Zilliqa](https://docs.zilliqa.com/whitepaper.pdf), as well as [this Merklix tree](http://www.deadalnix.me/2016/11/06/using-merklix-tree-to-shard-block-validation)[1](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref1) approach that has been suggested for Bitcoin\) attempt to either only shard transaction processing or only shard state, without touching the other[2](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref2). These efforts can lead to some gains in efficiency, but they run into the fundamental problem that they only solve one of the two bottlenecks. We want to be able to process 10,000+ transactions per second without either forcing every node to be a supercomputer or forcing every node to store a terabyte of state data, and this requires a comprehensive solution where the workloads of state storage, transaction processing and even transaction downloading and re-broadcasting at are all spread out across nodes. Particularly, the P2P network needs to also be modified to ensure that not every node receives all information from every other node.
+### 有人认为，由于梅特卡夫定律，一个加密货币的市值应该与n ^ 2成正比，而不是n。 他们是正确的吗？ <a id="metcalfe&apos;s-law"></a>
 
-## What about approaches that do not try to “shard” anything?
+不。
 
-[Bitcoin-NG](http://hackingdistributed.com/2015/10/14/bitcoin-ng/) can increase scalability somewhat by means of an alternative blockchain design that makes it much safer for the network if nodes are spending large portions of their CPU time verifying blocks. In simple PoW blockchains, there are high centralization risks and the safety of consensus is weakened if capacity is increased to the point where more than about 5% of nodes’ CPU time is spent verifying blocks; Bitcoin-NG’s design alleviates this problem. However, this can only increase the scalability of transaction capacity by a constant factor of perhaps 5-50x[3](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref3),[4](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref4), and does not increase the scalability of state. That said, Bitcoin-NG-style approaches are not mutually exclusive with sharding, and the two can certainly be implemented at the same time.
+**为什么不？**
 
-Channel-based strategies \(lightning network, Raiden, etc\) can scale transaction capacity by a constant factor but cannot scale state storage, and also come with their own unique sets of tradeoffs and limitations particularly involving denial-of-service attacks. On-chain scaling via sharding \(plus other techniques\) and off-chain scaling via channels are arguably both necessary and complementary.
+梅特卡夫法则认为，网络的价值与用户数量的平方成正比（n ^ 2），因为如果网络有n个用户，那么网络对每个用户都有价值，但是每个用户的价值是与用户数量成正比，因为如果一个网络有n个用户通过网络有n-1个潜在的连接，每个用户都可以从中受益。
 
-There exist approaches that use advanced cryptography, such as [Mimblewimble](https://scalingbitcoin.org/papers/mimblewimble.txt) and strategies based on ZK-SNARKs \(eg. [Coda](https://codaprotocol.com/)\), to solve one specific part of the scaling problem: initial full node synchronization. Instead of verifying the entire history from genesis, nodes could verify a cryptographic proof that the current state legitimately follows from the history. These approaches do solve a legitimate problem, but they are not a substitute for sharding, as they do not remove the need for nodes to download and verify very large amounts of data to stay on the chain in real time.
+在实践中，实证研究表明，拥有n个用户的网络的价值”对于小的n值是与n ^ 2成比例且对于大的n值是与n×log n成比例“。这很容易理解，因为对于小的n值，这个论点是成立的，但是一旦这个系统变得很大，两个影响就会减缓增长。首先，实践中的增长通常发生在社区中，因此在中等规模的网络中，网络通常已经提供了每个用户关心的大部分连接。其次，连接往往是可以互相替代的。你可以争论说人们从k个连接中只能获得~O\(log\(k\)\)的价值-有23个品牌的除臭剂可以选择是好的，但并不不是说比有22个选择好多了，而一个选择和零个选择是非常重要的差异。
 
-## How does Plasma, state channels and other layer 2 technologies fit into the trilemma?
+另外，即使加密货币的价值与k个用户的O\(k \* log\(k\)\)成正比，如果我们接受上述解释作为这种情况的原因，那这也意味着交易量也是O\(k \* log\(k\)\)，因为每个用户的log\(k\)价值理论上来自于用户通过网络执行log\(k\)的连接，并且状态大小在许多情况下也应该随着O\(k \* log\(k\)\) 一起增长，因为至少有某种类型的状态是特定关心而不是用户特定的。因此，假设n=O\(k \* log\(k\)\) ，并且基于n\(生态系统大小\)和c（单节点的计算能力）是我们使用的完美模型。
 
-In the event of a large attack on [Plasma](https://www.plasma.io/) subchains, all users of the Plasma subchains would need to withdraw back to the root chain. If Plasma has O\(N\) users, then this will require O\(N\) transactions, and so O\(N / C\) time to process all of the withdrawals. If withdrawal delays are fixed to some D \(i.e. the naive implementation\), then as soon as N &gt; C \* D, there will not be enough space in the blockchain to process all withdrawals in time, and so the system will be insecure; in this mode, Plasma should be viewed as increasing scalability only by a \(possibly large\) constant factor. If withdrawal delays are flexible, so they automatically extend if there are many withdrawals being made, then this means that as N increases further and further, the amount of time that an attacker can force everyone's funds to get locked up increases, and so the level of "security" of the system decreases further and further in a certain sense, as extended denial of access can be viewed as a security failure, albeit one milder than total loss of access. However, this is a different _direction_ of tradeoff from other solutions, and arguably a much milder tradeoff, hence why Plasma subchains are nevertheless a large improvement on the status quo.
+### 有哪些适度简单但只部分解决了可扩展性问题的方法 <a id="moderately-simple-but-only-partical-ways"></a>
 
-Note that there is one design that states that: "Given a malicious operator \(the worst case\), the system degrades to an on-chain token. A malicious operator cannot steal funds and cannot deprive people of their funds for any meaningful amount of time."—[https://ethresear.ch/t/roll-up-roll-back-snark-side-chain-17000-tps/3675](https://ethresear.ch/t/roll-up-roll-back-snark-side-chain-17000-tps/3675). See also [here](https://twitter.com/PhABCD/status/1090090236380626944) for related information.
+许多分片建议（比如[国大的Loi Luu等人提出的这个早期的BFT分片方案](https://www.comp.nus.edu.sg/~loiluu/papers/elastico.pdf)，以及为比特币提议的[this Merklix tree](http://www.deadalnix.me/2016/11/06/using-merklix-tree-to-shard-block-validation)方案 [1](https://ethfans.org/posts/Sharding-FAQ#1) ）都试图只分片交易或者只分片状态，而不考虑其他方面 [2](https://ethfans.org/posts/Sharding-FAQ#2) 。这些努力是令人钦佩的，可能会带来效率上的提升，但他们遇到根本性的问题，他们只能解决其中一个瓶颈。我们希望能够每秒处理超过10000个交易，而且不必强迫每个节点成为超级计算机也不强迫每个节点存储一兆字节的状态数据，而这需要一个全面的解决方案即状态存储工作量，交易处理甚至交易下载和广播都跨节点分散。
 
-[State channels](http://www.jeffcoleman.ca/state-channels/) have similar properties, though with different tradeoffs between versatility and speed of finality. Other layer 2 technologies include [TrueBit](https://people.cs.uchicago.edu/~teutsch/papers/truebit.pdf) off-chain interactive verification of execution and [Raiden](https://raiden.network/), which is another organisation working on state channels. [Proof of stake](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ) with Casper \(which is layer 1\) would also improve scaling—it is more decentralizable, not requiring a computer that is able to mine, which tends towards centralized mining farms and institutionalized mining pools as difficulty increases and the size of the state of the blockchain increases.
+特别要注意的是，这要求在P2P级别做出变更，因为广播模型是不可扩展的，因为它要求每个节点下载和重复广播O\(n\) 的数据（每个被发送的交易），而我们去中心化的标准假设是每个节点只能访问各种O\(c\)资源。
 
-Sharding is different to state channels and Plasma in that periodically notaries are pseudo-randomly assigned to vote on the validity of collations \(analogous to blocks, but without an EVM state transition function in phase 1\), then these collations are accepted into the main chain after the votes are verified by a committee on the main chain, via a sharding manager contract on the main chain. In phase 5 \(see the [roadmap](https://github.com/ethereum/wiki/wiki/Sharding-roadmap) for details\), shards are tightly coupled to the main chain, so that if any shard or the main chain is invalid, the whole network is invalid. There are other differences between each mechanism, but at a high level, Plasma, state channels and Truebit are off-chain for an indefinite interval, connect to the main chain at the smart contract, layer 2 level, while they can draw back into and open up from the main chain, whereas shards are regularly linked to the main chain via consensus in-protocol.
+### 有哪些不试图"分片"任何东西的方法？ <a id="approaches-do-not-shard-anything"></a>
 
-See also [these tweets from Vlad](https://twitter.com/VladZamfir/status/1001447804219346945).
+Bitcoin-NG 可以通过另外一种区块链设计来增加扩展性，即如果节点花费大量CPU时间验证区块来使得网络更安全。在简单的PoW区块链中，存在较高的中心化风险，并且如果阀值增长到节点的CPU时间超过5%用于验证块则共识安全就会被削弱；Bitcoin-NG的设计缓解了这个问题。然而，这仅仅使得交易扩展性提升了大约常量因子5-50x [3](https://ethfans.org/posts/Sharding-FAQ#3),[4](https://ethfans.org/posts/Sharding-FAQ#4) ，但并没有提升状态扩展性。也就是说，Bitcoin-NG式的方法与分片并不互相排斥，两者当然可以同时实施。
 
-## State size, history, cryptoeconomics, oh my! Define some of these terms before we move further!
+基于通道的策略（闪电网络，雷电网络等）可以通过常量因子扩展交易容量，但不能扩展状态存储，并且还会带来他们自己独特的折衷和限制，特别是涉及到拒绝服务攻击；通过分片实现链上扩展（加上其他的技术）和通过通道实现链下扩展可以说是必要和互补的。
 
-* **State**: a set of information that represents the "current state" of a system; determining whether or not a transaction is valid, as well as the effect of a transaction, should in the simplest model depend only on state. Examples of state data include the UTXO set in bitcoin, balances + nonces + code + storage in ethereum, and domain name registry entries in Namecoin.
-* **History**: an ordered list of all transactions that have taken place since genesis. In a simple model, the present state should be a deterministic function of the genesis state and the history.
-* **Transaction**: an object that goes into the history. In practice, a transaction represents an operation that some user wants to make, and is cryptographically signed. In some systems transactions are called **blobs**, to emphasize the fact that in these systems these objects may contain arbitrary data and may not in all cases represent an attempt to perform some operation in the protocol.
-* **State transition function**: a function that takes a state, applies a transaction and outputs a new state. The computation involved may involve adding and subtracting balances from accounts specified by the transaction, verifying digital signatures and running contract code.
-* **Merkle tree**: a cryptographic hash tree structure that can store a very large amount of data, where authenticating each individual piece of data only takes O\(log\(n\)\) space and time. See [here](https://easythereentropy.wordpress.com/2014/06/04/understanding-the-ethereum-trie) for details. In Ethereum, the transaction set of each block, as well as the state, is kept in a Merkle tree, where the roots of the trees are committed to in a block.
-* **Receipt**: an object that represents an effect of a transaction that is not directly stored in the state, but which is still stored in a Merkle tree and committed to in a block header or in a special location in the state so that its existence can later be efficiently proven even to a node that does not have all of the data. Logs in Ethereum are receipts; in sharded models, receipts are used to facilitate asynchronous cross-shard communication.
-* **Light client**: a way of interacting with a blockchain that only requires a very small amount \(we’ll say O\(1\), though O\(log\(c\)\) may also be accurate in some cases\) of computational resources, keeping track of only the block headers of the chain by default and acquiring any needed information about transactions, state or receipts by asking for and verifying Merkle proofs of the relevant data on an as-needed basis.
-* **State root**: the root hash of the Merkle tree representing the state[5](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref5)
+还有其他一些使用高级密码学的方法。如Mimblewimble 和基于ZK-SNARKs的策略来解决扩展性问题的特定部分。初始化全节点同步，而不是从创世块验证整个历史，节点可以验证一个密码学证明当前状态合法地遵循历史记录。这些方法确实解决了合法性问题，但是值得注意的是，可以依靠加密经济学用更简单的方式而不是纯粹密码学来解决同样的问题-参见以太坊当前[快速同步](https://github.com/ethereum/go-ethereum/pull/1889)和[神同步](https://github.com/ethcore/parity/wiki/Warp-Sync)的实现。这两种方法都没有缓解状态大小的增长或者在线交易处理的限制。
 
-![](https://github.com/vbuterin/diagrams/raw/master/scalability_faq/image02.png)  
-The Ethereum 1.0 state tree, and how the state root fits into the block structure
+### 状态大小，历史，加密经济学，哦，我的天！在我们继续之前，先定义一些这样的术语！ <a id="state-size-history-cryptoeconomics"></a>
 
-## What is the basic idea behind sharding?
+* **状态**：代表系统”当前状态“的一个信息集合；确定交易是否有效，以及交易的结果，在最简单的模型中应该仅仅依赖状态。例如比特币中UTXO的状态数据，以太坊中的balances+nonces+code+storage，Namecoin中的域名注册项。
+* **历史**：自从创世块以来的所有交易的有序列表。在一个简单模型中，当前状态应该是创世状态和历史的确定性函数。
+* **交易**：进入历史的一个对象。在实践中，一笔交易代表了某用户想要做的操作，并且是加密签名的。
+* **状态转换函数**：一个获取状态，应用交易并输出新状态的函数。涉及的计算可能包含对交易指定的账户中增加或减少余额，验证数字签名和运行合约代码。
+* **默克尔树**：可以存储大量数据的加密哈希树结构，其中验证每个单项数据项只需要O\(log\(n\)\) 的空间和时间。详情看[这里](https://easythereentropy.wordpress.com/2014/06/04/understanding-the-ethereum-trie)。在以太坊中，每个块的交易集合已经状态都保存在默克尔树中，树的根被提交在块中。
+* **收据**：代表交易执行结果的对象，它并不存储在状态中，但仍存储在一个默克尔树中并提交到块 以便节点在没有拥有所有数据的情况下可以高效验证证明。在以太坊中Logs就是收据。在分片模型中，收据是用来促进异步跨分片通信。
+* **轻客户端**：与区块链交互的一种方式，它只需要非常少量的计算资源，默认情况下只需要跟踪链的区块头，并根据需要请求关于交易，状态和收据的相关信息，并验证相关数据的默克尔证明。
+* **状态根**：代表状态的默克尔树根哈希 [5](https://ethfans.org/posts/Sharding-FAQ#5) 。
 
-We split the state and history up into K = O\(n / c\) partitions that we call “shards”. For example, a sharding scheme on Ethereum might put all addresses starting with 0x00 into one shard, all addresses starting with 0x01 into another shard, etc. In the simplest form of sharding, each shard also has its own transaction history, and the effect of transactions in some shard k are limited to the state of shard k. One simple example would be a multi-asset blockchain, where there are K shards and each shard stores the balances and processes the transactions associated with one particular asset. In more advanced forms of sharding, some form of cross-shard communication capability, where transactions on one shard can trigger events on other shards, is also included.
+![](http://upyun-assets.ethfans.org/uploads/photo/image/bbc479be2e614863b771cc8a2aba305a.png)  
+\(以太坊的状态树，以及状态根\(state root\)是如何嵌入到区块结构上的\)
 
-## What might a basic design of a sharded blockchain look like?
+### 分片背后的基本思想？ <a id="basic-idea-behind-sharding"></a>
 
-A simple approach is as follows. For simplicity, this design keeps track of data blobs only; it does not attempt to process a state transition function.
+把状态分成K = O\(n / c\) 分区，我们称之为”分片“。例如，以太坊的分片方案可能会将所有0x00开头的所有地址放入一个分片，所有以0x01开头的地方hi放入另外一个分片等等。在最简单的分片形式中，每个分片都有自己的交易历史，且在某个分片k中的交易影响仅限于分片k的状态。一个简单的例子是多资产区块链，其中有k个分片，每个分片存储余额和处理一个特定资产相关的交易。在更高级的分片形式中，包括了某些形式的跨分片通信能力，其中一个分片上的交易可以触发其他分片上的事件。
 
-There exists a set of **validators** \(ie. proof of stake nodes\), who randomly get assigned the right to create **shard blocks**. During each **slot** \(eg. an 8-second period of time\), for each `k` in `[0...999]` a random validator gets selected, and given the right to create a block on "shard `k`", which might contain up to, say, 32 kb of data. Also, for each `k`, a set of 100 validators get selected as **attesters**. The header of a block together with at least 67 of the attesting signatures can be published as an object that gets included in the "main chain" \(also called a **beacon chain**\).
+### 分片区块链的基本设计是怎么样的？ <a id="basic-design-of-a-sharded-blockchain"></a>
 
-Note that there are now several "levels" of nodes that can exist in such a system:
+一个简单的方法如下。存在一些称为协调者的节点，其接受在分片`k`上的交易（取决于协议，协调者可以选择哪个`k`分片或者随机分配`k`）并创建排序规则。一个排序规则有一个排序头，一个形式为”这是在分片`k`上的交易排序“的短消息。它期望分片`k`的前状态根是0x12bc57，在当前排序的交易默克尔树根是0x3f98ea，并且交易被处理之后的状态根应当是0x5d0cc1。且协调者\#1，2，4，5，8，11，13...98，99对其签名。
 
-* **Super-full node** - downloads the full data of the beacon chain and every shard block referenced in the beacon chain.
-* **Top-level node** - processes the beacon chain blocks only, including the headers and signatures of the shard blocks, but does not download all the data of the shard blocks.
-* **Single-shard node** - acts as a top-level node, but also fully downloads and verifies every collation on some specific shard that it cares more about.
-* **Light node** - downloads and verifies the block headers of main chain blocks only; does not process any collation headers or transactions unless it needs to read some specific entry in the state of some specific shard, in which case it downloads the Merkle branch to the most recent collation header for that shard and from there downloads the Merkle proof of the desired value in the state.
+一个区块必须包括每个分片的排序头，在以下情况下区块是有效的：
 
-## What are the challenges here?
+1. 在每个排序规则中给出的前状态根必须与相关联的分片当前的状态根相匹配
+2. 在排序规则中所有的交易是有效的
+3. 在排序规则中给出的后状态根必须与上面给定的状态执行排序规则中的交易结果想匹配
+4. 排序规则必须被该分片的至少三分之二已注册的协调者所签名
 
-* **Single-shard takeover attacks** - what if an attacker takes over the majority of the validators responsible for attesting to one particular block, either to \(respectively\) prevent any collations from getting enough signatures or, worse, to submit collations that are invalid?
-* **State transition execution** - single-shard takeover attacks are typically prevented with random sampling schemes, but such schemes also make it more difficult for validators to compute state roots, as they cannot have up-to-date state information for every shard that they could be assigned to. How do we ensure that light clients can still get accurate information about the state?
-* **Fraud detection** - if an invalid collation or state claim does get made, how can nodes \(including light nodes\) be reliably informed of this so that they can detect the fraud and reject the collation if it is truly fraudulent?
-* **Cross shard communication** - the above design supports no cross-shard communication. How do we add cross-shard communication safely?
-* **The data availability problem** - as a subset of fraud detection, what about the specific case where data is missing from a collation?
-* **Superquadratic sharding** - in the special case where n &gt; c^2, in the simple design given above there would be more than O\(c\) collation headers, and so an ordinary node would not be able to process even just the top-level blocks. Hence, more than two levels of indirection between transactions and top-level block headers are required \(i.e. we need "shards of shards"\). What is the simplest and best way to do this?
+需要注意的是，在这样的系统中现在存在几个”层次“的节点：
 
-However, the effect of a transaction may depend on events that earlier took place in other shards; a canonical example is transfer of money, where money can be moved from shard i to shard j by first creating a “debit” transaction that destroys coins in shard i, and then creating a “credit” transaction that creates coins in shard j, pointing to a receipt created by the debit transaction as proof that the credit is legitimate.
+* **超级全节点** - 处理在所有排序规则中的所有交易，并且维护所有分片的全状态
+* **顶级节点** - 处理所有顶级\(top-level\)区块，但不处理或试图下载在每个排序规则的交易。相反，如果在某个分片中有三分之二协调者认为一个排序规则是有效的，那么这个排序规则就是有效的。
+* **单分片节点** - 充当顶级节点，但同时也处理某个分片的所有交易和维护全状态。
+* **轻节点** - 仅下载和验证顶级区块的区块头；不处理任何排序头或交易，除非它需要读取某个特定分片的状态的某些特定信息，在这种情况下，它下载该分片最近的排序头的默克尔分支并且下载在该状态下的默克尔证明期望值。
 
-## But doesn't the CAP theorem mean that fully secure distributed systems are impossible, and so sharding is futile?
+### 这里面临的挑战是什么？ <a id="challenges"></a>
 
-The CAP theorem is a result that has to do with _distributed consensus_; a simple statement is: "in the cases that a network partition takes place, you have to choose either consistency or availability, you cannot have both". The intuitive argument is simple: if the network splits in half, and in one half I send a transaction "send my 10 coins to A" and in the other I send a transaction "send my 10 coins to B", then either the system is unavailable, as one or both transactions will not be processed, or it becomes inconsistent, as one half of the network will see the first transaction completed and the other half will see the second transaction completed. Note that the CAP theorem has nothing to do with scalability; it applies to any situation where multiple nodes need to agree on a value, regardless of the amount of data that they are agreeing on. All existing decentralized systems have found some compromise between availability and consistency; sharding does not make anything fundamentally harder in this respect.
+* **跨分片通信** - 上述设计不支持跨分片通信。我们如何安全地增加跨分片通信。
+* **单分片接管攻击** - 如果在一个分片中攻击者接管了大多数协调者，要么获取足够的签名来阻止任何排序规则，要么更糟糕的，提交无效的排序？
+* **欺诈检测** - 如果得到一个无效的排序规则，节点（包括轻节点）如何能够可靠的得知，以便它们可以验证欺诈行为并且确认是欺诈行为之后拒绝这个排序规则？
+* **数据可用性问题** - 作为欺诈检测的子集，排序规则中缺失数据这种特殊情况会怎么样？
+* **超二次分片** - 在n &gt; c^2的特殊情况下，在上面给出的简单设计里面，将会有超过O\(c\)的排序头，因此普通节点将不能处理它们，只能处理顶级区块。因此，在交易和顶级区块头直接超过两级的间接寻址是需要的（即我们需要”分片的分片“）。达到这个目标的最简单和最好的方式是什么呢？
 
-## What are the security models that we are operating under?
+然后，交易的结果取决于之前发生在其他分片中的事件；一个典型的例子是货币转账，货币可以从分片 i 转移到分片 j ，首先在分片 i 中创建一个”借记“交易来销毁代币，然后在分片j中创建一个”贷记“交易来创建代币，并将借记交易的收据作为贷记证明是合法的。
 
-There are several competing models under which the safety of blockchain designs is evaluated:
+### 但是CAP定理意味着完全安全的分布式系统是不可能的，因此分片是无法实现的？ <a id="CAP-theorem"></a>
 
-* **Honest majority** \(or honest supermajority\): we assume that there is some set of validators and up to 50% \(or 33% or 25%\) of those validators are controlled by an attacker, and the remaining validators honestly follow the protocol. Honest majority models can have **non-adaptive** or **adaptive** adversaries; an adversary is adaptive if they can quickly choose which portion of the validator set to "corrupt", and non-adaptive if they can only make that choice far ahead of time. Note that the honest majority assumption may be higher for notary committees with a [61% honesty assumption](https://ethresear.ch/t/registrations-shard-count-and-shuffling/2129/7?u=jamesray1).
-* **Uncoordinated majority**: we assume that all validators are rational in a game-theoretic sense \(except the attacker, who is motivated to make the network fail in some way\), but no more than some fraction \(often between 25% and 50%\) are capable of coordinating their actions.
-* **Coordinated choice**: we assume that most or all validators are controlled by the same actor, or are fully capable of coordinating on the economically optimal choice between themselves. We can talk about the **cost to the coalition** \(or profit to the coalition\) of achieving some undesirable outcome.
-* **Bribing attacker model**: we take the uncoordinated majority model, but instead of making the attacker be one of the participants, the attacker sits outside the protocol, and has the ability to bribe any participants to change their behavior. Attackers are modeled as having a **budget**, which is the maximum that they are willing to pay, and we can talk about their **cost**, the amount that they _end up paying_ to disrupt the protocol equilibrium.
+CAP定理是于分布式共识有关的结果。一个简单的描述是：”在网络发生分区的情况下，你必须选择一致性或可用性，你不能同时拥有两者“。直观的论点很简单：如果网络分为两半，在一半网络中发送交易”发送10个代币给A"，而在另一半发送交易”发送10个代币给B“，然后系统是不可用的，因为其中一个或者两个交易将不被处理，或者变得不一致，因为一半的网络将看到第一个交易完成，另一半将看到第二个交易完成。注意CAP定理与扩展性无关；它适用于多节点需要对某个值导致一致的任何情况，而不管它们所达成一致的数据量大小。所有现有的去中心化系统已在可用性和一致性之间找到一些折衷方法，在这方面分片并没有从根本上造成困难。
 
-Bitcoin proof of work with [Eyal and Sirer’s selfish mining fix](https://arxiv.org/abs/1311.0243) is robust up to 50% under the honest majority assumption, and up to ~23.21% under the uncoordinated majority assumption. [Schellingcoin](https://blog.ethereum.org/2014/03/28/schellingcoin-a-minimal-trust-universal-data-feed/) is robust up to 50% under the honest majority and uncoordinated majority assumptions, has ε \(i.e. slightly more than zero\) cost of attack in a coordinated choice model, and has a P + ε budget requirement and ε cost in a bribing attacker model due to [P + epsilon attacks](https://blog.ethereum.org/2015/01/28/p-epsilon-attack/).
+### 我们如何促进跨分片通信？ <a id="cross-shard-communication"></a>
 
-Hybrid models also exist; for example, even in the coordinated choice and bribing attacker models, it is common to make an **honest minority assumption** that some portion \(perhaps 1-15%\) of validators will act altruistically regardless of incentives. We can also talk about coalitions consisting of between 50-99% of validators either trying to disrupt the protocol or harm other validators; for example, in proof of work, a 51%-sized coalition can double its revenue by refusing to include blocks from all other miners.
+最容易满足的一个场景是，有许多的应用程序没有太多独立用户，而且这些应用程序只是偶尔或者很少与彼此交互；在这种情况下，应用程序可以在单独的分片上生存，并通过使用收据来与其他分片进行通信。
 
-The honest majority model is arguably highly unrealistic and has already been empirically disproven - see Bitcoin's [SPV mining fork](https://www.reddit.com/r/Bitcoin/comments/3c305f/if_you_are_using_any_wallet_other_than_bitcoin/csrsrf9/) for a practical example. It proves too much: for example, an honest majority model would imply that honest miners are willing to voluntarily burn their own money if doing so punishes attackers in some way. The uncoordinated majority assumption may be realistic; there is also an intermediate model where the majority of nodes is honest but has a budget, so they shut down if they start to lose too much money.
+这通常涉及将每笔交易分解为”借记“和”贷记“。例如，假设我们有一个交易，其中账户A在分片M上，期望发送100个代币到分片N上的账户B。这些步骤如下所示：
 
-The bribing attacker model has in some cases been criticized as being unrealistically adversarial, although its proponents argue that if a protocol is designed with the bribing attacker model in mind then it should be able to massively reduce the cost of consensus, as 51% attacks become an event that could be recovered from. We will evaluate sharding in the context of both uncoordinated majority and bribing attacker models. Bribing attacker models are similar to maximally-adaptive adversary models, except that the adversary has the additional power that it can solicit private information from all nodes; this distinction can be crucial, for example [Algorand](https://people.csail.mit.edu/nickolai/papers/gilad-algorand.pdf) is secure under adaptive adversary models but not bribing attacker models because of how it relies on private information for random selection.
+1. 在分片M上发送一个交易\(i\)扣除账户A的100个代币\(ii\) 创建一个收据。收据对象并不直接保存在状态中，但收据的生成能通过默克尔证明来验证。
+2. 等待第一个交易被包含进来（有时候需要等待终止化，这取决于系统）
+3. 在分片N上发送一个交易，包含来自（1）收据的默克尔证明。这个交易也检查分片N上的状态以确保收据是”未花费“；如果是的话，那么它将账户B增加100个代币，并且保存在状态中代表收据已花费。
 
-## How can we solve the single-shard takeover attack in an uncoordinated majority model?
+可选地，（3）中的交易也保存收据，然后可以在分片M中用来执行进一步的操作，这取决与原操作是否成功。
 
-In short, random sampling. Each shard is assigned a certain number of notaries \(e.g. 150\), and the notaries that approve collations on each shard are taken from the sample for that shard. Samples can be reshuffled either semi-frequently \(e.g. once every 12 hours\) or maximally frequently \(i.e. there is no real independent sampling process, notaries are randomly selected for each shard from a global pool every block\).
+![](http://upyun-assets.ethfans.org/uploads/photo/image/8bcbf3b51bde48ef83c7b44f711d089e.png)
 
-Sampling can be explicit, as in protocols that choose specifically sized "committees" and ask them to vote on the validity and availability of specific collations, or it can be implicit, as in the case of "longest chain" protocols where nodes pseudorandomly assigned to build on specific collations and are expected to "windback verify" at least N ancestors of the collation they are building on.
+在更复杂的分片形式中，交易在某些场景下可能具有分散在不同分片上的效果，并且可以从多个分片状态中同时请求数据。
 
-The result is that even though only a few nodes are verifying and creating blocks on each shard at any given time, the level of security is in fact not much lower, in an honest or uncoordinated majority model, than what it would be if every single node was verifying and creating blocks. The reason is simple statistics: if you assume a ~67% honest supermajority on the global set, and if the size of the sample is 150, then with 99.999% probability the honest majority condition will be satisfied on the sample. If you assume a 75% honest supermajority on the global set, then that probability increases to 99.999999998% \(see [here](https://en.wikipedia.org/wiki/Binomial_distribution) for calculation details\).
+### 不同类型的应用程序如何与分片区块链融合？ <a id="different-kinds-of-application"></a>
 
-Hence, at least in the honest / uncoordinated majority setting, we have:
+有些应用程序完全不需要跨分片交互；多资产区块链和不需要互操作性的完全异构应用程序的区块链是最简单的案例。如果应用程序不需要彼此交互，如果可以异步交互，面临的挑战会更容易应对。也就是说，如果交互可以以分片A上的应用程序的形式完成，则生成收据，在分片B上的交易“消费”该收据并基于它执行一些操作，并且可能向分片A发送包含某些响应的“回调”。总的来说这个模式是很简单的，并且不难将其整合入高级程序语言中。
 
-* **Decentralization** \(each node stores only O\(c\) data, as it’s a light client in O\(c\) shards and so stores O\(1\) \* O\(c\) = O\(c\) data worth of block headers, as well as O\(c\) data corresponding to the recent history of one or several shards that it is assigned to at the present time\)
-* **Scalability** \(with O\(c\) shards, each shard having O\(c\) capacity, the maximum capacity is n = O\(c^2\)\)
-* **Security** \(attackers need to control at least ~33% of the entire O\(n\)-sized validator pool in order to stand a chance of taking over the network\).
+需要注意的是，与可用于分片内通信的机制相比，用于异步跨分片通信的协议内置机制可能会有所不同并且功能较弱。在不可扩展的区块链中的当前可用的一些功能在可扩展区块链中只能用于分区内通信 [7](https://ethfans.org/posts/Sharding-FAQ#7) 。
 
-In the bribing attacker model \(or in the "very very adaptive adversary" model\), things are not so easy, but we will get to this later. Note that because of the imperfections of sampling, the security threshold does decrease from 50% to ~30-40%, but this is still a surprisingly low loss of security for what may be a 100-1000x gain in scalability with no loss of decentralization.
+### 什么是火车旅馆问题？ <a id="train-and-hotel"></a>
 
-## How do you actually do this sampling in proof of work, and in proof of stake?
+下面的例子是Andrew Miller提供的。 假设用户想要购买一张火车票并预订一家旅馆，并且想要确保这个操作是原子的 - 无论是保留成功还是两者都不成立。 如果火车票和酒店预订应用程序在同一个分片上，这很容易：创建一个交易，试图进行两个预订，除非两个预订都成功，否则引发异常，并且回滚所有。 但是，如果两者在不同的分片上，这并不是那么容易; 即使没有加密经济/去中心化的问题，这实质上也是[数据库原子事务](https://en.wikipedia.org/wiki/Atomicity_%28database_systems%29)的问题。
 
-In proof of stake, it is easy. There already is an “active validator set” that is kept track of in the state, and one can simply sample from this set directly. Either an in-protocol algorithm runs and chooses 150 validators for each shard, or each validator independently runs an algorithm that uses a common source of randomness to \(provably\) determine which shard they are at any given time. Note that it is very important that the sampling assignment is “compulsory”; validators do not have a choice of what shard they go into. If validators could choose, then attackers with small total stake could concentrate their stake onto one shard and attack it, thereby eliminating the system’s security.
+只有异步消息，最简单的解决方法是先预订火车，然后再预订旅馆，然后一旦两个预订都成功就都确认；预订机制将阻止其他人预留（或者至少会确保有足够的空间开放让所有的预订被确认）一段时间。然而，这意味着该机制依赖于额外安全假设：来自于跨分片的消息可以在固定的周期内被包含在另外的分片中。
 
-In proof of work, it is more difficult, as with “direct” proof of work schemes one cannot prevent miners from applying their work to a given shard. It may be possible to use [proof-of-file-access forms](https://www.microsoft.com/en-us/research/publication/permacoin-repurposing-bitcoin-work-for-data-preservation/) of proof of work to lock individual miners to individual shards, but it is hard to ensure that miners cannot quickly download or generate data that can be used for other shards and thus circumvent such a mechanism. The best known approach is through a technique invented by Dominic Williams called “puzzle towers”, where miners first perform proof of work on a common chain, which then inducts them into a proof of stake-style validator pool, and the validator pool is then sampled just as in the proof-of-stake case.
+使用跨分片同步交易，问题更容易，但创建可以跨分片原子同步交易的分片解决方案的挑战本身绝对是重要的。
 
-One possible intermediate route might look as follows. Miners can spend a large \(O\(c\)-sized\) amount of work to create a new “cryptographic identity”. The precise value of the proof of work solution then chooses which shard they have to make their next block on. They can then spend an O\(1\)-sized amount of work to create a block on that shard, and the value of that proof of work solution determines which shard they can work on next, and so on[8](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref8). Note that all of these approaches make proof of work “stateful” in some way; the necessity of this is fundamental.
+如果单个应用程序的使用量超过 O\(c\)，则该应用程序需要存在多个区块链中。这样做的可行性取决于应用程序自身的具体情况。一些应用程序（如货币）很容易并行化，而另外一些应用程序（例如某些类型的市场设计）则不能并行化智能串行处理。
 
-## How is the randomness for random sampling generated?
+我们知道分片区块链的属性有一个事实是不可能实现的。[阿姆达尔定律](https://en.wikipedia.org/wiki/Amdahl%27s_law)表明在应用程序有任何不可并行化组件的情况下，一旦容易获得并行化，不可并行化组件就会快速成为瓶颈。在像以太坊的通用计算平台中，很容易提出不可并行化计算的例子：一个跟踪内部变量x的合约，一旦接到到一个交易就将变量x设置为sha3\(x, tx\_data\)就是个简单的例子。没有分片方案可以给与这种形式的个别应用程序超过O\(c\)的性能。因此，随着时间的推移，分片区块链协议将会越来越好地能够处理越来越多样化的应用程序类型和应用程序交互，但分片架构至少在规模超过O\(c\)的某些方面总是落后于单分片的架构。
 
-First of all, it is important to note that even if random number generation is heavily exploitable, this is not a fatal flaw for the protocol; rather, it simply means that there is a medium to high centralization incentive. The reason is that because the randomness is picking fairly large samples, it is difficult to bias the randomness by more than a certain amount.
+### 我们正在运行的是哪些安全模型？ <a id="security-model-operated"></a>
 
-The simplest way to show this is through the [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution), as described above; if one wishes to avoid a sample of size N being more than 50% corrupted by an attacker, and an attacker has p% of the global stake pool, the chance of the attacker being able to get such a majority during one round is:
+评估区块链设计的安全性有几个竞争模型：
 
-![](https://github.com/vbuterin/diagrams/raw/master/scalability_faq/image00.gif)
+* **诚实的大多数**（或诚实的绝对多数）：我们假设有一组验证者，而且这些验证者的½（或⅓或¼）由攻击者控制，其余的验证者诚实地遵循协议。
+* **不协调的大多数**：我们假设所有的验证者在博弈论的上都是合理的（除了攻击者，他们有动机使用某种方式来攻击网络），但是不超过一部分（通常在¼和½之间）协调他们的行动。
+* **协调选择**：我们假定所有的验证者都是由同一个参与者控制的，或者完全有能力协调他们之间的经济上最优的选择。我们可以讨论联合的成本（或联合的利润）达到一些不良的结果。
+* **贿赂攻击者模式**：我们采取不协调的多数模型，而不是让攻击者成为参与者之一，攻击者处于协议之外，并有能力贿赂任何参与者来改变他们的行为。攻击者被模拟为拥有预算，这是他们愿意支付的最高金额，我们可以讨论他们的成本，即他们最终为破坏协议平衡而支付的金额。
 
-Here’s a table for what this probability would look like in practice for various values of N and p:&lt;
+比特币的[Eyal and Sirer’s selfish mining fix](https://arxiv.org/abs/1311.0243)工作量证明是健壮的，在诚实的大多数高达½的假设下，在不协调的大多数高达¼的假设下。[Schellingcoin](https://blog.ethereum.org/2014/03/28/schellingcoin-a-minimal-trust-universal-data-feed/)在诚实的大多数假设和在不协调的大多数假设下高达½，在协调选择模型下具有ε（即略微大于零）的攻击成本，并且在贿赂攻击者模型中由于[P + epsilon attacks](https://blog.ethereum.org/2015/01/28/p-epsilon-attack/)要求具有P + ε预算要求和ε成本。
 
-|  | N = 50 | N = 100 | N = 150 | N = 250 |
+混合模型也是存在的。例如，即使是在协调选择模型和贿赂攻击者模型中，通常也会做出一个**诚实的少数人**的假设，某些部分（可能是1-15％）的验证者会无视激励而采取利他行为。 我们也可以讨论由50-99％的验证者组成的联盟，试图破坏协议或伤害其他验证者; 例如在工作量证明中，一个51%算力大小的联盟可以通过拒绝包含其他矿工产出的区块来增加增加自己的收入。
+
+诚实的大多数模型可能是非常不切实际的，并且已经被证明了 - 比特币的[SPV mining fork](https://www.reddit.com/r/Bitcoin/comments/3c305f/if_you_are_using_any_wallet_other_than_bitcoin/csrsrf9/) 是个实际的例子。它证明了很多；例如，一个诚实的大多数模型意味着诚实的矿工自愿烧毁他们自己的资金，以某种方式惩罚攻击者。不协调的大多数模型的假设可能是现实的；还有个中间模型，其中大多数节点是诚实的但有个预算，如果他们失去了太多资金就回停止。
+
+贿赂攻击者模式在某些情况下被批评为不切实际的对抗行为，尽管其支持者认为，如果一个协议的设计考虑了贿赂攻击者模型，那么它应该能够大幅降低共识成本，因为51％的攻击变成一个可以从中恢复的事件。 我们将在不协调的大多数和贿赂攻击者模型的背景下评估分片。
+
+### 我们如何解决在不协调的大多数模型中的单分片接管攻击？ <a id="uncoordinated-model-solution-in-single-shard"></a>
+
+简单来说，随机抽样。 每个分片被分配一定数量的协调者（例如，150），在每个分片上批准区块的协调者都是从分片的样本中获取的。样本可以半频繁地（例如每12小时一次）或最频繁地（也就是说，没有真正的独立抽样过程，每个块从全局池中的每个分片随机选择协调者）进行重新洗牌。
+
+结果是，在一个诚实/不协调的多数模型中，相对于每一个单节点正在验证和创建块，即使在任何给定的时间在每个分片上只有几个节点验证和创建块，安全级别实际上并不低得多。 原因是简单统计：如果你在全局集合上假设一个⅔诚实的绝对多数，如果样本的大小是150，那么以99.999％的概率就可以满足样本的诚实多数条件。 如果你假定在全局组合上有一个¾诚实的绝对多数，那么这个概率就会增加到99.999999998％（[这里](https://en.wikipedia.org/wiki/Binomial_distribution)请看细节 \)。
+
+因此，至少在诚实/不协调的大多数情况下，我们有：
+
+* **去中心化**（每个节点只存储O\(c\) 数据，因为它是O\(c\) 分片的一个轻客户端，所以存储O\(1\) \* O\(c\) = O\(c\)的块头数据，以及对应于当前分配给它的一个或多个分片的完整状态和近期历史的O\(c\)数据）
+* **可扩展性** （有O\(c\) 个分片，每个分片有O\(c\) 的容量，最大容量是n = O\(c^2\)\)
+* **安全性**（攻击者需要控制整个O\(n\)大小的验证池中的至少 ⅓ ，以便有机会接管网络）。
+
+在Zamfir模型中（或者在“非常非常适应性的对手”模型中），事情并不是那么容易，但是我们稍后会做到这一点。 请注意，由于采样的不完善性，安全阈值确实从1/2降低到了⅓，但相对于可能是100-1000倍的可扩展性收益而不会损失去中心化，这仍然是一个令人惊讶的低安全性损失。
+
+### 你如何在工作量证明和权益证明中做这个抽样？ <a id="sampling-in-pow-and-pos"></a>
+
+在权益证明中，这很容易。 已经有一个“活动验证者集合”在状态中被跟踪，并且可以直接从这个集合中简单地抽样。 协议内算法运行并为每个分片选择150个校验者，或者每个校验者独立地运行一个算法，该算法使用一个共同的随机源来（可证实地）确定它们在任何给定时间的分片。 请注意，抽样任务是“强制性的”是非常重要的。 验证者不能选择它们进入的碎片。 如果验证者可以选择，那么攻击者可以用小权益集中他们的权益到一个分片上并攻击它，从而消除系统的安全性。
+
+在工作量证明中，这是比较困难的，就像“直接的”工作量证明计划一样，不能阻止矿工将工作量于某一特定的分片。 有可能使用[proof-of-file-access forms](https://www.microsoft.com/en-us/research/publication/permacoin-repurposing-bitcoin-work-for-data-preservation/)工作量证明来将个人矿工锁定到单独的分片，但是很难确保矿工不能快速下载或生成可用于其他分片的数据并因此避开 这种机制。 最为人所知的方法是通过Dominic Williams发明的一种叫做“拼图塔”的技术，矿工首先在一个共同链上进行工作量证明，然后将这些证明导入到关于权益风格验证池的证明中，然后验证池就像在权益证明的情况下一样。
+
+一个可能的中间路线可能如下所示。 矿工可以花费大量的（O\(c\)大小）工作来创建一个新的“密码身份”。 工作量证明方案的确切值，然后选择他们在哪个分片上产生下一个块。他们可以花费O\(1\)大小的工作量在分片上创建一个块，然后工作量证明的价值决定了他们接下来可以继续产块的分片 [8](https://ethfans.org/posts/Sharding-FAQ#8) 。注意的是，所有这些方法都以某种方式工作量证明“有状态”，这是必要的。
+
+### 取样的频率高低有哪些折衷？ <a id="tradeoff-in-sampling-frequent"></a>
+
+选择频率只影响如何自适应攻击者使得协议仍然安全防御他们; 例如，如果您认为适应性攻击（例如不诚实的验证者发现他们是同一个样本的一部分并且共同勾结）可能在6小时内发生但不会更早，那么采样时间为4 小时而不是12小时。 这是一个赞成尽快抽样的理由。
+
+每个区块进行抽样的主要挑战是重新改组会带来非常高的开销。 具体来说，验证分片上的块需要知道该分片的状态，因此每次验证器被重新改组时，验证器需要下载他们所在的新分片的整个状态。这需要强大的状态大小控制策略（即经济上确保状态不会增长过大，无论是删除旧账户，限制创建新账户的比率还是两者的结合），以及相当长的重组时间。
+
+目前，Parity客户端可以在〜3分钟内通过“warp-sync”下载和验证完整的以太坊状态快照; 如果我们增加20倍以弥补增加的使用量（10 tx / sec而不是0.5 tx / sec）（我们假定未来的状态大小控制策略和从长期使用中积累的“灰尘”大致抵消了） 得到约60分钟的状态同步时间，这表明12-24小时的同步周期但不少于是安全的。
+
+有两条可能的途径可以克服这个挑战。
+
+### 我们是否可以强制更多的状态保持在用户端，以便交易可以被验证，而不需要验证器来保存所有的状态数据？ <a id="force-more-of-state-to-be-held"></a>
+
+这里的技术往往涉及要求用户存储状态数据，并为他们发送的每一个交易单独提供Merkle证明。 一个交易将与一个正确执行Merkle证明一起发送，这个证明将允许一个只有状态根的节点计算新的状态根。 这种正确执行证明将包括需要遍历的trie中对象的子集，以访问和验证交易必须验证的状态信息; 因为Merkle证明的大小是 O\(log\(n\)\)，所以访问恒定数量对象的交易证明也是 O\(log\(n\)\)大小。
+
+![](http://upyun-assets.ethfans.org/uploads/photo/image/d9b4841d1d5e4364a646767c83d49b16.png)
+
+\(Merkle树中对象的子集，需要在访问多个状态对象的交易的Merkle证明中提供\)
+
+以纯粹的形式实施这个计划有两个缺陷。 首先，它引入了O\(log\(n\)\)的开销，尽管可以说这个O\(log\(n\)\)开销并不像看起来那么糟糕，因为它确保了验证器总是可以简单地将状态数据保存在内存中， 它永远不需要处理访问硬盘驱动器 [9](https://ethfans.org/posts/Sharding-FAQ#9) 的开销。 其次，如果交易访问的地址是静态的，那么它可以很容易地实施，但是如果所讨论的地址是动态的那么是很困难实施的，也就是说，如果交易执行的代码是`read(f(read(x)))`，其中某些状态读取的地址取决于其他状态读取的执行结果。 在这种情况下，交易发送者认为交易将在发送交易时读取的地址可能与交易被打包在块中时实际读取的地址不同，因此Merkle证明可能是不充分的 [10](https://ethfans.org/posts/Sharding-FAQ#10) 。
+
+一种折中方法是允许交易发送者发送一个证明，该证明包含访问数据的最可能的可能性; 如果证明是充分的，则交易将被接受，如果状态意外地变化并且证明不足，则发送者必须重新发送或者网络中的一些帮助者节点重新发送交易并添加正确的证明。 那么开发者可以自由地进行具有动态行为的交易，但是行为越动态，交易实际上被打包在块中的可能性就越小。
+
+注意验证者在这种方法下的交易包含策略需要很复杂，因为他们可能会花费数百万的gas处理一笔交易运行到最后一步才发现访问到他们没有的一些状态条目。 一个可能的妥协是验证者有一个策略，只接受\(i\)低gas成本的交易，例如&lt; 100k, \(ii\)静态地指定一组允许访问的合约，并包含这些合约的整个状态的证明。 请注意，这只适用于最初广播交易时; 一旦交易被打包在一个块中，执行顺序是固定的，因此只能提供与实际需要访问的状态对应的最小Merkle证明。
+
+如果验证者不立即重新重组，还有一个提高效率的机会。 我们可以期望验证者存储来自已经处理的交易的证明的数据，以便该数据不需要被再次发送; 如果k交易是在一个重组周期内发送的，那么这就将Merkle证据的平均大小从log\(n\) 减少到log\(n\) -log\(k\)。
+
+### 随机抽样的随机性是如何产生的？ <a id="randomness-of-sampling"></a>
+
+首先，重要的是要指出，即使随机数的产生是高度可利用的，这对协议来说也不是一个致命的缺陷。 相反，它只是意味着有一个中等偏高的中心化激励。 原因在于，由于随机性选取相当大的样本，因此很难将随机性偏差超过一定数量。
+
+如上所述，最简单的方法就是通过[二项式分布](https://en.wikipedia.org/wiki/Binomial_distribution)。 如果希望避免大小为N的样本被超过50％攻击，并且攻击者具有全球权益池的p％，则攻击者能够在一轮中获得大多数的概率是：
+
+![](http://upyun-assets.ethfans.org/uploads/photo/image/c66fd40b80714a6f990cae3c8a3b2276.png)
+
+下面是一个表格，说明N和P的各种值在实践中的概率：
+
+|  | N=50 | N=100 | N=150 | N=250 |
 | :--- | :--- | :--- | :--- | :--- |
-| p = 0.4 | 0.0978 | 0.0271 | 0.0082 | 0.0009 |
+| p=0.4 | 0.0978 | 0.0271 | 0.0082 | 0.0009 |
 | p = 0.33 | 0.0108 | 0.0004 | 1.83 \* 10-5 | 3.98 \* 10-8 |
 | p = 0.25 | 0.0001 | 6.63 \* 10-8 | 4.11 \* 10-11 | 1.81 \* 10-17 |
 | p = 0.2 | 2.09 \* 10-6 | 2.14 \* 10-11 | 2.50 \* 10-16 | 3.96 \* 10-26 |
 
-Hence, for N &gt;= 150, the chance that any given random seed will lead to a sample favoring the attacker is very small indeed[11](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref11),[12](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref12). What this means from the perspective of security of randomness is that the attacker needs to have a very large amount of freedom in choosing the random values order to break the sampling process outright. Most vulnerabilities in proof-of-stake randomness do not allow the attacker to simply choose a seed; at worst, they give the attacker many chances to select the most favorable seed out of many pseudorandomly generated options. If one is very worried about this, one can simply set N to a greater value, and add a moderately hard key-derivation function to the process of computing the randomness, so that it takes more than 2100 computational steps to find a way to bias the randomness sufficiently.
+\(编者注：原表格如此\)
 
-Now, let’s look at the risk of attacks being made that try to influence the randomness more marginally, for purposes of profit rather than outright takeover. For example, suppose that there is an algorithm which pseudorandomly selects 1000 validators out of some very large set \(each validator getting a reward of $1\), an attacker has 10% of the stake so the attacker’s average “honest” revenue 100, and at a cost of $1 the attacker can manipulate the randomness to “re-roll the dice” \(and the attacker can do this an unlimited number of times\).
+因此，对于N&gt; = 150，任何给定的随机种子将导致有利于攻击者的样本的可能性确实非常小 [11](https://ethfans.org/posts/Sharding-FAQ#11),[12](https://ethfans.org/posts/Sharding-FAQ#12) 。 这就意味着从随机性的安全角度来看，攻击者需要在选择随机值的顺序上有非常大的自由度，以彻底打破抽样过程。 大多数权益证明随机性的漏洞不允许攻击者简单地选择种子; 在最坏的情况下，他们给了攻击者许多机会从许多伪随机生成的选项中选出最有利的种子。 如果对此非常担心，可以简单地将N设置为更大的值，并且在计算随机性的过程中添加适度的硬key-derivation函数，从而需要超过2^100计算步骤来找到足够随机性偏差。
 
-Due to the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), the standard deviation of the number of samples, and based [on other known results in math](http://math.stackexchange.com/questions/89030/expectation-of-the-maximum-of-gaussian-random-variables) the expected maximum of N random samples is slightly under M + S \* sqrt\(2 \* log\(N\)\) where M is the mean and S is the standard deviation. Hence the reward for manipulating the randomness and effectively re-rolling the dice \(i.e. increasing N\) drops off sharply, e.g. with 0 re-trials your expected reward is $100, with one re-trial it's $105.5, with two it's $108.5, with three it's $110.3, with four it's $111.6, with five it's $112.6 and with six it's $113.5. Hence, after five retrials it stops being worth it. As a result, an economically motivated attacker with ten percent of stake will \(socially wastefully\) spend $5 to get an additional revenue of $13, for a net surplus of $8.
+现在，我们来看看为了获利而不是直接接管，试图更轻微影响随机性的攻击风险。 例如，假设有一个算法从一些非常大的集合中伪随机地选择了1000个验证者（每个验证者获得$ 1的奖励），攻击者拥有10％的权益，所以攻击者的平均“诚实”收入为100， 攻击者可以操纵随机性来“重新掷骰子”（攻击者可以无限次地执行此操作），这个成本是1美元。
 
-However, this kind of logic assumes that one single round of re-rolling the dice is expensive. Many older proof of stake algorithms have a “stake grinding” vulnerability where re-rolling the dice simply means making a computation locally on one’s computer; algorithms with this vulnerability are certainly unacceptable in a sharding context. Newer algorithms \(see the “validator selection” section in the [proof of stake FAQ](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)\) have the property that re-rolling the dice can only be done by voluntarily giving up one’s spot in the block creation process, which entails giving up rewards and fees. The best way to mitigate the impact of marginal economically motivated attacks on sample selection is to find ways to increase this cost. One method to increase the cost by a factor of sqrt\(N\) from N rounds of voting is the [majority-bit method devised by Iddo Bentov](https://arxiv.org/pdf/1406.5694.pdf).
+由于[中心极限定理](https://en.wikipedia.org/wiki/Central_limit_theorem)，样本数量的标准偏差，并且[基于数学上的其他已知结果](http://math.stackexchange.com/questions/89030/expectation-of-the-maximum-of-gaussian-random-variables)，N个随机样本的期望最大值略低于M + S \* sqrt\(2 \* log\(N\)\)，其中M是 平均值和S是标准差。 因此，操纵随机性和有效地重掷骰子（即增加N）的奖励急剧下降， 重新选择你的预期奖励是100美元，一个重新选择105.5美元，两个108.5美元，其中三个110.3美元，其中四个111.6美元，五个112.6美元，六个113.5美元。 因此，在五次重试之后，它不值得这样做。 结果，一个有10％权益的经济动机的攻击者会（在社会上浪费）花5美元获得13美元的额外收入，净盈余为8美元。
 
-Another form of random number generation that is not exploitable by minority coalitions is the deterministic threshold signature approach most researched and advocated by Dominic Williams. The strategy here is to use a [deterministic threshold signature](https://eprint.iacr.org/2002/081.pdf) to generate the random seed from which samples are selected. Deterministic threshold signatures have the property that the value is guaranteed to be the same regardless of which of a given set of participants provides their data to the algorithm, provided that at least ⅔ of participants do participate honestly. This approach is more obviously not economically exploitable and fully resistant to all forms of stake-grinding, but it has several weaknesses:
+然而，这种逻辑假定单轮重掷骰子是昂贵的。 许多比较老的权益证明算法有一个“权益磨损”漏洞，重掷掷骰子只是在本地计算机上进行计算; 具有此漏洞的算法在分片环境中肯定是不可接受的。 较新的算法（参见关于[权益证明FAQ](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)的“验证器选择”部分）具有只能通过在块创建过程中自愿放弃一个点来完成掷骰子的属性，这需要放弃奖励和费用。 减轻边缘经济动机的攻击对样本选择的影响的最好办法是找到增加成本的方法。 一种将N轮投票的成本增加一倍的方法是[由Iddo Bentov设计的多数位方法](https://arxiv.org/pdf/1406.5694.pdf); Mauve论文分片算法期望使用这种方法。
 
-* **It relies on more complex cryptography** \(specifically, elliptic curves and pairings\). Other approaches rely on nothing but the random-oracle assumption for common hash algorithms.
-* **It fails when many validators are offline**. A desired goal for public blockchains is to be able to survive very large portions of the network simultaneously disappearing, as long as a majority of the remaining nodes is honest; deterministic threshold signature schemes at this point cannot provide this property.
-* **It’s not secure in a bribing attacker or coordinated majority model** where more than 67% of validators are colluding. The other approaches described in the proof of stake FAQ above still make it expensive to manipulate the randomness, as data from all validators is mixed into the seed and making any manipulation requires either universal collusion or excluding other validators outright.
+多米尼克·威廉斯（Dominic Williams）最为研究和倡导的确定性门限签名方法是另一种不被少数群体联盟利用的随机数生成方式。 这里的策略是使用[确定性的门限签名](https://eprint.iacr.org/2002/081.pdf)来从选择样本中生成随机种子。 确定性阈值签名具有这样的属性，即不管给定的一组参与者中的哪一个向算法提供其数据，只要至少⅔的参与者诚实地参与，值就保证相同。 这种方法显然不是经济上可以利用的，并且完全抵抗各种形式的权益磨损，但是它有几个弱点：
 
-One might argue that the deterministic threshold signature approach works better in consistency-favoring contexts and other approaches work better in availability-favoring contexts.
+* **它依赖于更复杂的密码学**（具体来说，椭圆曲线和配对）。其他方法仅仅依赖于对常见散列算法的随机预言。
+* **当许多验证器脱机时，它会失败**。 公共区块链的预期目标就是能够在网络的很大一部分节点同时消失但剩余节点大部分是诚实的情况下，它依然可以存活； 确定性门限签名方案在这一点上不能提供这种属性。
+* **在Zamfir模型中**，有超过⅔ 的验证器串通是不安全的。 上述权益证明FAQ中描述的其他方法仍然会使操作随机性变得非常昂贵，因为来自所有验证人的数据被混合到种子中，并且进行任何操作都需要通用串通或彻底排除其他验证者。
 
-## What are the tradeoffs in making sampling more or less frequent?
+有人可能会认为确定性门限签名方法在一致性较好的情况下工作得更好，其他方法在可用性较好的情况下工作得更好。
 
-Selection frequency affects just how adaptive adversaries can be for the protocol to still be secure against them; for example, if you believe that an adaptive attack \(e.g. dishonest validators who discover that they are part of the same sample banding together and colluding\) can happen in 6 hours but not less, then you would be okay with a sampling time of 4 hours but not 12 hours. This is an argument in favor of making sampling happen as quickly as possible.
+### 在贿赂攻击者或协调选择模式中通过随机抽样进行分片的关注点是什么？ <a id="point-in-sampling-in-coordinated-attack-model"></a>
 
-The main challenge with sampling taking place every block is that reshuffling carries a very high amount of overhead. Specifically, verifying a block on a shard requires knowing the state of that shard, and so every time validators are reshuffled, validators need to download the entire state for the new shard\(s\) that they are in. This requires both a strong state size control policy \(i.e. economically ensuring that the size of the state does not grow too large, whether by deleting old accounts, restricting the rate of creating new accounts or a combination of the two\) and a fairly long reshuffling time to work well.
+在贿赂攻击者或协调选择模型中，验证者是随机抽样的事实并不重要：不管样本是什么，攻击者都可以贿赂绝大多数样本做攻击者喜欢的事情，或者攻击者直接控制大多数的样本，并且可以指挥样本以低成本\(O\(c\) 成本）执行任意的动作。
 
-Currently, the Parity client can download and verify a full Ethereum state snapshot via “warp-sync” in ~2-8 hours, suggesting that reshuffling periods of a few days but not less are safe; perhaps this could be reduced somewhat by shrinking the state size via [storage rent](https://ethresear.ch/t/a-simple-and-principled-way-to-compute-rent-fees/1455) but even still reshuffling periods would need to be long, potentially making the system vulnerable to adaptive adversaries.
+在这一点上，攻击者有能力对该样本进行51％的攻击。 由于存在跨分片扩散风险，威胁进一步放大：如果攻击者破坏了分片的状态，攻击者就可以开始向其他分片发送无限量的资金，并执行其他跨分片的恶作剧。 总而言之，贿赂攻击者或协调选择模型的安全性并不比简单地创O\(c\) altcoins好得多。
 
-However, there are ways of completely avoiding the tradeoff, choosing the creator of the next collation in each shard with only a few minutes of warning but without adding impossibly high state downloading overhead. This is done by shifting responsibility for state storage, and possibly even state execution, away from collators entirely, and instead assigning the role to either users or an interactive verification protocol.
+**我们如何改进?**
 
-## Can we force more of the state to be held user-side so that transactions can be validated without requiring validators to hold all state data?
+基本上是通过全面解决欺诈检测问题。
 
-See also: [https://ethresear.ch/t/the-stateless-client-concept/172](https://ethresear.ch/t/the-stateless-client-concept/172)
+解决这个问题的一个主要类别是使用挑战-响应机制。 挑战-响应机制通常依赖于一个升级原则：事实上X（例如，“在＃54分片的排序＃17293是有效的”）最初被接受为真，如果至少有k个验证人签署声明（背后有存款）为真。 但是，如果发生这种情况，那么在这个挑战期间，2k验证者可以签署声明，声明这是错误的。 如果发生这种情况，4k验证人可以签署一个声明，说明声明实际上是真实的，等等，直到一方放弃或大多数验证人已经签署声明，此时每个验证人和客户端自己检查X是否为真。 如果X被裁定为正确，那么所有提出这种声明的人都会得到奖励，每个提出错误声明的人都会受到惩罚，反之亦然。
 
-The techniques here tend to involve requiring users to store state data and provide Merkle proofs along with every transaction that they send. A transaction would be sent along with a Merkle proof-of-correct-execution \(or "witness"\), and this proof would allow a node that only has the state root to calculate the new state root. This proof-of-correct-execution would consist of the subset of objects in the trie that would need to be traversed to access and verify the state information that the transaction must verify; because Merkle proofs are O\(log\(n\)\) sized, the proof for a transaction that accesses a constant number of objects would also be O\(log\(n\)\) sized.
+看看这个机制，你可以证明恶意行为者失去了一定数量的资金，与他们被迫查看给定数据的行为者数量成比例。 强迫所有用户查看数据需要大量的验证者签署错误的声明，这可以用来惩罚他们，所以迫使所有用户查看一段数据的成本是 O\(n\); 这防止了挑战-响应机制被用作拒绝服务向量。
 
-![](https://github.com/vbuterin/diagrams/raw/master/scalability_faq/image03.png)  
-The subset of objects in a Merkle tree that would need to be provided in a Merkle proof of a transaction that accesses several state objects
-
-Implementing this scheme in its pure form has two flaws. First, it introduces O\(log\(n\)\) overhead \(~10-30x in practice\), although one could argue that this O\(log\(n\)\) overhead is not as bad as it seems because it ensures that the validator can always simply keep state data in memory and thus it never needs to deal with the overhead of accessing the hard drive[9](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref9). Second, it can easily be applied if the addresses that are accessed by a transaction are static, but is more difficult to apply if the addresses in question are dynamic - that is, if the transaction execution has code of the form `read(f(read(x)))` where the address of some state read depends on the execution result of some other state read. In this case, the address that the transaction sender thinks the transaction will be reading at the time that they send the transaction may well differ from the address that is actually read when the transaction is included in a block, and so the Merkle proof may be insufficient[10](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref10).
-
-This can be solved with access lists \(think: a list of accounts and subsets of storage tries\), which specify statically what data transactions can access, so when a miner receives a transaction with a witness they can determine that the witness contains all of the data the transaction could possibly access or modify. However, this harms censorship resistance, making attacks similar in form to the [attempted DAO soft fork](http://hackingdistributed.com/2016/07/05/eth-is-more-resilient-to-censorship/) possible.
-
-## Can we split data and execution so that we get the security from rapid shuffling data validation without the overhead of shuffling the nodes that perform state execution?
-
-Yes. We can create a protocol where we split up validators into three roles with different incentives \(so that the incentives do not overlap\): **proposers or collators, a.k.a. prolators**, **notaries** and **executors**. Prollators are responsible for simply building a chain of collations; while notaries verify that the data in the collations is available. Prolators do not need to verify anything state-dependent \(e.g. whether or not someone trying to send ETH has enough money\). Executors take the chain of collations agreed to by the prolators as given, and then execute the transactions in the collations sequentially and compute the state. If any transaction included in a collation is invalid, executors simply skip over it. This way, validators that verify availability could be reshuffled instantly, and executors could stay on one shard.
-
-There would be a light client protocol that allows light clients to determine what the state is based on claims signed by executors, but this protocol is NOT a simple majority-voting consensus. Rather, the protocol is an interactive game with some similarities to Truebit, where if there is great disagreement then light client simply execute specific collations or portions of collations themselves. Hence, light clients can get a correct view of the state even if 90% of the executors in the shard are corrupted, making it much safer to allow executors to be very infrequently reshuffled or even permanently shard-specific.
-
-Choosing _what goes in_ to a collation does require knowing the state of that collation, as that is the most practical way to know what will actually pay transaction fees, but this can be solved by further separating the role of collators \(who agree on the history\) and proposers \(who propose individual collations\) and creating a market between the two classes of actors; see [here](https://ethresear.ch/t/separating-proposing-and-confirmation-of-collations/1000) for more discussion on this. However, this approach has since been found to be flawed as per [this analysis](https://ethresear.ch/t/exploring-the-proposer-collator-split/1632/).
-
-## Can SNARKs and STARKs help?
-
-Yes! One can create a second-level protocol where a [SNARK](https://medium.com/@VitalikButerin/zk-snarks-under-the-hood-b33151a013f6), [STARK](https://vitalik.ca/general/2017/11/09/starks_part_1.html) or similar succinct zero knowledge proof scheme is used to prove the state root of a shard chain, and proof creators can be rewarded for this. That said, shard chains to actually agree on what data gets included into the shard chains in the first place is still required.
-
-## How can we facilitate cross-shard communication?
-
-The easiest scenario to satisfy is one where there are very many applications that individually do not have too many users, and which only very occasionally and loosely interact with each other; in this case, applications can live on separate shards and use cross-shard communication via receipts to talk to each other.
-
-This typically involves breaking up each transaction into a "debit" and a "credit". For example, suppose that we have a transaction where account A on shard M wishes to send 100 coins to account B on shard N. The steps would looks as follows:
-
-1. Send a transaction on shard M which \(i\) deducts the balance of A by 100 coins, and \(ii\) creates a receipt. A receipt is an object which is not saved in the state directly, but where the fact that the receipt was generated can be verified via a Merkle proof.
-2. Wait for the first transaction to be included \(sometimes waiting for finalization is required; this depends on the system\).
-3. Send a transaction on shard N which includes the Merkle proof of the receipt from \(1\). This transaction also checks in the state of shard N to make sure that this receipt is "unspent"; if it is, then it increases the balance of B by 100 coins, and saves in the state that the receipt is spent.
-4. Optionally, the transaction in \(3\) also saves a receipt, which can then be used to perform further actions on shard M that are contingent on the original operation succeeding.
-
-![](https://github.com/vbuterin/diagrams/raw/master/scalability_faq/image01.png)
-
-In more complex forms of sharding, transactions may in some cases have effects that spread out across several shards and may also synchronously ask for data from the state of multiple shards.
-
-## What is the train-and-hotel problem?
-
-The following example is courtesy of Andrew Miller. Suppose that a user wants to purchase a train ticket and reserve a hotel, and wants to make sure that the operation is atomic - either both reservations succeed or neither do. If the train ticket and hotel booking applications are on the same shard, this is easy: create a transaction that attempts to make both reservations, and throws an exception and reverts everything unless both reservations succeed. If the two are on different shards, however, this is not so easy; even without cryptoeconomic / decentralization concerns, this is essentially the problem of [atomic database transactions](https://en.wikipedia.org/wiki/Atomicity_%28database_systems%29).
-
-With asynchronous messages only, the simplest solution is to first reserve the train, then reserve the hotel, then once both reservations succeed confirm both; the reservation mechanism would prevent anyone else from reserving \(or at least would ensure that enough spots are open to allow all reservations to be confirmed\) for some period of time. However, this means that the mechanism relies on an extra security assumptions: that cross-shard messages from one shard can get included in another shard within some fixed period of time.
-
-With cross-shard synchronous transactions, the problem is easier, but the challenge of creating a sharding solution capable of making cross-shard atomic synchronous transactions is itself decidedly nontrivial; see Vlad Zamfir's [presentation which talks about merge blocks](https://www.youtube.com/watch?v=GNGbd_RbrzE).
-
-Another solution involves making contracts themselves movable across shards; see the proposed [cross-shard locking scheme](https://ethresear.ch/t/cross-shard-locking-scheme-1/1269) as well as [this proposal](https://ethresear.ch/t/cross-shard-contract-yanking/1450) where contracts can be "yanked" from one shard to another, allowing two contracts that normally reside on different shards to be temporarily moved to the same shard at which point a synchronous operation between them can happen.
-
-## What are the concerns about sharding through random sampling in a bribing attacker or coordinated choice model?
-
-In a bribing attacker or coordinated choice model, the fact that validators are randomly sampled doesn’t matter: whatever the sample is, either the attacker can bribe the great majority of the sample to do as the attacker pleases, or the attacker controls a majority of the sample directly and can direct the sample to perform arbitrary actions at low cost \(O\(c\) cost, to be precise\).
-
-At that point, the attacker has the ability to conduct 51% attacks against that sample. The threat is further magnified because there is a risk of cross-shard contagion: if the attacker corrupts the state of a shard, the attacker can then start to send unlimited quantities of funds out to other shards and perform other cross-shard mischief. All in all, security in the bribing attacker or coordinated choice model is not much better than that of simply creating O\(c\) altcoins.
-
-## How can we improve on this?
-
-In the context of state execution, we can use interactive verification protocols that are not randomly sampled majority votes, and that can give correct answers even if 90% of the participants are faulty; see [Truebit](https://people.cs.uchicago.edu/~teutsch/papers/truebit.pdf) for an example of how this can be done. For data availability, the problem is harder, though there are several strategies that can be used alongside majority votes to solve it.
-
-## What is the data availability problem, and how can we use erasure codes to solve it?
+### 什么是数据可用性问题，我们如何使用纠删码来解决它？ <a id="erasure-code"></a>
 
 See [https://github.com/ethereum/research/wiki/A-note-on-data-availability-and-erasure-coding](https://github.com/ethereum/research/wiki/A-note-on-data-availability-and-erasure-coding)
 
-## Can we remove the need to solve data availability with some kind of fancy cryptographic accumulator scheme?
+### 我们可以通过某种奇特的密码累加器方案来消除解决数据可用性的需要吗？ <a id="cryptographic-accumulator-scheme"></a>
 
-No. Suppose there is a scheme where there exists an object S representing the state \(S could possibly be a hash\) possibly as well as auxiliary information \("witnesses"\) held by individual users that can prove the presence of existing state objects \(e.g. S is a Merkle root, the witnesses are the branches, though other constructions like RSA accumulators do exist\). There exists an updating protocol where some data is broadcasted, and this data changes S to change the contents of the state, and also possibly changes witnesses.
+不。假设有一个方案存在一个表示状态的对象S（S可能是一个散列），以及个别用户持有的可以证明存在状态对象的辅助信息（“证人”）（例如 S是Merkle根，证人是分支，尽管其他结构如RSA累加器确实存在）。 存在广播一些数据的更新协议，并且该数据改变S以改变状态的内容，并且还可能改变证人。
 
-Suppose some user has the witnesses for a set of N objects in the state, and M of the objects are updated. After receiving the update information, the user can check the new status of all N objects, and thereby see which M were updated. Hence, the update information itself encoded at least ~M \* log\(N\) bits of information. Hence, the update information that everyone needs for receive to implement the effect of M transactions must necessarily be of size O\(M\). [14](https://github.com/ethereum/wiki/wiki/Sharding-FAQ#ftnt_ref14)
+假设某个用户在该状态下有一组N个对象的证人，并且更新了这些对象中的M个。 接收到更新信息后，用户可以检查所有N个对象的新状态，从而查看哪个M被更新。 因此，更新信息本身至少编码~M \* log\(N\)个比特的信息。 因此，为了实现M个交易的效果，每个人需要接收的更新信息必须是O\(M\)。[14](https://ethfans.org/posts/Sharding-FAQ#14)
 
-## So this means that we can actually create scalable sharded blockchains where the cost of making anything bad happen is proportional to the size of the entire validator set?
+### 那么这意味着我们实际上可以创建可扩展的分片区块链，其中发生不良事件的成本与整个验证人集的大小成正比？ <a id="the-size-of-the-entire-validator"></a>
 
-There is one trivial attack by which an attacker can always burn O\(c\) capital to temporarily reduce the quality of a shard: spam it by sending transactions with high transaction fees, forcing legitimate users to outbid you to get in. This attack is unavoidable; you could compensate with flexible gas limits, and you could even try “transparent sharding” schemes that try to automatically re-allocate nodes to shards based on usage, but if some particular application is non-parallelizable, Amdahl’s law guarantees that there is nothing you can do. The attack that is opened up here \(reminder: it only works in the Zamfir model, not honest/uncoordinated majority\) is arguably not substantially worse than the transaction spam attack. Hence, we've reached the known limit for the security of a single shard, and there is no value in trying to go further.
+有一个微不足道的攻击，攻击者总是可以焚烧O\(c\)资金来暂时降低分片的质量：通过发送高交易费用的交易来制造垃圾，迫使正常用户无法进入。这种攻击是不可避免的;你可以用灵活的gas限制进行补偿，甚至可以尝试根据使用情况尝试自动重新分配节点到分片的“透明分片”方案，但是如果某个特定的应用程序是不可并行的，Amdahl法则保证你无能为力。在这里打开的攻击（提醒：它只适用于Zamfir模式，而不是诚实/不协调的大多数）可以说没有比垃圾交易攻击严重得多。因此，我们已经达到了单个分片安全性的已知限制，并且试图走得更远是没有价值的。
 
-## Let’s walk back a bit. Do we actually need any of this complexity if we have instant shuffling? Doesn’t instant shuffling basically mean that each shard directly pulls validators from the global validator pool so it operates just like a blockchain, and so sharding doesn’t actually introduce any new complexities?
+### 让我们往回走一点，如果有实时重组，我们是否真的需要这种复杂性？不实时重组基本上意味着每个分片直接从全局验证人池中提取验证人，所以它就像区块链一样运行，所以分片实际上不会引入任何新的复杂性？ <a id="complexity-of-instant-shuffling"></a>
 
-Kind of. First of all, it’s worth noting that proof of work and simple proof of stake, even without sharding, both have very low security in a bribing attacker model; a block is only truly “finalized” in the economic sense after O\(n\) time \(as if only a few blocks have passed, then the economic cost of replacing the chain is simply the cost of starting a double-spend from before the block in question\). Casper solves this problem by adding its finality mechanism, so that the economic security margin immediately increases to the maximum. In a sharded chain, if we want economic finality then we need to come up with a chain of reasoning for why a validator would be willing to make a very strong claim on a chain based solely on a random sample, when the validator itself is convinced that the bribing attacker and coordinated choice models may be true and so the random sample could potentially be corrupted.
+有点。首先，值得注意的是，工作量证明和简单的权益证明，即使没有分片，在贿赂攻击者模型中都具有非常低的安全性;一个区块在经过O\(n\) 时间后才在经济意义上真正地“确定”（好像只有几个区块已经过去了，那么替换区块的经济成本就是从区块有问题之前开始双花的成本）。Casper通过增加最终机制解决了这个问题，经济安全边际立即增加到最大。在一个分片链中，如果我们想要经济最终性的话，那么我们需要提出一个演绎链，为什么一个验证人愿意在一个完全基于随机样本的链上做出一个非常强有力的声明，当验证人本身相信贿赂攻击者和协调选择模型可能是真实的，所以随机样本可能被破坏。
 
-## You mentioned transparent sharding. I’m 12 years old and what is this?
+### 你提到透明分片。 我才12岁，这是什么？ <a id="transparent-sharding"></a>
 
-Basically, we do not expose the concept of “shards” directly to developers, and do not permanently assign state objects to specific shards. Instead, the protocol has an ongoing built-in load-balancing process that shifts objects around between shards. If a shard gets too big or consumes too much gas it can be split in half; if two shards get too small and talk to each other very often they can be combined together; if all shards get too small one shard can be deleted and its contents moved to various other shards, etc.
+基本上，我们并不直接向开发者提供“分片”的概念，也不会永久性地将状态对象分配给特定的分片。 相反，该协议有一个正在进行的内置负载均衡过程，可以在分片之间移动对象。 如果分片变得太大或者消耗太多的gas，可以分成两半。 如果两个分片变得太小，并且经常彼此交互，他们可以合并在一起; 如果所有分片太小，则可以删除一个分片并将其内容移动到各种其他分片等等。
 
-Imagine if Donald Trump realized that people travel between New York and London a lot, but there’s an ocean in the way, so he could just take out his scissors, cut out the ocean, glue the US east coast and Western Europe together and put the Atlantic beside the South Pole - it’s kind of like that.
+想象一下，唐纳德·特朗普是否意识到人们在纽约和伦敦之间的旅行很多，但是有一个海洋的路，所以他可以拿出剪刀，剪掉海洋，把美国东海岸和西欧粘在一起， 大西洋旁边的南极 - 这就是这样的。
 
-## What are some advantages and disadvantages of this?
+**这有哪些优点和缺点？**
 
-* Developers no longer need to think about shards
-* There’s the possibility for shards to adjust manually to changes in gas prices, rather than relying on market mechanics to increase gas prices in some shards more than others
-* There is no longer a notion of reliable co-placement: if two contracts are put into the same shard so that they can interact with each other, shard changes may well end up separating them
-* More protocol complexity
+* 开发者不再需要考虑分片
+* 分片有可能根据gas价格的变化手动调整，而不是依靠市场机制来提高一些分片中的gas价格
+* 不再有一个可靠的共置的概念：如果两个合约被放入同一个分片，以便他们可以互相交互，分片的变化可能最终将它们分开
+* 协议更复杂
 
-The co-placement problem can be mitigated by introducing a notion of “sequential domains”, where contracts may specify that they exist in the same sequential domain, in which case synchronous communication between them will always be possible. In this model a shard can be viewed as a set of sequential domains that are validated together, and where sequential domains can be rebalanced between shards if the protocol determines that it is efficient to do so.
+可以通过引入“顺序域”的概念来缓解共置问题，其中合约可以指定它们存在于相同的顺序域中，在这种情况下，它们之间的同步通信将始终是可能的。 在这个模型中，一个分片可以被看作是一组被一起验证的顺序域，并且如果协议确定这样做是有效的，那么顺序域可以在分片之间重新平衡。
 
-## How would synchronous cross-shard messages work?
+### 同步跨分片消息将如何工作？ <a id="synchornous-cross-shard-messages"></a>
 
-The process becomes much easier if you view the transaction history as being already settled, and are simply trying to calculate the state transition function. There are several approaches; one fairly simple approach can be described as follows:
+如果您将历史交易记录视为已经结算，并且只是试图计算状态转换函数，则该过程变得更容易。有几种方法;一个相当简单的方法可以描述如下：
 
-* A transaction may specify a set of shards that it can operate in
-* In order for the transaction to be effective, it must be included at the same block height in all of these shards.
-* Transactions within a block must be put in order of their hash \(this ensures a canonical order of execution\)
+* 一个交易可以指定一个可以在其中操作的一组分片
+* 为了使交易有效，它必须在所有分片上被打包在相同块高处。
+* 块中的交易必须按照它们的散列顺序（这确保了规范的执行顺序）
 
-A client on shard X, if it sees a transaction with shards \(X, Y\), requests a Merkle proof from shard Y verifying \(i\) the presence of that transaction on shard Y, and \(ii\) what the pre-state on shard Y is for those bits of data that the transaction will need to access. It then executes the transaction and commits to the execution result. Note that this process may be highly inefficient if there are many transactions with many different “block pairings” in each block; for this reason, it may be optimal to simply require blocks to specify sister shards, and then calculation can be done more efficiently at a per-block level. This is the basis for how such a scheme could work; one could imagine more complex designs. However, when making a new design, it’s always important to make sure that low-cost denial of service attacks cannot arbitrarily slow state calculation down.
+如果分片X上的客户端看到带有分片（X，Y）的交易，则请求分片Y中的Merkle证明，以验证\(i\)分片Y上存在该交易，以及\(ii\)分片上的前置状态Y表示交易需要访问的那些数据位。然后执行交易并提交执行结果。请注意，如果很多交易有许多不同的“块对”，那么这个过程可能是非常低效的;由于这个原因，只需要简单的要求块来指定姐妹分片就可能是最佳的，然后可以在每块级别更有效地进行计算。这是该方案如何运作的基础;人们可以想象更复杂的设计。但是，在进行新的设计时，确保低成本的拒绝服务攻击不能任意拖慢状态计算总是非常重要的。
 
-## What about semi-asynchronous messages?
+### 那么半异步消息呢？ <a id="semi-asynchronous-messages"></a>
 
-Vlad Zamfir created a scheme by which asynchronous messages could still solve the “book a train and hotel” problem. This works as follows. The state keeps track of all operations that have been recently made, as well as the graph of which operations were triggered by any given operation \(including cross-shard operations\). If an operation is reverted, then a receipt is created which can then be used to revert any effect of that operation on other shards; those reverts may then trigger their own reverts and so forth. The argument is that if one biases the system so that revert messages can propagate twice as fast as other kinds of messages, then a complex cross-shard transaction that finishes executing in K rounds can be fully reverted in another K rounds.
+Vlad Zamfir创建了一个方案，异步消息仍然可以解决“预订火车和旅馆”的问题。这工作如下。状态记录了最近所做的所有操作，以及任何给定操作（包括跨分片操作）触发哪些操作的图谱。如果操作被还原，则创建收据，然后可以使用该收据来回滚该操作对其他分片的任何影响;这些回滚可能会触发他们自己的回滚之类。这个论点是，如果一个偏好系统使得回滚消息可以像其他类型的消息一样快地传播两次，那么一个在K个回合中完成执行的复杂跨分片交易可以在另外的K个回合中完全回滚。
 
-The overhead that this scheme would introduce has arguably not been sufficiently studied; there may be worst-case scenarios that trigger quadratic execution vulnerabilities. It is clear that if transactions have effects that are more isolated from each other, the overhead of this mechanism is lower; perhaps isolated executions can be incentivized via favorable gas cost rules. All in all, this is one of the more promising research directions for advanced sharding.
+这个方案引入的开销可以说是没有得到充分的研究;可能存在触发二次执行漏洞的最坏情况。很显然，如果交易具有更加孤立的影响，这种机制的开销较低;也许可以通过有利的gas成本规则激励孤立执行。总而言之，这是高级分片更有前途的研究方向之一。
 
-## What are guaranteed cross-shard calls?
+### 什么是保证跨分片调用？ <a id="cross-shard-calls"></a>
 
-One of the challenges in sharding is that when a call is made, there is by default no hard protocol-provided guarantee that any asynchronous operations created by that call will be made within any particular timeframe, or even made at all; rather, it is up to some party to send a transaction in the destination shard triggering the receipt. This is okay for many applications, but in some cases it may be problematic for several reasons:
+分片中的挑战之一是，在进行调用时，默认情况下没有硬协议提供，保证由该调用创建的任何异步操作都将在特定的时间范围内完成，甚至完全没有;而是由某方在目的地分片中发送触发收据的交易。这对于许多应用程序来说是可以的，但是在某些情况下，由于以下几个原因可能会有问题：
 
-* There may be no single party that is clearly incentivized to trigger a given receipt. If the sending of a transaction benefits many parties, then there could be **tragedy-of-the-commons effects** where the parties try to wait longer until someone else sends the transaction \(i.e. play "chicken"\), or simply decide that sending the transaction is not worth the transaction fees for them individually.
-* **Gas prices across shards may be volatile**, and in some cases performing the first half of an operation compels the user to “follow through” on it, but the user may have to end up following through at a much higher gas price. This may be exacerbated by DoS attacks and related forms of **griefing**.
-* Some applications rely on there being an upper bound on the “latency” of cross-shard messages \(e.g. the train-and-hotel example\). Lacking hard guarantees, such applications would have to have **inefficiently large safety margins**.
+* 可能没有任何明确的激励措施来触发给定的收据。如果一个交易的发送给多方带来了好处，那么在各方试图等待更长时间直到其他人发送交易（即玩“鸡”）或者简单地决定发送一个交易交易是不值得单独交易的。
+* **跨分片的gas价格可能会波动**，在某些情况下，执行前半部的操作会迫使用户“坚持到底”，但用户可能不得不以更高的gas价格来追踪。这可能会由于DoS攻击和相关的**恶意破坏**形式而加剧。
+* 一些应用依赖于跨分片消息的“等待时间”上限（例如火车和旅馆示例）。由于缺乏硬性保证，这些应用程序将必须具有**无效率大安全边界**。
 
-One could try to come up with a system where asynchronous messages made in some shard automatically trigger effects in their destination shard after some number of blocks. However, this requires every client on each shard to actively inspect all other shards in the process of calculating the state transition function, which is arguably a source of inefficiency. The best known compromise approach is this: when a receipt from shard A at height `height_a` is included in shard B at height `height_b`, if the difference in block heights exceeds `MAX_HEIGHT`, then all validators in shard B that created blocks from `height_a + MAX_HEIGHT + 1` to `height_b - 1` are penalized, and this penalty increases exponentially. A portion of these penalties is given to the validator that finally includes the block as a reward. This keeps the state transition function simple, while still strongly incentivizing the correct behavior.
+人们可以试着想出一个系统，在某些分片中生成的异步消息在一定数量的块之后自动触发目标分片中的结果。然而，这要求每个分片上的每个客户端在计算状态转换函数的过程中主动检查所有其他分片，这可能是低效率的来源。最为人所知的折衷方法是：当高度为`height_a`的分片A的收据包含在高度`为height_b`的碎片B中时，如果块高度的差异超过`MAX_HEIGHT`，则碎片B中的所有验证人都从`height_a + MAX_HEIGHT + 1`创建块到`height_b - 1`是受到惩罚的，这个惩罚成倍增加。这些处罚的一部分给予最终包括该块作为奖励的确认者。这使状态转换功能保持简单，同时仍强烈激励正确的行为。
 
-## Wait, but what if an attacker sends a cross-shard call from every shard into shard X at the same time? Wouldn’t it be mathematically impossible to include all of these calls in time?
+### 等等，但是如果攻击者同时从每一个分片向分片X发送一个跨分片调用呢？在数学上不能及时包含所有这些调用吗？ <a id="mathematically-impossible-to-include"></a>
 
-Correct; this is a problem. Here is a proposed solution. In order to make a cross-shard call from shard A to shard B, the caller must pre-purchase “congealed shard B gas” \(this is done via a transaction in shard B, and recorded in shard B\). Congealed shard B gas has a fast demurrage rate: once ordered, it loses 1/k of its remaining potency every block. A transaction on shard A can then send the congealed shard B gas along with the receipt that it creates, and it can be used on shard B for free. Shard B blocks allocate extra gas space specifically for these kinds of transactions. Note that because of the demurrage rules, there can be at most GAS\_LIMIT \* k worth of congealed gas for a given shard available at any time, which can certainly be filled within k blocks \(in fact, even faster due to demurrage, but we may need this slack space due to malicious validators\). In case too many validators maliciously fail to include receipts, we can make the penalties fairer by exempting validators who fill up the “receipt space” of their blocks with as many receipts as possible, starting with the oldest ones.
+正确;这是个问题。这是一个建议的解决方案。为了从分片A到分片B进行跨分片调用，调用者必须预先购买“冻结分片B的gas”（这是通过分片B中的交易完成的，并记录在分片B中）。冻结分片B的gas具有快速滞期费率：一旦排序，每块失去1 / k的剩余效能。分片A上的交易随后可以将冻结的分片B gas与其创建的收据一起发送，并且可以在分片B上免费使用。分片B的块专门为这些交易分配额外的gas空间。请注意，由于滞期规则，对于给定的分片，在任何时候都可以获得最多GAS\_LIMIT \* k的冻结gas，当然可以在k个块内填充（事实上，由于滞期造成的速度更快，但是我们可能由于恶意验证人需要这个松散的空间）。假如太多的验证人恶意地不包括收据，我们可以通过免除验证者来公平惩罚，尽可能多地从最旧的收据开始填充更多收据到“收据空间”。
 
-Under this pre-purchase mechanism, a user that wants to perform a cross-shard operation would first pre-purchase gas for all shards that the operation would go into, over-purchasing to take into account the demurrage. If the operation would create a receipt that triggers an operation that consumes 100000 gas in shard B, the user would pre-buy 100000 \* e \(i.e. 271818\) shard-B congealed gas. If that operation would in turn spend 100000 gas in shard C \(i.e. two levels of indirection\), the user would need to pre-buy 100000 \* e^2 \(i.e. 738906\) shard-C congealed gas. Notice how once the purchases are confirmed, and the user starts the main operation, the user can be confident that they will be insulated from changes in the gas price market, unless validators voluntarily lose large quantities of money from receipt non-inclusion penalties.
+在此预购机制下，想要进行跨分片操作的用户将首先预先购买所有将要进行操作的分片的gas，过度购买以考虑滞期费用。 如果操作会创建一个收据，触发在B分片中消耗100000gas的操作，那么用户将预先购买100000 \* e（如271818）分片B冻结的gas。 如果该操作反过来在分片C中花费100000gas（即，两个间接级别），则用户将需要预先购买100000 \* e^2（如738906）分片C冻结的gas。 注意，一旦购买被确认，并且用户开始主要操作，用户可以确信他们将与gas价格市场的变化隔离，除非验证者自愿地从收据不包含惩罚中失去大量的资金。
 
-## Congealed gas? This sounds interesting for not just cross-shard operations, but also reliable intra-shard scheduling
+### 冻结gas？ 这听起来很有趣，不仅是跨分片操作，还有可靠的分片内调度 <a id="congealed-gas"></a>
 
-Indeed; you could buy congealed shard A gas inside of shard A, and send a guaranteed cross-shard call from shard A to itself. Though note that this scheme would only support scheduling at very short time intervals, and the scheduling would not be exact to the block; it would only be guaranteed to happen within some period of time.
+确实; 您可以购买分片A中的冻结分片A gas，并从分片A向其自身发送保证的跨链分片调用。 虽然注意到这个方案只支持在很短的时间间隔内进行调度，并且调度对于这个块是不准确的; 只能保证在一段时间内发生。
 
-## Does guaranteed scheduling, both intra-shard and cross-shard, help against majority collusions trying to censor transactions?
+### 是否内分片和跨分片有保证的调度，有助于抵制试图审查交易的大多数共谋？ <a id="against-majority-collusions"></a>
 
-Yes. If a user fails to get a transaction in because colluding validators are filtering the transaction and not accepting any blocks that include it, then the user could send a series of messages which trigger a chain of guaranteed scheduled messages, the last of which reconstructs the transaction inside of the EVM and executes it. Preventing such circumvention techniques is practically impossible without shutting down the guaranteed scheduling feature outright and greatly restricting the entire protocol, and so malicious validators would not be able to do it easily.
+是。 如果用户未能获得交易，因为共谋验证者正在过滤交易并且不接受任何包含该交易的块，则用户可以发送一系列消息来触发一系列有保证的预定消息，最后一个消息在EVM内部重建交易并执行它。 如果不彻底关闭有保证的调度功能，并严重限制整个协议，防止这种规避技术实际上是不可能的，因此恶意的验证者将无法轻易做到。
 
-## Could sharded blockchains do a better job of dealing with network partitions?
+### 分片区块链可以更好地处理网络分区吗？ <a id="dealing-with-network-partitions"></a>
 
-The schemes described in this document would offer no improvement over non-sharded blockchains; realistically, every shard would end up with some nodes on both sides of the partition. There have been calls \(e.g. from [IPFS’s Juan Benet](https://www.youtube.com/watch?v=cU-n_m-snxQ)\) for building scalable networks with the specific goal that networks can split up into shards as needed and thus continue operating as much as possible under network partition conditions, but there are nontrivial cryptoeconomic challenges in making this work well.
+本文档中描述的方案不会改进非分片区块链; 实际上，每个分区最终都会在分区两侧有一些节点。 有人（例如来自[IPFS的Juan Benet](https://www.youtube.com/watch?v=cU-n_m-snxQ)）建立了可扩展的网络，其具体目标是网络可以根据需要切分成分片，从而在网络划分的条件下尽可能地继续运行，但是存在不寻常的加密经济挑战来做好这项工作。
 
-One major challenge is that if we want to have location-based sharding so that geographic network partitions minimally hinder intra-shard cohesion \(with the side effect of having very low intra-shard latencies and hence very fast intra-shard block times\), then we need to have a way for validators to choose which shards they are participating in. This is dangerous, because it allows for much larger classes of attacks in the honest/uncoordinated majority model, and hence cheaper attacks with higher griefing factors in the Zamfir model. Sharding for geographic partition safety and sharding via random sampling for efficiency are two fundamentally different things.
+一个主要的挑战是，如果我们想要基于位置的分片，那么地理网络划分最低限度地阻碍了分片内聚合（具有非常低的分片内延迟和因此非常快的分片内块时间的副作用），那么 我们需要有一种方法让验证者选择他们正在参与的分片。这是很危险的，因为它允许在诚实/不协调的多数模型中有更多类别的攻击，和Zamfir模型中更高作恶因子更低成本的攻击。 地理切分分片的安全性和通过随机抽样来分片效率是两个完全不同的事情。
 
-Second, more thinking would need to go into how applications are organized. A likely model in a sharded blockchain as described above is for each “app” to be on some shard \(at least for small-scale apps\); however, if we want the apps themselves to be partition-resistant, then it means that all apps would need to be cross-shard to some extent.
+其次，如何组织应用程序需要更多的思考。 上面描述的分片区块链中的一个可能的模型是每个“app”在某个分片上（至少对于小规模的应用程序）。 但是，如果我们希望应用程序本身具有分区防护功能，则意味着所有应用程序都需要在某种程度上进行跨分片。
 
-One possible route to solving this is to create a platform that offers both kinds of shards - some shards would be higher-security “global” shards that are randomly sampled, and other shards would be lower-security “local” shards that could have properties such as ultra-fast block times and cheaper transaction fees. Very low-security shards could even be used for data-publishing and messaging.
+解决这个问题的一个可能途径是创建一个提供两种分片的平台 - 一些分片是随机抽样的高安全性“全局”分片，而其他碎片则是较低安全“本地”分片，可能具有属性的如超快的块时间和更便宜的交易费用。 非常低的安全性碎片甚至可以用于数据发布和消息传递。
 
-## What are the unique challenges of pushing scaling past n = O\(c^2\)?
+### 通过 n = O\(c^2\)推动扩展的独特挑战是什么？ <a id="unique-challenge-of-pushing"></a>
 
-There are several considerations. First, the algorithm would need to be converted from a two-layer algorithm to a stackable n-layer algorithm; this is possible, but is complex. Second, n / c \(i.e. the ratio between the total computation load of the network and the capacity of one node\) is a value that happens to be close to two constants: first, if measured in blocks, a timespan of several hours, which is an acceptable “maximum security confirmation time”, and second, the ratio between rewards and deposits \(an early computation suggests a 32 ETH deposit size and a 0.05 ETH block reward for Casper\). The latter has the consequence that if rewards and penalties on a shard are escalated to be on the scale of validator deposits, the cost of continuing an attack on a shard will be O\(n\) in size.
+有几个考虑因素。首先，需要将算法从双层算法转换为可堆叠的n层算法;这是可能的，但是很复杂。其次，n / c（即网络的总计算负荷与一个节点的容量之间的比率）恰好是接近两个常数的值：首先，如果以块为单位测量，则几个小时的时间跨度，这是一个可以接受的“最大安全确认时间”，其次是奖励和存款之间的比率（早期计算表明Casper的存款大小为32ETH，块奖励为0.05ETH）。后者的后果是，如果一个分片上的奖励和惩罚升级到验证者存款的规模，持续攻击分片的成本将是O\(n\)大小。
 
-Going above c^2 would likely entail further weakening the kinds of security guarantees that a system can provide, and allowing attackers to attack individual shards in certain ways for extended periods of time at medium cost, although it should still be possible to prevent invalid state from being finalized and to prevent finalized state from being reverted unless attackers are willing to pay an O\(n\) cost. However, the rewards are large - a super-quadratically sharded blockchain could be used as a general-purpose tool for nearly all decentralized applications, and could sustain transaction fees that makes its use virtually free.
+高于c^2可能会导致进一步削弱系统所能提供的安全保障类别，并允许攻击者以中等成本长时间周期以某种方式攻击某个碎片，尽管仍有可能防止无效状态被最终确定，并防止最终状态被回滚，除非攻击者愿意支付O（n）的成本。然而，回报是巨大的 - 一个超级分割的区块链可以用作几乎所有去中心化应用程序的通用工具，并且可以承担交易费用，使其几乎免费。
 
-## What about heterogeneous sharding?
 
-Abstracting the execution engine or allowing multiple execution engines to exist results in being able to have a different execution engine for each shard. Due to Casper CBC being able to explore the full [tradeoff triangle](https://github.com/ethereum/cbc-casper/wiki/FAQ#what-is-the-tradeoff-triangle), it is possible to alter the parameters of the consensus engine for each shard to be at any point of the triangle. However, CBC Casper has not been implemented yet, and heterogeneous sharding is nothing more than an idea at this stage; the specifics of how it would work has not been designed nor implemented. Some shards could be optimized to have fast finality and high throughput, which is important for applications such as EFTPOS transactions, while maybe most could have a moderate or reasonable amount each of finality, throughput and decentralization \(number of validating nodes\), and applications that are prone to a high fault rate and thus require high security, such as torrent networks, privacy focused email like Proton mail, etc., could optimize for a high decentralization, low finality and high throughput, etc. See also [https://twitter.com/VladZamfir/status/932320997021171712](https://twitter.com/VladZamfir/status/932320997021171712) and [https://ethresear.ch/t/heterogeneous-sharding/1979/2](https://ethresear.ch/t/heterogeneous-sharding/1979/2).
 
-## Footnotes
+**原文链接:** [https://github.com/ethereum/wiki/wiki/Sharding-FAQ](https://github.com/ethereum/wiki/wiki/Sharding-FAQ)  
+**作者:** Vitalik Buterin  
+**翻译:** toxotguo
 
-1. Merklix tree == Merkle Patricia tree
-2. Later proposals from the NUS group do manage to shard state; they do this via the receipt and state-compacting techniques that I describe in later sections in this document. \(This is Vitalik Buterin writing as the creator of this Wiki.\)
-3. There are reasons to be conservative here. Particularly, note that if an attacker comes up with worst-case transactions whose ratio between processing time and block space expenditure \(bytes, gas, etc\) is much higher than usual, then the system will experience very low performance, and so a safety factor is necessary to account for this possibility. In traditional blockchains, the fact that block processing only takes ~1-5% of block time has the primary role of protecting against centralization risk but serves double duty of protecting against denial of service risk. In the specific case of Bitcoin, its current worst-case [known quadratic execution vulnerability](https://bitcoin.org/en/bitcoin-core/capacity-increases-faq#size-bump) arguably limits any scaling at present to ~5-10x, and in the case of Ethereum, while all known vulnerabilities are being or have been removed after the denial-of-service attacks, there is still a risk of further discrepancies particularly on a smaller scale. In Bitcoin NG, the need for the former is removed, but the need for the latter is still there.
-4. A further reason to be cautious is that increased state size corresponds to reduced throughput, as nodes will find it harder and harder to keep state data in RAM and so need more and more disk accesses, and databases, which often have an O\(log\(n\)\) access time, will take longer and longer to access. This was an important lesson from the last Ethereum denial-of-service attack, which bloated the state by ~10 GB by creating empty accounts and thereby indirectly slowed processing down by forcing further state accesses to hit disk instead of RAM.
-5. In sharded blockchains, there may not necessarily be in-lockstep consensus on a single global state, and so the protocol never asks nodes to try to compute a global state root; in fact, in the protocols presented in later sections, each shard has its own state, and for each shard there is a mechanism for committing to the state root for that shard, which represents that shard’s state
-6. \#MEGA
-7. If a non-scalable blockchain upgrades into a scalable blockchain, the author’s recommended path is that the old chain’s state should simply become a single shard in the new chain.
-8. For this to be secure, some further conditions must be satisfied; particularly, the proof of work must be non-outsourceable in order to prevent the attacker from determining which other miners' identities are available for some given shard and mining on top of those.
-9. Recent Ethereum denial-of-service attacks have proven that hard drive access is a primary bottleneck to blockchain scalability.
-10. You could ask: well why don’t validators fetch Merkle proofs just-in-time? Answer: because doing so is a ~100-1000ms roundtrip, and executing an entire complex transaction within that time could be prohibitive.
-11. One hybrid solution that combines the normal-case efficiency of small samples with the greater robustness of larger samples is a multi-layered sampling scheme: have a consensus between 50 nodes that requires 80% agreement to move forward, and then only if that consensus fails to be reached then fall back to a 250-node sample. N = 50 with an 80% threshold has only a 8.92 \* 10-9 failure rate even against attackers with p = 0.4, so this does not harm security at all under an honest or uncoordinated majority model.
-12. The probabilities given are for one single shard; however, the random seed affects O\(c\) shards and the attacker could potentially take over any one of them. If we want to look at O\(c\) shards simultaneously, then there are two cases. First, if the grinding process is computationally bounded, then this fact does not change the calculus at all, as even though there are now O\(c\) chances of success per round, checking success takes O\(c\) times as much work. Second, if the grinding process is economically bounded, then this indeed calls for somewhat higher safety factors \(increasing N by 10-20 should be sufficient\) although it’s important to note that the goal of an attacker in a profit-motivated manipulation attack is to increase their participation across all shards in any case, and so that is the case that we are already investigating.
-13. See [Parity’s Polkadotpaper](https://github.com/polkadot-io/polkadotpaper/raw/master/PolkaDotPaper.pdf) for further description of how their “fishermen” concept works. For up-to-date info and code for Polkadot, see [here](https://github.com/paritytech/polkadot).
-14. Thanks to Justin Drake for pointing me to cryptographic accumulators, as well as [this paper](https://eprint.iacr.org/2009/612.pdf) that gives the argument for the impossibility of sublinear batching. See also this thread: [https://ethresear.ch/t/accumulators-scalability-of-utxo-blockchains-and-data-availability/176](https://ethresear.ch/t/accumulators-scalability-of-utxo-blockchains-and-data-availability/176)
-
-Further reading related to sharding, and more generally scalability and research, is available [here](https://github.com/ethereum/wiki/wiki/Sharding-introduction-R&D-compendium) and [here](https://github.com/ethereum/wiki/wiki/R&D).
+**文章转载自toxotguo的github:** [https://github.com/toxotguo/thinking/blob/master/Sharding%20FAQ.md](https://github.com/toxotguo/thinking/blob/master/Sharding%20FAQ.md)译文：以太坊
 

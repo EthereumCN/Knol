@@ -7,7 +7,6 @@
   * [路线图](eth-basics/roadmap.md)
   * [设计理念](eth-basics/design-rationale.md)
   * [以太币 Ether](eth-basics/ether.md)
-  * [应用：DAOs & DApps](eth-basics/daos-dapps.md)
   * [虚拟机EVM概要](eth-basics/evm-basics/README.md)
     * [黄皮书](eth-basics/evm-basics/yellowpaper.md)
     * [褐皮书](eth-basics/evm-basics/beigepaper.md)

@@ -14,7 +14,50 @@ Mohamed Abdulaziz edited this page on 5 Sep 2018 · [23 revisions](https://githu
 #### Example \("Dream"\) API Usage
 
 ```text
-var shh = web3.shh;var appName = "My silly app!";var myName = "Gav Would";var myIdentity = shh.newIdentity();shh.post({  "from": myIdentity,  "topics": [ web3.fromAscii(appName) ],  "payload": [ web3.fromAscii(myName), web3.fromAscii("What is your name?") ],  "ttl": 100,  "priority": 1000});var replyWatch = shh.watch({  "topics": [ web3.fromAscii(appName), myIdentity ],  "to": myIdentity});// could be "topic": [ web3.fromAscii(appName), null ] if we wanted to filter all such// messages for this app, but we'd be unable to read the contents.replyWatch.arrived(function(m){	// new message m	console.log("Reply from " + web3.toAscii(m.payload) + " whose address is " + m.from);});var broadcastWatch = shh.watch({ "topic": [ web3.fromAscii(appName) ] });broadcastWatch.arrived(function(m){  if (m.from != myIdentity)  {    // new message m: someone's asking for our name. Let's tell them.    var broadcaster = web3.toAscii(m.payload).substr(0, 32);    console.log("Broadcast from " + broadcaster + "; replying to tell them our name.");    shh.post({      "from": eth.key,      "to": m.from,      "topics": [ eth.fromAscii(appName), m.from ],      "payload": [ eth.fromAscii(myName) ],      "ttl": 2,      "priority": 500    });  }});
+var shh = web3.shh;
+var appName = "My silly app!";
+var myName = "Gav Would";
+var myIdentity = shh.newIdentity();
+
+shh.post({
+  "from": myIdentity,
+  "topics": [ web3.fromAscii(appName) ],
+  "payload": [ web3.fromAscii(myName), web3.fromAscii("What is your name?") ],
+  "ttl": 100,
+  "priority": 1000
+});
+
+var replyWatch = shh.watch({
+  "topics": [ web3.fromAscii(appName), myIdentity ],
+  "to": myIdentity
+});
+// could be "topic": [ web3.fromAscii(appName), null ] if we wanted to filter all such
+// messages for this app, but we'd be unable to read the contents.
+
+replyWatch.arrived(function(m)
+{
+	// new message m
+	console.log("Reply from " + web3.toAscii(m.payload) + " whose address is " + m.from);
+});
+
+var broadcastWatch = shh.watch({ "topic": [ web3.fromAscii(appName) ] });
+broadcastWatch.arrived(function(m)
+{
+  if (m.from != myIdentity)
+  {
+    // new message m: someone's asking for our name. Let's tell them.
+    var broadcaster = web3.toAscii(m.payload).substr(0, 32);
+    console.log("Broadcast from " + broadcaster + "; replying to tell them our name.");
+    shh.post({
+      "from": eth.key,
+      "to": m.from,
+      "topics": [ eth.fromAscii(appName), m.from ],
+      "payload": [ eth.fromAscii(myName) ],
+      "ttl": 2,
+      "priority": 500
+    });
+  }
+});
 ```
 
 #### Basic operation
@@ -55,7 +98,10 @@ shh.post({ "from": eth.key, "to": group, "topic": t, "payload": p });
 The `newGroup` actually does something like:
 
 ```text
-var group = shh.newIdentity();shh.post([ "from": myIdentity, "to": recipient1, "topic": [invSHA3(2^255), recipient1], "payload": secretFromPublic(group) ]);shh.post([ "from": myIdentity, "to": recipient2, "topic": [invSHA3(2^255), recipient2], "payload": secretFromPublic(group) ]);return keypair;
+var group = shh.newIdentity();
+shh.post([ "from": myIdentity, "to": recipient1, "topic": [invSHA3(2^255), recipient1], "payload": secretFromPublic(group) ]);
+shh.post([ "from": myIdentity, "to": recipient2, "topic": [invSHA3(2^255), recipient2], "payload": secretFromPublic(group) ]);
+return keypair;
 ```
 
 Here, the `invSHA3(2^255)` topic is a sub-band topic \(intercepted by the Whisper protocol layer\) which takes the key and adds it to the key database. When a packet is addressed to `group`, it encrypts with group's public key. `group` is not generally used for signing. `secretFromPublic` obviously isn't a public API and invSHA3 is only possible because we know each item of the topic is SHA3ed prior to amalgamation in the final topic.
