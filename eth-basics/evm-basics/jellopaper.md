@@ -1,10 +1,10 @@
 # 果冻纸皮书
 
-## JelloPaper: Human Readable Semantics of EVM in K
+## 简介
 
-The Jello Paper is an attempt at defining the EVM semantics using the [KEVM project](https://github.com/kframework/evm-semantics). Unlike the [Yellow Paper](http://yellowpaper.io/), the Jello Paper is an executable semantics, and can provide a full EVM interpreter usable for testing contracts, analyzing gas usage, verifying contracts correct, and a wide range of other tasks as specified in [the technical report on KEVM](https://www.ideals.illinois.edu/handle/2142/97207).
+Jello Paper尝试使用[KEVM项目](https://github.com/kframework/evm-semantics)（K框架虚拟机）来定义EVM语义。与黄皮书不同，Jello Paper是可执行的语义，并且可以提供完整的EVM解释器，可用于测试合约、分析gas使用量，验证合约以及[KEVM技术报告](https://www.ideals.illinois.edu/handle/2142/97207)中指定的其他广泛用途。
 
-The KEVM semantics described by the Jello Paper is the first machine-executable, mathematically formal, human readable, and complete semantics of the EVM. KEVM is capable of passing the full EVM [VMTests](https://github.com/ethereum/tests/tree/develop/VMTests) and [GeneralStateTests](https://github.com/ethereum/tests/tree/develop/GeneralStateTests) testing suites, and can also be used in [smart contract formal verification](https://github.com/runtimeverification/verified-smart-contracts), debugging, and more. The Jello Paper \(this document\) is automatically generated from the [K definition of the KEVM semantics](https://github.com/kframework/evm-semantics).
+Jello Paper描述的KEVM语义针对EVM的第一种机器可执行的、数学形式的、人类可读的完整语义。 KEVM能够通过整套EVM [VMTests](https://github.com/ethereum/tests/tree/develop/VMTests)和[GeneralStateTests](https://github.com/ethereum/tests/tree/develop/GeneralStateTests)测试，也可用于智能合约的形式验证和调试等。 Jello Paper（此文档）是根据[KEVM语义中的K定义](https://github.com/kframework/evm-semantics)自动生成的。
 
 {% embed url="https://jellopaper.org/" %}
 

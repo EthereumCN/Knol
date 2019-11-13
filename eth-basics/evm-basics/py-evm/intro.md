@@ -1,31 +1,29 @@
+---
+description: Py-EVM是用Python语言编写的以太坊虚拟机（EVM）实现。
+---
+
 # 介绍
 
-## Introduction
+## 目标
 
-Py-EVM is a new implementation of the Ethereum Virtual Machine \(EVM\) written in Python.
+主要目标是通过Python实现为以太坊生态系统添砖加瓦：
 
-If none of this makes sense to you yet we recommend to checkout the [Ethereum](https://ethereum.org/) website as well as a [higher level description](http://www.ethdocs.org/en/latest/introduction/what-is-ethereum.html) of the Ethereum project.
+* 支持以太坊1.0以及以太坊2.0/Serenity
+* 文档齐备，有据可查
+* 易于理解
+* 具有清晰的APIs
+* 运行速度快且节约资源
+* 高度灵活，可支持：
+  * 公链
+  * 私链
+  * 联盟链
+  * 前沿研究
 
-### Goals
+## 相关资源
 
-The main focus is to enrich the Ethereum ecosystem with a Python implementation that:
+* [GitHub源码](https://github.com/ethereum/py-evm)
+* [Py-Evm文档](https://py-evm.readthedocs.io/en/latest/contributing.html)
+* [Gitter公共聊天室](https://gitter.im/ethereum/py-evm)
 
-* Supports Ethereum 1.0 as well as 2.0 / Serenity
-* Is well documented
-* Is easy to understand
-* Has clear APIs
-* Runs fast and resource friendly
-* Is highly flexible to support:
-  * Public chains
-  * Private chains
-  * Consortium chains
-  * Advanced research
 
-### Further reading
-
-Here are a couple more useful links to check out.
-
-* [Source Code on GitHub](https://github.com/ethereum/py-evm)
-* [Public Gitter Chat](https://gitter.im/ethereum/py-evm)
-* [Get involved](https://py-evm.readthedocs.io/en/latest/contributing.html)
 
