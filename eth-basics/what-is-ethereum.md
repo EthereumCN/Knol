@@ -40,9 +40,9 @@
 
 像[ZK SNARKs](https://crypto.stackexchange.com/questions/19884/what-are-snarks)这样的零知识证明也可以用于增强加密货币交易的私密性🤐（私密性与安全性有所不同），从而无需在以太坊企业联盟\([EEA](https://entethalliance.org/)\)等须授权\( permissioned\)的私有网络上运行应用程序。
 
-### [以太坊历史](https://knol.ethereum.cn/extended-resources/short-history-of-ethereum)
+## [以太坊历史](https://knol.ethereum.cn/extended-resources/short-history-of-ethereum)
 
-### 使用以太坊
+## 使用以太坊
 
 以太坊的平台使其比单纯的加密货币更有效用。通过以太坊，用户可以创建任何去中心化应用程序（即DApp，使用点对点网络而不是前文所提到的中心化客户端-服务器网络💻 ️🕸️），理论上可编程的以太坊可以用于任何经济或治理活动。
 

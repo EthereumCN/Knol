@@ -1,90 +1,102 @@
 # 快速上手
 
-## Quickstart
+## 如何安装
 
-### Installation
+本指南主要内容为如何将Py-EVM作为库使用。
 
-This guide teaches how to use Py-EVM as a library. For contributors, please check out the [Contributing Guide](https://py-evm.readthedocs.io/en/latest/contributing.html) which explains how to set everything up for development.
+### Ubuntu系统
 
-#### Installing on Ubuntu
+Py-EVM需要Python 3.6以及一些工具来编译其依赖项。
 
-Py-EVM requires Python 3.6 as well as some tools to compile its dependencies. On Ubuntu, the `python3.6-dev` package contains everything we need. Run the following command to install it.
+在Ubuntu上，`python3.6-dev`软件包包含全部所需。运行以下命令进行安装：
 
 ```text
 apt-get install python3.6-dev
 ```
 
-Py-EVM is installed through the pip package manager, if pip isn’t available on the system already, we need to install the `python3-pip` package through the following command.
+Py-EVM是通过pip软件包管理器安装的，如果pip在系统上尚不可用，我们需要通过以下命令安装`python3-pip`软件包：
 
 ```text
 apt-get install python3-pip
 ```
 
-Note
+{% tabs %}
+{% tab title="注意" %}
+**可选步骤：**通常，维持干净Python 3环境的最佳方式是[virtualenv](https://virtualenv.pypa.io/en/stable/)。如果尚未安装
 
-**Optional:** Often, the best way to guarantee a clean Python 3 environment is with [virtualenv](https://virtualenv.pypa.io/en/stable/). If we don’t have `virtualenv` installed already, we first need to install it via pip.
+`virtualenv`，则首先需要通过pip安装。
 
 ```text
 pip install virtualenv
 ```
 
-Then, we can initialize a new virtual environment `venv`, like:
+之后，我们就可以初始化一个全新的虚拟环境`venv`，如下：
 
 ```text
 virtualenv -p python3 venv
 ```
 
-This creates a new directory `venv` where packages are installed isolated from any other global packages.
+随后将创建一个新的目录`venv`，以便软件包在其中进行安装，并与全局安装的Python隔离开。
 
-To activate the virtual directory we have to _source_ it
+要激活虚拟目录，我们必须对其进行_source_。
 
 ```text
 . venv/bin/activate
 ```
+{% endtab %}
+{% endtabs %}
 
-Finally, we can install the `py-evm` package via pip.
+最后，我们就可以通过pip安装`py-evm`包了：
 
 ```text
 pip3 install -U py-evm
 ```
 
-#### Installing on macOS
+### 
 
-First, install Python 3 with brew:
+### macOS系统
+
+首先，通过brew安装Python 3：
 
 ```text
 brew install python3
 ```
 
-Note
+{% tabs %}
+{% tab title="注意" %}
+**可选步骤：**通常，维持干净Python 3环境的最佳方式是[virtualenv](https://virtualenv.pypa.io/en/stable/)。如果尚未安装
 
-**Optional:** Often, the best way to guarantee a clean Python 3 environment is with [virtualenv](https://virtualenv.pypa.io/en/stable/). If we don’t have `virtualenv` installed already, we first need to install it via pip.
+`virtualenv`，则首先需要通过pip安装。
 
 ```text
 pip install virtualenv
 ```
 
-Then, we can initialize a new virtual environment `venv`, like:
+之后，我们就可以初始化一个全新的虚拟环境`venv`，如下
 
 ```text
 virtualenv -p python3 venv
 ```
 
-This creates a new directory `venv` where packages are installed isolated from any other global packages.
+随后将创建一个新的目录`venv`，以便软件包在其中进行安装，并与全局安装的Python隔离开。
 
-To activate the virtual directory we have to _source_ it
+要激活虚拟目录，我们必须对其进行_source_。
 
 ```text
 . venv/bin/activate
 ```
+{% endtab %}
+{% endtabs %}
 
-Then, install the `py-evm` package via pip:
+最后，我们就可以通过pip安装`py-evm`包了：
 
 ```text
 pip3 install -U py-evm
 ```
 
-Hint
 
-[Build a first app](https://py-evm.readthedocs.io/en/latest/guides/building_an_app_that_uses_pyevm.html) on top of Py-EVM in under 5 minutes
+
+| ✅ **提示** |
+| :--- |
+| 五分钟之内就可以在Py-Evm上[构建你的第一个应用程序](https://py-evm.readthedocs.io/en/latest/guides/building_an_app_that_uses_pyevm.html)！ |
 

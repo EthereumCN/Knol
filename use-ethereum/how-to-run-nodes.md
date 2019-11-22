@@ -148,7 +148,7 @@ warp同步模式是parity默认的同步模式。通过下载记录了第30,000�
 
 #### Windows安装
 
-![](../.gitbook/assets/image.png)
+![](../.gitbook/assets/image%20%281%29.png)
 
 访问官网下载地址[https://geth.ethereum.org/downloads/](https://geth.ethereum.org/downloads/)，点击“Release”栏下版本，下载exe的安装程序即可，简单方便快捷。
 
@@ -188,7 +188,7 @@ Parity Ethereum v2.6.4-beta版本github下载地址：[https://github.com/parity
 
 选择相应系统，点击“Binary”一栏下蓝色文字，即可进行下载以太坊Parity最新客户端。
 
-![](../.gitbook/assets/image%20%281%29.png)
+![](../.gitbook/assets/image%20%282%29.png)
 
 
 

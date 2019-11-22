@@ -1,7 +1,5 @@
 # 术语列表
 
-
-
 **Contents**
 
 * [Cryptography](https://github.com/ethereum/wiki/wiki/Glossary#cryptography)
