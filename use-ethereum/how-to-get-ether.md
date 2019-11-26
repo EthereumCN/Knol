@@ -54,11 +54,15 @@
 
 **Step5**：卖家在较短时间内确认已收到款项，买家账户收到以太币，交易也就完成了。
 
+
+
 ### Binance币安
 
 币安的总部设在马耳他，经常享有最高的交易量。用户可以用法定货币或加密货币购买ETH。
 
 [在Binance上购买ETH](https://www.binance.com/cn)
+
+
 
 ### Coinbase
 
@@ -66,17 +70,23 @@ Coinbase总部设在旧金山，是世界上最著名、最名声卓著的交易
 
 [在Coinbase上购买ETH](https://www.coinbase.com/join/527bbccd0c46660a8a00003b)
 
+### 
+
 ### Dether
 
 Dether是一个全球性的p2p市场，用于私人现金买卖ETH。
 
 [在Dether上购买ETH](https://dether.io/)
 
+### 
+
 ### Gemini
 
 Gemini以纽约为基地，对安全性和可靠性研究甚久。用户可以用法定货币或加密货币购买ETH。
 
 [在Gemini上购买ETH](https://exchange.gemini.com/signin?redirect=edfe9e325ca73aa74a3685965fe35ef67f944570-1571456722582-%2F)
+
+### 
 
 ### Kraken
 
@@ -134,13 +144,19 @@ Uniswap的用户体验感最好，那么我们就以它为例，尝试购买以�
 
 **Step3**：点击”兑换”即可完成交易。
 
+### 
+
 ### Bancor
 
 [在Bancor上购买ETH](https://www.bancor.network/)
 
+### 
+
 ### Changelly
 
 [在Changelly上购买ETH](https://changelly.com/)
+
+### 
 
 ### BisQ
 
@@ -148,11 +164,15 @@ Bisq是一个开源的点对点应用程序，无需注册即可使用。
 
 [在BisQ上购买ETH](https://bisq.network/)
 
+### 
+
 ### LocalEthereum
 
 LocalEthereum是一个全球性的p2p市场，用于买卖ETH。有超过30种付款方式，包括现场现金交易。
 
 [在LocalEthereum上购买ETH](https://localethereum.com/)
+
+### 
 
 ### ShapeShift
 
