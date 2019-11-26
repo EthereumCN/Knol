@@ -2,17 +2,17 @@
 
 ## Ropsten
 
-### 概述
+#### 概述
 
 Ropsten是以太坊上以工作量证明为共识机制的测试网络。若想在Ropsten上获得ETH，可以在该测试网上挖矿。
 
-### 资源
+#### 资源
 
 [Ropsten数据监测](https://ropsten-stats.parity.io/)
 
 ## Kovan
 
-### 概述
+#### 概述
 
 Kovan是以太坊上以权威证明为共识机制的测试网络，最初由Parity团队开发。若想获得Kovan上的ETH，你可以从水龙头网站或应用程序获取。
 
