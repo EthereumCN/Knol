@@ -16,7 +16,7 @@ Blockchain.info浏览器成立于2011年，旨在为研究者和开发者提供�
 
 由于用户界面简洁，现在Blockchain.info浏览器仍然很受欢迎，已拥有4300万用户群体，普及到140个国家，交易量超过一亿。
 
-![](../.gitbook/assets/image%20%2819%29.png)
+![](../.gitbook/assets/1.png)
 
 ## [Blockchair浏览器](https://blockchair.com/)
 
