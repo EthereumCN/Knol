@@ -8,6 +8,16 @@
 
 以下是目前可用的以太坊浏览器：
 
+## [beaconcha.in浏览器](https://www.beaconcha.in/)
+
+beaconcha.in浏览器是一个开源的浏览器，为查询**Eth2信标链**信息的用户提供了一个全面且易于使用的界面。
+
+使查看提议区块、遵循证明和跟踪质押情况变得更方便容易。
+
+采用Go语言编写，并利用PostgreSQL数据库存储和索引数据。
+
+![](../.gitbook/assets/beaconcha.png)
+
 ## [blockchain.info浏览器](https://www.blockchain.com/explorer?view=eth_blocks)
 
 Blockchain.info浏览器既是一个加密货币信息服务提供商，也是一个支持比特币\(Bitcoin\)、比特币现金\(Bitcoin Cash\)和以太币\(Ether\)的加密货币钱包。使用Blockchain.info浏览器，用户可以实时跟踪自己的交易。
@@ -16,7 +26,7 @@ Blockchain.info浏览器成立于2011年，旨在为研究者和开发者提供�
 
 由于用户界面简洁，现在Blockchain.info浏览器仍然很受欢迎，已拥有4300万用户群体，普及到140个国家，交易量超过一亿。
 
-![](../.gitbook/assets/1.png)
+![](../.gitbook/assets/blockinfo.png)
 
 ## [Blockchair浏览器](https://blockchair.com/)
 
@@ -30,7 +40,7 @@ Blockchain.info浏览器成立于2011年，旨在为研究者和开发者提供�
 
 ## [BTC.com以太坊区块链浏览器](https://eth.btc.com/home)
 
-![](../.gitbook/assets/image%20%2818%29.png)
+![](../.gitbook/assets/btc.png)
 
 ## [Etherscan浏览器](https://etherscan.io/)
 
@@ -40,7 +50,7 @@ Etherscan允许通过地址、交易哈希值、区块、标记、标签、网�
 
 Etherscan可以查询余额最多的钱包、钱包所有者或黑名单基金等标记，以及以太坊历史性能和历史交易数据。还可以查看任何当前活跃的智能合约及其信息，如合约总持有者、当前价格和历史性能。
 
-![](../.gitbook/assets/image%20%2813%29.png)
+![](../.gitbook/assets/etherscan.png)
 
 ## [Etherchain浏览器](https://www.etherchain.org/)
 
@@ -48,7 +58,7 @@ Etherchain浏览器页面与Etherscan浏览器页面看起来很像。主页都�
 
 Etherchain提供了以太坊区块链数据以外的其他信息。Etherchain显示了采矿池的实时盈利情况与以太坊经济、挖矿和网络使用等方面的统计信息，还提供关于任何活跃硬分叉的数据。
 
-![](../.gitbook/assets/image%20%2814%29.png)
+![](../.gitbook/assets/etherchain.png)
 
 ## [Ethplorer浏览器](https://ethplorer.io/)
 
@@ -58,29 +68,29 @@ Ethplorer也非常关注通证的动态，从Ethplorer浏览器可以找到大�
 
 首页图表则显示基于以太坊的通证市值及其通证交易量的关系。
 
-![](../.gitbook/assets/image%20%2811%29.png)
+![](../.gitbook/assets/ethplorer.png)
 
 ## [Blockscout浏览器](https://blockscout.com/)
 
 Blockscout浏览器是由POA网络团队构建的，他们看到了对开源区块浏览器的需求。他们的最终目标是打造一个覆盖以太坊上所有内容的网站，把从交易和区块信息、通证价值到侧链和私有链的信息都涵盖进去。
 
-![](../.gitbook/assets/image%20%2821%29.png)
+![](../.gitbook/assets/blockscout.png)
 
 ## [EnjinX浏览器](https://enjinx.io/eth/transactions)
 
 EnjinX浏览器是一个快速浏览器，于2018年12月由EnjinCoin团队发布。它不仅支持以太坊\(以及以太坊上的ERC-20、721和1155通证\)，还支持比特币和莱特币。
 
-![](../.gitbook/assets/image%20%289%29.png)
+![](../.gitbook/assets/enjinx.png)
 
 ## [Bloxy浏览器](https://bloxy.info/zh)
 
 除了查询基本以太坊信息外，Bloxy还有一个宝藏功能——全面分析区块链实时数据，并发布大数据分析报告，信息量极大，研究价值非凡。
 
-![](../.gitbook/assets/image%20%2810%29.png)
+![](../.gitbook/assets/bloxy.png)
 
 ## [Amberdata浏览器](https://amberdata.io/dashboards/infrastructure)
 
 与Bloxy非常相似，在Amberdata浏览器上可以访问一些关于交易和通证的数据。Amberdata浏览器还以一种吸引人的视觉方式列出了ERC-721收藏品。
 
-![](../.gitbook/assets/image%20%2815%29.png)
+![](../.gitbook/assets/amberdata.png)
 
