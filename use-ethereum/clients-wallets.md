@@ -2,6 +2,14 @@
 
 以太坊用户可以在钱包存储ETH，也可以与以太坊网络上的智能合约进行交互。许多钱包都有这些功能，下列是各式各样的钱包以及每种钱包的最佳用途的高度概述。
 
+## 注意事项
+
+重要的事放前面，如果之前从来没有使用过钱包，那么你最需要注意以下两点：
+
+📌 学会妥善备份你的以太坊钱包！！！
+
+📌 离线安全保存助记词！！！
+
 ## 智能合约钱包
 
 智能合约钱包是具有独特强大功能的钱包。它们为用户提供了额外的安全性和恢复功能。
@@ -30,6 +38,12 @@
 
 硬件钱包是在线访问你的资金最安全的方法。因为签署交易时，硬件钱包不会公开你的私钥到互联网上。
 
+硬件钱包也被称为“冷钱包”，它们离线存储加密资产，并将其置于所有者的手中，因此它提供了保护数字货币的最佳方法。
+
+其他类型的钱包容易受到黑客攻击、网络钓鱼和破坏，从而导致资金损失。虽然人们由于移动或频繁交易，可能选择其他类型的钱包，但硬件钱包是较为理想的长期存储方式。硬钱包是为安全存储用户私钥而构建的设备。
+
+它们大多数看起来像一个USB驱动器，可以通过桌面应用程序访问。
+
 #### 🦸♂ 优点
 
 🌼 在线时访问自己资金最安全的方法
@@ -40,7 +54,38 @@
 
 ❗ 具有成本
 
-### 
+
+
+### Ledger
+
+![](../.gitbook/assets/ledger.PNG)
+
+安全性颇高的硬件钱包，官方提供的软件功能较为局限。可以配合MyEtherWallet、 MetaMask 使用。
+
+**优点:**
+
+1. 防篡改，安全性高
+
+**缺点:**
+
+1. 官方软件功能差，无法调整 gas limit 和 gas price
+2. 价格高并且国内较难购买
+
+
+
+### Trezor
+
+![](../.gitbook/assets/trezor.PNG)
+
+![](../.gitbook/assets/trezor2.PNG)
+
+Trezor One 的设计目的是离线存储多种代币，格式简单易用，有两个按钮和一个屏幕。Model T 是 Trezor One 的升级版，去掉了两个按钮，变成了全彩色触摸屏。
+
+虽然 Trezor One 已经可以与 Ledger Nano S 相媲美，但 Model T 的设计更安全，可以在设备上（而不是在计算机或移动设备上）进行PIN输入、密码输入和设备恢复。
+
+Trezor Model T配有磁性码头（明确保管）。它也有一个密封装置，可以让你知道该设备是否已被攻破。Model T支持超过700种代币。
+
+
 
 ### 硬件钱包列表
 
@@ -56,7 +101,9 @@
 
 ## 移动钱包
 
-手机端钱包和其他移动设备钱包是电脑端钱包和网页钱包的移动版。
+移动钱包和其他移动设备钱包是桌面钱包和网页钱包的移动版。移动或软件钱包是安装在计算机或智能手机（或任何其他设备）上的一种实用工具，用于处理公钥和私钥以及交易。一般情况下既可用于存储加密货币, 也可用于支付。
+
+软件或移动钱包分为轻钱包和全节点钱包，轻钱包依赖第三方进行存储，而全节点钱包则不依赖第三方。经常使用的钱包中大多是轻钱包，包括 MyEtherWallet，imToken 和 Jaxx等等。
 
 #### 🦸♂ 优点
 
@@ -65,6 +112,81 @@
 #### 🎯 缺点
 
 ❗ 依赖移动设备的安全性。
+
+
+
+### MyEtherWallet
+
+![](../.gitbook/assets/myetherwallet.PNG)
+
+MyEtherWallet 作为一个轻钱包，上手难度不大，无需下载，在直接在网页上就可以完成所有的操作。
+
+MyEtherWallet上生成的私钥由用户自我保管，平台方并无备份。
+
+**优势:** 
+
+1. 方便快捷，联网即可发起交易
+2. 支持各种硬件钱包
+3. 代码开源
+
+**劣势:**
+
+1. 交易时需要上传私钥（使用时认准唯一网址: [https://www.myetherwallet.com](https://www.myetherwallet.com) 谨防钓鱼网站 ）
+
+**源码：**[https://github.com/kvhnuke/etherwallet](https://github.com/kvhnuke/etherwallet)
+
+
+
+### TrustWallet
+
+![](../.gitbook/assets/trustwallet.PNG)
+
+移动端以太坊钱包，支持以太坊、ERC 20、ERC 223和ERC 721代币，可以存储超过20,000种不同的基于ERC 20的代币。
+
+**优势：**
+
+1. 高级别的安全审计系统，用户钱包、私钥等信息本地化
+2. 用户操作界面简单友好
+3. 代码开源
+4. 除了 IOS 和 Android 移动端之外，支持 mac OS 桌面版
+
+**劣势：**
+
+1. 功能比较少，但对于新手来说完全够用
+
+**下载地址：**
+
+mac OS & Android apk: [https://trustwallet.com/](https://trustwallet.com/)
+
+App Store/Google Play
+
+**源码：**[https://github.com/trustwallet/wallet-core](https://github.com/trustwallet/wallet-core)
+
+
+
+### imToken
+
+![](../.gitbook/assets/imtoken.PNG)
+
+移动端钱包，操作简便，容易上手，功能齐全。在imToken上生成的钱包私钥保存在手机本地，平台方并无备份。
+
+**优势:**
+
+1. 移动端钱包，操作界面十分友好，联网即可发起交易
+2. 中国团队，客服好沟通，反应速度快
+3. iOS 和 Android 两个平台的代码开源
+4. 衔接Dapp生态，便捷代币支付和智能合约调用
+5. imToken 推出的支持蓝牙功能的硬件钱包 imKey 可以非常便捷的与手机端的 imToken 配合使用。详情点击：[https://imkey.im/?ref=imtokenweb&locale=zh-cn](https://imkey.im/?ref=imtokenweb&locale=zh-cn)
+
+**劣势:**
+
+1. 纯手机端
+
+**下载地址：**App Store/Google Play
+
+**源码：**[https://github.com/consenlabs](https://github.com/consenlabs)
+
+
 
 ### 移动钱包列表
 
@@ -138,6 +260,32 @@
 
 ❗ 依靠每个供应商自身提供良好的安全性和尊重用户隐私。
 
+
+
+### MetaMask
+
+![](../.gitbook/assets/metamask.PNG)
+
+MetaMask是一款在谷歌浏览器Chrome上使用的插件类型的以太坊钱包，该钱包不需要下载，只需要在谷歌浏览器添加对应的扩展程序即可，非常轻量级，使用起来也非常方便。
+
+MetaMask会为用户创建12个英文助记词，一定要保存好助记词，在其他钱包导入新创建的账户的时候有可能需要这些助记词。
+
+**优势:**
+
+1. 通过添加钱包插件将Chrome变成兼容以太坊的浏览器
+2. 狐狸logo设计太可爱了有没有
+3. 支持各种硬件钱包
+
+**劣势：**
+
+1. 不支持自动显示ERC20代币。（需要用户自己添加代币的智能合约地址）
+
+**官方下载地址:** [https://metamask.io/](https://metamask.io/)
+
+**若无法使用Chrome浏览器直接下载：**[https://github.com/MetaMask/metamask-extension/releases](https://github.com/MetaMask/metamask-extension/releases)
+
+
+
 ### 网页钱包列表
 
 1. [Metamask](https://metamask.io/) - Chrome扩展程序里的以太坊钱包，支持ERC代币
@@ -170,13 +318,21 @@ Geth钱包是一个易于使用和具有安全性的以太坊钱包，支持本�
 
 Geth钱包还为以太坊开发者提供资源，开发者们无需使用专用钱包，只需将任何以太坊Dapp集成到Geth钱包中即可在钱包内本地运行各种Dapp。
 
-### [Parity](https://github.com/paritytech/fether)
+### [Parity Fether](https://github.com/paritytech/fether/releases)
 
-Parity Fether是一款可以在Windows、Mac和Linux系统上使用的桌面钱包。
+Parity Fether是一款可以在Windows、Mac和Linux系统上使用的轻客户端钱包。
 
 当其他大多数钱包依赖中心化节点访问区块链时，Fether使用Parity的以太坊轻客户端以去中心化的方式访问区块链。
 
 Parity Fether简单易用且功能强大，只需点击鼠标几次，即可创建以太坊账户以及接收、发送以太币和ERC20代币。
+
+### [Parity Ethereum](https://github.com/paritytech/parity-ethereum/releases)
+
+原以太坊基金会部分成员开发的钱包。功能强大的全节点钱包。
+
+**优势**： 安全度高，不需要经过第三方发起交易
+
+**劣势**：对网络要求高，需要连接节点才能发起交易
 
 ## 浏览器钱包
 
