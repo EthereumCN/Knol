@@ -1,8 +1,4 @@
-# 其它执行方式
-
-
-
-#### Other Implementations
+# 其它实现
 
 * [SputnikVM](https://github.com/ethereumproject/sputnikvm) in Rust for Ethereum Classic
   * A standalone EVM featuring [a developer environment](https://github.com/ethereumproject/sputnikvm-dev), a [browser through wasm32-unknown-emscripten target](https://github.com/sorpaas/sputnikvm-in-browser), and for [embedded devices](https://github.com/sorpaas/sputnikvm-on-rux)

@@ -1,7 +1,5 @@
 # 关于治理
 
-**Contents**
-
 ![governance flowchart](https://camo.githubusercontent.com/862ff23935e5ac935b7608c07494f5bd505ea089/68747470733a2f2f7062732e7477696d672e636f6d2f6d656469612f44634b572d476c585541414d7352302e6a7067)
 
 Legalese: this is not necessarily an endorsement of any of the sources in this compendium.

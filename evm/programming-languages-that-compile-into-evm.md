@@ -1,7 +1,5 @@
 # EVM 编程语言
 
-
-
 * [Solidity](https://github.com/ethereum/solidity)
   * The most popular programming language for Ethereum contracts
   * [Awesome Solidity](https://github.com/bkrem/awesome-solidity)
