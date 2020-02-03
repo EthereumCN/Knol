@@ -1,7 +1,5 @@
 # 内容
 
-
-
 **Contents**
 
 * [Definitions](https://github.com/ethereum/wiki/wiki/Ethash#definitions)

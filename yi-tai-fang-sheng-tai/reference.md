@@ -1,8 +1,8 @@
+---
+description: Reference
+---
+
 # 参考资源
-
-
-
-#### Reference
 
 * [Wiki](https://github.com/ethereum/wiki/wiki) - Ethereum wiki covering all things related to Ethereum
 * [Yellow Paper](https://github.com/ethereum/yellowpaper) - Ethereum's formal specification

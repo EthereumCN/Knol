@@ -1,4 +1,4 @@
-# Swarm for Go-Client Contributors
+# 面向Go语言客户端
 
 ## 6. Swarm for Go-Client Contributors
 
