@@ -4,10 +4,10 @@
 
 
 
-* [Etherscan](https://etherscan.io/) -   最受欢迎的用来查看Eth交易与合约代码的中心化方式
-* [BlockScout](https://github.com/poanetwork/blockscout) -   开源的以太坊区块浏览器，由Ethprize项目资助，由POA开发
-* [QuickBlocks](https://github.com/Great-Hill-Corporation/quickBlocks) -   集软件库、应用、工具于一体，检索以太坊区块链数据的速度更快，提供信息更多，是一个完全去中心化、自动化、高度维护的免费浏览器。
-* [Etherchain lite](https://github.com/gobitfly/etherchain-light) - 为以太坊私有链而设的轻量级区块链浏览器
-* [EthStats](https://ethstats.io/) -   以太坊区块链分析平台
-* [Scout](https://scout.cool/) -   以太坊智能合约活动的实时记录数据来源
+* [Etherscan](https://etherscan.io/) - most popular centralized way to view Eth transactions and contract code
+* [BlockScout](https://github.com/poanetwork/blockscout) - Open Source Ethereum Block explorer, funded by [Ethprize](http://ethprize.io/) and developed by [POA](https://poa.net/)
+* [QuickBlocks](https://github.com/Great-Hill-Corporation/quickBlocks) - QuickBlocks is a collection of software libraries, applications, tools, and examples that allow you to retrieve Ethereum blockchain data \(a\) more quickly, \(b\) with higher information content, \(c\) in an fully decentralized way, \(d\) in a fully automated way, and \(e\) in a highly maintenance free way.\)
+* [Etherchain lite](https://github.com/gobitfly/etherchain-light) - Lightweight blockchain explorer for your private Ethereum chain
+* [EthStats](https://ethstats.io/) - The Ethereum Blockchain Analytics Platform
+* [Scout](https://scout.cool/) - A live data feed of the activities and event logs of your smart contracts on Ethereum
 
