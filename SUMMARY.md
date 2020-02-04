@@ -104,7 +104,7 @@
 * [以太坊生态](yi-tai-fang-sheng-tai/README.md)
   * [钱包](yi-tai-fang-sheng-tai/untitled-4/README.md)
     * [桌面钱包](yi-tai-fang-sheng-tai/untitled-4/qian-bao.md)
-    * [网络钱包](yi-tai-fang-sheng-tai/untitled-4/untitled-6.md)
+    * [网页钱包](yi-tai-fang-sheng-tai/untitled-4/untitled-6.md)
     * [移动钱包](yi-tai-fang-sheng-tai/untitled-4/untitled-5.md)
     * [硬件钱包](yi-tai-fang-sheng-tai/untitled-4/ying-jian-qian-bao.md)
   * [区块浏览器](yi-tai-fang-sheng-tai/untitled-3.md)
