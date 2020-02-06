@@ -1,9 +1,5 @@
 # 治理
 
-
-
-#### Governance
-
 * [Ethresear.ch](https://ethresear.ch/) - 涉及以太坊研究工作的半公开论坛，讨论内容包括但不限于：Casper、分片、EVM改进，加密经济学、Plasma和状态通道（State-channels）
 * [Fellowship of Ethereum Magicians](https://ethereum-magicians.org/) - 该论坛促进了整个以太坊社区内人与人之间的意义性沟通
 * [EIPs](https://eips.ethereum.org/) - 以太坊改进提案库
