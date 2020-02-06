@@ -1,8 +1,4 @@
 # 去中心数据安全协议
 
-
-
-#### Secure Decentralized Data Protocols
-
-* [Stow](https://stow-protocol.com/) - Securely store and share data for your users in minutes with our components and SDK. Formerly Linnia.
+* [Stow](https://stow-protocol.com/) - 若使用stow组件与SDK，在几分钟之内就能安全地存储和共享用户数据。前身为Linnia。
 

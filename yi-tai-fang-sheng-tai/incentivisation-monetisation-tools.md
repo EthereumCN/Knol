@@ -1,9 +1,5 @@
 # 激励/货币化工具
 
-
-
-#### Incentivisation / Monetisation Tools
-
-* [Gitcoin](https://gitcoin.co/) - Bounty network for funding Open Source or finding Open Source work
-* [CodeFund](https://codefund.io/) - Ethical Advertising Platform for Open Source
+* [Gitcoin](https://gitcoin.co/) - 资助金网络，用于发现或资助开源项目
+* [CodeFund](https://codefund.io/) - 针对开源项目的广告平台，广告的发布注重遵循道德原则
 
