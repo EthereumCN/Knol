@@ -31,7 +31,6 @@
     * [实现情况](research-and-developement/sharding/implementation.md)
     * [Sharding FAQ](research-and-developement/sharding/sharding-faqs.md)
   * [Casper PoS](research-and-developement/casper-pos/README.md)
-    * [Proof of Stake 权益证明](research-and-developement/casper-pos/proof-of-stake.md)
     * [Casper FFG](research-and-developement/casper-pos/casper-ffg/README.md)
       * [延伸阅读](research-and-developement/casper-pos/casper-ffg/extra-intro-to-casperffg.md)
     * [Casper CBC](research-and-developement/casper-pos/casper-cbc/README.md)
