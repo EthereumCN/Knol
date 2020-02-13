@@ -1,7 +1,5 @@
 # Casper Labs
 
-### About
-
 {% embed url="https://casperlabs.io" %}
 
 Casper Labs的目标是建设去中心化的未来世界。

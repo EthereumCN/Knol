@@ -122,7 +122,7 @@
     * [Parity Technology](yi-tai-fang-sheng-tai/yi-tai-fang-gong-si/parity-technology.md)
     * [Casper Labs](yi-tai-fang-sheng-tai/yi-tai-fang-gong-si/casper-labs.md)
   * [区块链游戏](yi-tai-fang-sheng-tai/you-xi/README.md)
-    * [加密收藏](yi-tai-fang-sheng-tai/you-xi/shou-ji.md)
+    * [游戏](yi-tai-fang-sheng-tai/you-xi/game.md)
   * [参考资源](yi-tai-fang-sheng-tai/reference.md)
   * [其他列表](yi-tai-fang-sheng-tai/awesome-lists.md)
 * [以太坊社区](yi-tai-fang-she-qu/README.md)
