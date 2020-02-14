@@ -49,10 +49,10 @@
   * [黄皮书](evm/yellowpaper.md)
   * [阐释](evm/illustration.md)
   * [教程](evm/tutorials.md)
-  * [测试](evm/tests.md)
   * [EVM实现](evm/evm-implementations/README.md)
     * [其它实现](evm/evm-implementations/other-implementations.md)
   * [EVM 编程语言](evm/programming-languages-that-compile-into-evm.md)
+  * [测试](evm/tests.md)
   * [调试工具](evm/debuggers.md)
   * [代码分析器](evm/code-analyzers.md)
   * [改进提议](evm/improvement-proposals.md)
@@ -146,12 +146,8 @@
     * [Ethereum Stack Exchange](yi-tai-fang-she-qu/she-qu-lun-tan/ethereum-stack-exchange.md)
     * [Discord社区](yi-tai-fang-she-qu/she-qu-lun-tan/discord-she-qu.md)
     * [Reddit社区](yi-tai-fang-she-qu/she-qu-lun-tan/reddit-she-qu.md)
-  * [社交账号](yi-tai-fang-she-qu/she-jiao-zhang-hao/README.md)
-    * [Twitter](yi-tai-fang-she-qu/she-jiao-zhang-hao/twitter.md)
-  * [人物](yi-tai-fang-she-qu/ren-wu/README.md)
-    * [天才Vitalik Buterin](yi-tai-fang-she-qu/ren-wu/vitalik-buterin.md)
 
-## 延申阅读 <a id="extended-resources"></a>
+## 延伸阅读 <a id="extended-resources"></a>
 
 * [以太坊简史](extended-resources/short-history-of-ethereum.md)
 * [官方博客归档](extended-resources/ef-blog.md)
