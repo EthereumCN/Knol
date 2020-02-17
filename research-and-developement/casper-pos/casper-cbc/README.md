@@ -1,6 +1,10 @@
 # Casper CBC
 
-[Casper the Friendly GHOST: Correct by Construction \(CBC\)](https://github.com/ethereum/research/blob/master/papers/CasperTFG/CasperTFG.pdf), AKA Casper CBC; for full Proof-of-Stake \(PoS\). [GHOST](https://eprint.iacr.org/2013/881) stands for Greediest Heaviest Observed Sub-Tree, and is a blockchain fork-choice rule protocol. PoS will be essential for the sustainability of Ethereum, drastically reducing its energy consumption while increasing scalability and performance. Resources include:
+[Casper the Friendly GHOST: Correct by Construction \(CBC\)](https://github.com/ethereum/research/blob/master/papers/CasperTFG/CasperTFG.pdf), AKA Casper CBC; for full Proof-of-Stake \(PoS\). [GHOST](https://eprint.iacr.org/2013/881) stands for Greediest Heaviest Observed Sub-Tree, and is a blockchain fork-choice rule protocol. PoS will be essential for the sustainability of Ethereum, drastically reducing its energy consumption while increasing scalability and performance. 
+
+Casper the Friendly GHOST: Correct by Constraction \(CBC，建构中修正\)，
+
+Resources include:
 
 * See this [repo](https://github.com/ethereum/cbc-casper).
 * [wiki](https://github.com/ethereum/cbc-casper/wiki)
