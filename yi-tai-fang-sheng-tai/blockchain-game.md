@@ -12,5 +12,5 @@
 
 [CryptoKitties](https://www.cryptokitties.co/) - 一款基于以太坊的游戏，玩家可收集和养殖独特的CryptoKitties猫，这种宠物通过加密学技术产生。每只猫都以ERC721 NFT token的形式存在于以太坊区块链上。
 
-
+CryptoPunk - 一种基于以太坊的区块链游戏，有10,000个独特的角色供玩家收集，一个角色只属于一个玩家，且其所有权证明存储在以太坊上，极具收藏价值。
 
