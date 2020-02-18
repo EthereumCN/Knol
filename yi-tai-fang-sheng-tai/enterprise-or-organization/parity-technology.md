@@ -6,7 +6,7 @@ Parity Technology是一家区块链核心基础设施企业。
 
 **更多请参见站内链接** 👇 
 
-{% page-ref page="parity-technology.md" %}
+{% embed url="https://eth2.ethereum.cn/teams-building-eth2/parity" %}
 
 
 
