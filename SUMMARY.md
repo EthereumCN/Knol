@@ -143,7 +143,6 @@
 ## 延伸阅读 <a id="extended-resources"></a>
 
 * [以太坊简史](extended-resources/short-history-of-ethereum.md)
-* [官方博客归档](extended-resources/ef-blog.md)
 * [ETH2.0路线图](extended-resources/eth2.0/README.md)
   * [ETH2.0 Specifications](extended-resources/eth2.0/eth2.0-spec.md)
   * [Phase 0 -- The Beacon Chain](extended-resources/eth2.0/phase-0-the-beacon-chain.md)
