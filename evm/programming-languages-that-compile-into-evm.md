@@ -1,7 +1,7 @@
 # EVM 编程语言
 
 * [Solidity](https://github.com/ethereum/solidity)
-  * The most popular programming language for Ethereum contracts
+  * 以太坊智能合约的主流编程语言
   * [Awesome Solidity](https://github.com/bkrem/awesome-solidity)
   * The LLL compiler is also in the same repository
 * [Vyper](https://github.com/ethereum/vyper)
