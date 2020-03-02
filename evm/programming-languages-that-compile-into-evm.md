@@ -1,19 +1,18 @@
-# EVM 编程语言
+# EVM编程
 
 * [Solidity](https://github.com/ethereum/solidity)
   * 以太坊智能合约的主流编程语言
   * [Awesome Solidity](https://github.com/bkrem/awesome-solidity)
-  * The LLL compiler is also in the same repository
+  * [文档](https://solidity.readthedocs.io/en/v0.6.3/)
 * [Vyper](https://github.com/ethereum/vyper)
-  * A language with overflow-checking, numeric units but without unlimited loops
-* [Pyramid Scheme](https://github.com/MichaelBurge/pyramid-scheme) \(experimental\)
-  * A Scheme compiler into EVM that follows the [SICP compilation approach](https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-35.html#%_sec_5.5)
-  * [ceagle](https://github.com/MichaelBurge/ceagle) compiles C into Pyramid Scheme
+  * 具备溢出检查、数字单位的基于Python的语言，但没有无限循环
+  * [Vyper引导教程](https://vyper.readthedocs.io/en/latest/installing-vyper.html)，目前Vyper尚处于测试阶段，请谨慎使用
 * [Flint](https://github.com/franklinsch/flint)
-  * A language with several security features: e.g. asset types with a restricted set of atomic operations
+  * 一种面向合约的编程语言，具有多个安全性功能。目前也处于测试阶段，并未实现产品化。
 * [LLLL](https://github.com/mmalvarez/eth-isabelle/blob/master/example/LLLL.thy)
-  * An LLL-like compiler being implemented in Isabelle/HOL
-* [HAseembly-evm](https://github.com/takenobu-hs/haskell-ethereum-assembly)
-  * An EVM assembly implemented as a Haskell DSL
-* [Bamboo](https://github.com/pirapira/bamboo) \(experimental\)    - A language without loops but with explicit constructor invocation at the end of every call
+  * 在Isabelle / HOL中实现的类似LLL的编译器
+* [Consensus test suite](https://github.com/ethereum/tests)
+  * 针对所有EVM实现的通用测试套件
+
+
 
