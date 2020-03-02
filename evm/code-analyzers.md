@@ -5,8 +5,8 @@ description: Code Analyzers
 # 代码分析器
 
 * [Echidna](https://github.com/trailofbits/echidna)
-  * A fuzzer on EVM that also takes Solidity input
-  * Able to fuzz a program with sequences of multiple transactions
+  * EVM模糊测试工具，同时接受Solidity输入
+  * 能够对具有多个事务序列的程序进行模糊处理
 * [MAIAN](https://arxiv.org/abs/1802.06038)
   * An automatic tool that detects trace vulnerabilities \(Greedy, Prodigal and Suicidal\) with depth-first search of symbolic execution of multiple invocations
 * [Mythril](https://github.com/b-mueller/mythril)
