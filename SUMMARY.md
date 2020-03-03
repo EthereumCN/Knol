@@ -44,7 +44,7 @@
   * [EVM编程](evm/programming-languages-that-compile-into-evm.md)
   * [调试工具](evm/debuggers.md)
   * [代码分析器](evm/code-analyzers.md)
-  * [改进提议](evm/improvement-proposals.md)
+  * [相关EIPs](evm/improvement-proposals.md)
 * [基础设施](infrastucture/README.md)
   * [以太坊区块链规范](infrastucture/chain-spec-format.md)
   * [客户端地址交换协议](infrastucture/inter-exchange-client-address-protocol.md)

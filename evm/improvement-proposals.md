@@ -1,14 +1,13 @@
 ---
-description: Improvement Proposals
+description: 以太坊改进提议 Ethereum Improvement Proposal
 ---
 
-# 改进提议
+# 相关EIPs
 
 * [Ethereum Improvement Proposals](https://github.com/ethereum/EIPs)
-  * A portal for EVM & Ethereum improvements
-  * The soonest changes are listed in the README
+  * 以太坊改进提议（EIPs）入口
 * [EVM 1.5](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-615.md)
-  * A proposal to tame jumps so that a linear-time scan can determine stack layouts
+  * EIP 615：EVM子例程及静态跳转
 * [eWASM](https://github.com/ewasm)
-  * An EVM ABI compliant implementation to use [WebAssembly](http://webassembly.org/) for Ethereum contract execution, work is underway on [shasper](https://notes.ethereum.org/SCIg8AH5SA-O4C1G1LYZHQ)
+  * 符合EVM ABI的实现，可将WebAssembly用于以太坊合约执行
 

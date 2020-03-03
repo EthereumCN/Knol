@@ -11,5 +11,5 @@ description: Debuggers
 * [Ethereum Function Signature Database](https://www.4byte.directory/)
   * 用于将`0x165ffd10`解译为`restart(bytes32,bytes32)`的数据库
 * [Moesif Web3 Debugging](https://www.moesif.com/docs/platform/ethereum-web3/)
-  * 从活跃DApp中捕获Web3事务，并使用编译后的API对其进行解码，以进行调试和监测。
+  * 从活跃DApp中捕获Web3事务，并使用编译后的ABI对其进行解码，以进行调试和监测。
 

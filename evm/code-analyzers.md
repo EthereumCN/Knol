@@ -8,24 +8,20 @@ description: Code Analyzers
   * EVM模糊测试工具，同时接受Solidity输入
   * 能够对具有多个事务序列的程序进行模糊处理
 * [MAIAN](https://arxiv.org/abs/1802.06038)
-  * An automatic tool that detects trace vulnerabilities \(Greedy, Prodigal and Suicidal\) with depth-first search of symbolic execution of multiple invocations
+  * 可通过深度优先搜索多次调用的符号执行来检测跟踪漏洞的自动化工具
 * [Mythril](https://github.com/b-mueller/mythril)
-  * A blockchain exploration tool that indexes all contracts on the network, containing a disassembler, an ABI function detector and a control flow analyzer
-  * Comes with a [--fire-laser option](https://hackernoon.com/crafting-ethereum-exploits-by-laser-fire-1c9acf25af4f)
-  * Powered by [laser-ethereum](https://github.com/b-mueller/laser-ethereum)
+  * 区块链研究工具，可索引网络上的所有合约，包括反汇编程序、ABI函数检测器和控制流分析器
 * [porosity](https://github.com/comaeio/porosity)
-  * A reverse enginering tool, a disassembler, an ABI function detector and a decompiler that also highlights vulnerabilities
+  * 逆向工程工具、反汇编器、ABI函数检测器和突出漏洞的逆编译器
 * [Manticore](https://github.com/trailofbits/manticore)
-  * A symbolic execution engine that can generate inputs to cover codepaths \([asciicast](https://asciinema.org/a/154012)\), which also comes with a Python API
+  * 一个符号执行引擎，可以生成输入以覆盖代码路径（[asciicast](https://asciinema.org/a/154012)），带有Python API
 * [evmdis](https://github.com/arachnid/evmdis)
-  * A disassembler for EVM code
+  * EVM代码反汇编器
 * [ethersplay](https://github.com/trailofbits/ethersplay)
   * An EVM plugin for [Binary Ninja](https://binary.ninja/)
+  * Binary Ninja插件，支持EVM反汇编程序和相关分析工具
 * [Securify](http://securify.ch/)
-  * A tool that strives to achieve no false-negatives
-  * The implementation seems not public as of now
+  * 目标是零漏报率的工具
 * [Oyente](https://github.com/melonproject/oyente)
-  * An automatic EVM code analyzer based on symbolic execution and [Z3](https://github.com/Z3Prover/z3) SMT solver
-* [Dr. Y's Ethereum Contract Analyzer](http://dry.yoichihirai.com/)
-  * A symbolic executor for EVM code
+  * 基于符号执行和[Z3](https://github.com/Z3Prover/z3) SMT解析器的EVM代码自动分析器
 
