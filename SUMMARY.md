@@ -56,7 +56,7 @@
   * [授权](infrastucture/licensing.md)
   * [联盟链](infrastucture/consortium.md)
 * [以太坊网络](networking/README.md)
-  * [以太坊网络协议](networking/ethereum-wire-protocol.md)
+  * [以太坊线路协议](networking/ethereum-wire-protocol.md)
   * [libp2p](networking/libp2p.md)
   * [devp2p 规范](networking/devp2p-specifications.md)
   * [devp2p 白皮书 \(旧\)](networking/old-devp2p-whitepaper.md)
