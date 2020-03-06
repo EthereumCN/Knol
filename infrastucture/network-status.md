@@ -36,17 +36,33 @@ geth客户端的rpc默认端口（如未指定）为8545。
 
 有几个命令可用：
 
-* pm2 list命令可显示过程状态 
-* pm2 logs 命令可显示日志  
-* gracefulReload node-app命令  
-* pm2 stop node-app命令可停止运行应用 
-* pm2 kill命令可关闭daemon程序
+* `pm2 list`命令可显示过程状态 
+* `pm2 logs` 命令可显示日志  
+* `gracefulReload node-app`命令  
+* `pm2 stop node-app`命令可停止运行应用 
+* `pm2 kill`命令可关闭daemon程序
 
-### 更新
+#### 更新
 
 必须执行以下操作才能进行更新：
 
-* git pull命令可更新最新版本 
-* sudo npm update命令可更新依赖（dependencies） 
-* pm2 gracefulReload node-app命令可重装客户端
+* `git pull`命令可更新最新版本 
+* `sudo npm update`命令可更新依赖（dependencies） 
+* `pm2 gracefulReload node-app`命令可重装客户端
+
+### 
+
+### 在全新Ubuntu系统上自动安装
+
+获取并运行壳（shell）后，将安装一切所需程序：最新以太坊版本所需的开发分支CLI（可选择eth或geth客户端版本）、node.js、npm和pm2。
+
+`bash <(curl https://raw.githubusercontent.com/ethereum/eth-net-intelligence-api/master/bin/build.sh)`
+
+#### 配置
+
+
+
+
+
+
 
