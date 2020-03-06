@@ -52,7 +52,7 @@
   * [NatSpec 规定](infrastucture/natspec-determination.md)
   * [网络状态监测](infrastucture/network-status.md)
   * [挖矿](infrastucture/mining.md)
-  * [授权](infrastucture/licensing.md)
+  * [许可证](infrastucture/licensing.md)
   * [联盟链](infrastucture/consortium.md)
 * [以太坊网络](networking/README.md)
   * [以太坊线路协议](networking/ethereum-wire-protocol.md)
