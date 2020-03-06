@@ -56,11 +56,21 @@ geth客户端的rpc默认端口（如未指定）为8545。
 
 获取并运行壳（shell）后，将安装一切所需程序：最新以太坊版本所需的开发分支CLI（可选择eth或geth客户端版本）、node.js、npm和pm2。
 
-`bash <(curl https://raw.githubusercontent.com/ethereum/eth-net-intelligence-api/master/bin/build.sh)`
-
 #### 配置
 
+配置修改`app.json`的应用程序。请注意，必须修改备份文件app.json，以允许设置环境变量在更新时不被重写）。
 
+#### 运行
+
+使用pm2运行以下代码：
+
+`pm2 start app.json` 
+
+`node app.js`
+
+以太坊（eth或geth客户端）必须在启用rpc的情况下运行。
+
+geth --rpc
 
 
 
