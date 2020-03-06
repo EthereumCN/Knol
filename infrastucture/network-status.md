@@ -78,7 +78,9 @@ geth客户端的rpc默认端口（如未指定）为8545
 
 要更新API客户端，请使用以下命令：
 
-~/bin/www/bin/update.sh
+`~/bin/www/bin/update.sh`
+
+此命令将停止当前的netstats客户端进程，自动检测以太坊实现和版本，更新至最新开发版本，更新netstats客户端并重新加载进程。
 
 
 
