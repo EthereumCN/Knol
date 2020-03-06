@@ -16,3 +16,37 @@
 
 `sudo npm install -g pm2`
 
+然后在里面编辑`app.json` 文件，为节点进行配置：
+
+* 更改`LISTENING_PORT`右方的值（默认值：30303）
+* 更改`INSTANCE_NAME`右方的值为任意节点命名
+* 若有意愿分享合约细节，则更改 `CONTACT_DETAILS`右方的值
+* 更改`RPC_PORT`右方的值为节点的RPC端口（默认情况下C++和go语言均为8545）
+* 改`WS_SECRET`右方的值为secret值（要从[skype官方频道](http://tinyurl.com/ofndjbo)获取）
+
+以太坊（eth或geth）必须在启用rpc的情况下运行。
+
+`geth --rpc`
+
+geth客户端的rpc默认端口（如未指定）为8545。
+
+最后使用以下命令运行该过程：
+
+`pm2 start app.json`
+
+有几个命令可用：
+
+* pm2 list命令可显示过程状态 
+* pm2 logs 命令可显示日志  
+* gracefulReload node-app命令  
+* pm2 stop node-app命令可停止运行应用 
+* pm2 kill命令可关闭daemon程序
+
+### 更新
+
+必须执行以下操作才能进行更新：
+
+* git pull命令可更新最新版本 
+* sudo npm update命令可更新依赖（dependencies） 
+* pm2 gracefulReload node-app命令可重装客户端
+
