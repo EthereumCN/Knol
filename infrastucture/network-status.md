@@ -70,7 +70,15 @@ geth客户端的rpc默认端口（如未指定）为8545。
 
 以太坊（eth或geth客户端）必须在启用rpc的情况下运行。
 
-geth --rpc
+`geth --rpc`
+
+geth客户端的rpc默认端口（如未指定）为8545
+
+#### 更新
+
+要更新API客户端，请使用以下命令：
+
+~/bin/www/bin/update.sh
 
 
 
