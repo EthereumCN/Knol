@@ -1,142 +1,118 @@
 # 客户端地址交换协议
 
-## Inter exchange Client Address Protocol \(ICAP\)
+由于客户帐户识别存款的方式存在问题，因此在第三方帐户（尤其是交易所的帐户）之间进行资金转帐给用户带来了相当大的负担，并且容易出错。现有银行业通过使用称为IBAN的通用号码解决了这个问题。该号码将银行和客户帐户合并，同时实行一种错误校验机制，从实际上消除小错误，为用户提供了极大的便利。不幸的是，这是一种受到严格监管的中心化服务，只有大型完备机构才能使用。ICAP协议，可以视为其去中心化版本，适用于任何在以太坊系统上存有资金的机构。
 
-Milo Chen edited this page on 13 Apr · [4 revisions](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29/_history)
+### IBAN
 
-**Contents**
+要全面了解IBAN系统，请参阅维基百科里的IBAN介绍文章。 IBAN号码最多包含34个不区分大小写的字母数字字符。它包含三种信息：
 
-```text
-- [IBAN](#iban)
-```
+* 国别代码，是以下内容的顶级标识符，遵循ISO 3166-1 alpha-2标准；
+* 错误校验码，采用mod-97-10校验和协议（ISO / IEC 7064：2003）；
+* 基本银行账户号码（BBAN），是银行、分行和客户帐户的标识符。不同国家，其组成不同。
 
-* [Proposed Design](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#proposed-design) - [Direct](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#direct) - [Basic](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#basic) - [Indirect](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#indirect)
-  * [Notes](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#notes)
-  * [Other forms](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#other-forms)
-    * [URI](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#uri)
-    * [QR Code](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#qr-code)
-* [Transaction Semantics](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#transaction-semantics)
-  * [Direct](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#direct-1)
-  * [Indirect ETH Asset: Simple transfers](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#indirect-eth-asset-simple-transfers)
-  * [Indirect XET Asset: Institution transfers](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29#indirect-xet-asset-institution-transfers)
+就英国而言，BBAN由以下要素组成：
 
-Transferring funds between third-party accounts, especially those of exchanges, places considerable burden on the user and is error prone, due to the way in which deposits are identified to the client account. This problem was tackled by the existing banking industry through having a common code known as _IBAN_. This code amalgamated the institution and client account along with a error-detection mechanism practically eliminating trivial errors and providing considerable convenience for the user. Unfortunately, this is a heavily regulated and centralised service accessible only to large, well-established institutions. The present protocol, ICAP, may be viewed as a decentralised version of it suitable for any institutions containing funds on the Ethereum system.
+* 银行标识符（Institution identifier），包含4个字母，如`MIDL`代表汇丰银行。
+* 排序码（Sort-code，银行的分行标识符），一个6位十进制数，如`402702`代表汇丰银行的兰开斯特分行。
+* 帐户号码（Account number，分行的客户标识符），一个8位十进制数。
 
-#### IBAN
+## 拟议设计
 
-For a good overview of the IBAN system, please see [Wikipedia's IBAN article](https://en.wikipedia.org/wiki/International_Bank_Account_Number). An IBAN code consists of up to 34 case insensitive alpha-numeric characters. It contains three pieces of information:
+以太坊引入新的IBAN国别代码XE，前缀X表示延申意义，E表示Ethereum的首字母E，如非法定货币XRP，XCP。
 
-* The country code; a top-level identifier for the context of the following \(ISO 3166-1 alpha-2\);
-* The error-detection code; uses the _mod-97-10_ checksumming protocol \(ISO/IEC 7064:2003\);
-* The basic bank account number \(BBAN\); an identifier of the institution, branch and client account, whose composition is dependent on the aforementioned country.
+有三种 BBAN 编码：直接编码，基本编码和间接编码。
 
-For the UK, the BBAN is composed of:
+#### 直接编码
 
-* Institution identifier, 4-character alphabetical, e.g. `MIDL` \(ironically\) represents HSBC bank.
-* Sort-code \(branch identifier within the institution\), a 6-digit decimal number, e.g. `402702` would be the Lancaster branch of HSBC.
-* Account number \(client identifier within the branch\), an 8-digit decimal number.
+直接编码为30个字符，并且包含一个字段：
 
-## Proposed Design
+* 帐户标识符（Account identifier），30个字母数字字符（&lt;156位），是一个大端序base-36整数，表示155位以太坊地址的最低有效位。因此，这些以太坊地址通常以零字节开头。
 
-Introduce a new IBAN country code: _XE_, formulated as the Ethereum _E_ prefixed with the "extended" _X_, as used in non-jurisdictional currencies \(e.g. XRP, XCP\).
+例如，XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS的对应地址为`0x00c5496aee77c1ba1f0854206a26dda82a81d6d8`.
 
-There will be three BBAN possibilities for this code; _direct_, _basic_ and _indirect_.
+#### 基本编码
 
-**Direct**
+\*\* 与直接编码相同，只是长度为31个字符（因此与IBAN不兼容），但包含相同的单个字段：
 
-The BBAN for this code when direct will be 30 characters and will comprise one field:
+* 帐户标识符（Account identifier），31个字母数字字符（&lt;161位），是一个大端序的base-36整数，代表一个160位以太坊地址。
 
-* Account identifier, 30 characters alphanumeric \(&lt; 156-bit\). This will be interpreted as a big-endian encoded base-36 integer representing the least significant bits of a 155-bit Ethereum address. As such, these Ethereum addresses will generally begin with first byte 00000xxx.
+#### 间接编码
 
-e.g. XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS corresponds to the address `0x00c5496aee77c1ba1f0854206a26dda82a81d6d8`.
+间接编码为16个字符，并且包含三个字段：
 
-**Basic**
+* 资产标识符（Asset identifier），3个字母数字字符（&lt;16位）;
+* 机构标识符（Institution identifier），4个字母数字字符（&lt;21位）;
+* 机构客户标识符（Institution client identifier），9个字母数字字符（&lt;47位）;
 
-\*\*
-
-\*\* The same as the direct encoding, except that the code is 31 characters \(making it non-compliant for IBAN\) and composes the same, single, field:
-
-* Account identifier, 31 characters alphanumeric \(&lt; 161-bit\). This will be interpreted as a big-endian encoded base-36 integer representing a 160-bit Ethereum address.
-
-**Indirect**
-
-The BBAN for this code when indirect will be 16 characters and will comprise three fields:
-
-* Asset identifier, 3-character alphanumeric \(&lt; 16-bit\);
-* Institution identifier, 4-character alphanumeric \(&lt; 21-bit\);
-* Institution client identifier, 9-character alphanumeric \(&lt; 47-bit\);
-
-Including the four initial characters, this leads to a final client-account address length of 20 characters, of the form:
+还包括四个首字符，因此最终的客户帐户地址长度为20个字符，格式为：
 
 ```text
 XE81ETHXREGGAVOFYORK
 ```
 
-Split into:
+可划分为以下部分：
 
-* `XE` The country code for Ethereum;
-* `81` The checksum;
-* `ETH` The asset identifier within the client account - in this case, "ETH" is the only valid asset identifier, since Ethereum's base registry contract supports only this asset;
-* `XREG` The institution code for the account - in this case, Ethereum's base registry contract;
-* `GAVOFYORK` The client identifier within the institution - in this case, a direct payment with no additional data to whatever primary address is associated with the name "GAVOFYORK" in Ethereum's base registry contract;
+* `XE` 表示以太坊国别代码
+* `81` 表示校验和
+* `ETH` 表示客户账户中的资产标识符。在本示例中，“ETH”是唯一有效的资产标识符，因为以太坊的基础注册表合约仅支持此类资产。
+* `XREG` 表示机构代码。在本示例中，表示以太坊的基础注册表合约。
+* `GAVOFYORK` 表示机构客户标识符。在本示例中，表示直接付款方式，且不向与以太坊基础注册表合约中的名称“ GAVOFYORK”关联的任何首要地址添加数据；
 
-### Notes
+#### 注意
 
-Institution codes beginning with `X` are reserved for system use.
+以`x`开头的机构代码仅供系统使用。
 
-### Other forms
+### 
 
-#### URI
+### 其他格式
 
-General URIs can be formed though the URI scheme name `iban`, followed by the colon character `:`, followed by the 20-character alphanumeric identifier, thus for the example above, we would use:
+#### 统一资源标识符（URI）
+
+在20个字符的字母数字标识符前添加URI 方案名称（URI scheme name）`iban`和一个冒号`：`，就可以构成通用URI。上述示例的URI格式为：
 
 ```text
 iban:XE81ETHXREGGAVOFYORK
 ```
 
-#### QR Code
+#### 二维码
 
-A QR code may be generated directly from the URI using standard QR encodings. For example, the example above `iban:XE81ETHXREGGAVOFYORK` would have the corresponding QR code:
+可以使用二维码编码标准直接用URI生成二维码。
+
+例如，上述示例的URI格式`iban:XE81ETHXREGGAVOFYORK`具有相应的二维码。
 
 ![QR code for iban:XE81ETHXREGGAVOFYORK](https://camo.githubusercontent.com/17390df3301d4aa0a594bbcc425ea02dc0486f36/687474703a2f2f6f70656e736563726563792e636f6d2f71722d58453831455448585245474741564f46594f524b2e676966)
 
-## Transaction Semantics
+## 交易语义
 
-The mechanism for indirect asset transfer over three routing protocols are specified, all of which are specific to the Ethereum domain \(country-code of `XE`\). One is for currency transfers directly to an included address \("direct"\), another is for clients with the system address found through a Registry-lookup system of the client-ID, denoted by asset class `ETH`, whereas the last is for transfers to an intermediary with associated data to specify client, denoted by asset class `XET` \(the latter two are "indirect"\).
+进行间接资产转移采用的三种路由协议是特定的，所有这些协议都特定于以太坊域名（`XE`国别代码）。一种协议是用于将货币直接转账到已有地址，另一种适用于具有系统地址的客户端，这些地址通过客户端ID注册表查找系统查找而得，以资产类别`ETH`表示，而最后一种是用于转账到与指定客户端关联的中间方，以资产类别 `XET`表示（后两种协议是间接交易）。
 
-### Direct
+### 直接转账
 
-If the IBAN code is 34 characters, it is a direct address; a direct transfer is made to the address which, when base-36 encoded gives exactly the data segment \(the last 30 characters\) of the IBAN code.
+如果IBAN号码为34个字符，则其为直接地址；资产将直接转移到该地址，当用base-36编码该地址，将得出准确的IBAN代码数据段，即最后30个字符。
 
-### Indirect ETH Asset: Simple transfers
+### ETH资产的简单间接转移
 
-Within the ETH asset code of Ethereum's country-code \(XE\), i.e. as long as the code begins with `XE**ETH` \(where `**` is the valid checksum\), then we can define the required transaction to be the deposit address given by a call to the _registry contract_ denoted by the institution code. For institutions not beginning with `X`, this corresponds to the primary address associated with the _Ethereum standard name_:
+只要代码以`XE`**`ETH`**开头（其中\*\*是有效的校验和），那么我们可以将所需交易定义为调用由机构代码表示的注册表合约的存款地址。若不是以`x`开头，交易则被定义为与以太坊标准名称：
 
 \[institution code\] `/` \[client identifier\]
 
-The _Ethereum standard name_ is simply the normal hierarchical lookup mechanism, as specified in the Ethereum standard interfaces document.
+以太坊标准名称只是以太坊标准接口文档中指定的常规分层查找机制。
 
-We define a _registry contract_ as a contract fulfilling the Registry interface as specified in the Ethereum standard interfaces document.
+我们将注册表合约定义为符合以太坊标准接口文档中指定的注册表接口的合约。
 
-**TODO**: JS code for specifying the transfer.
+### 间接机构转移XET资产
 
-### Indirect XET Asset: Institution transfers
+只要代码以`XE ** XET`开头，那么我们可以导出必须通过查找以太坊`iban`注册表合约进行的交易。对于特定机构来说，该合约有两个特定值：存款调用签名哈希值和机构的以太坊地址。
 
-For the `XET` asset code within the Ethereum country code \(i.e. while the code begins XE\*\*XET\), then we can derive the transaction that must be made through a lookup to the Ethereum `iban` registry contract. For a given institution, this contract specifies two values: the deposit call signature hash and the institution's Ethereum address.
-
-At present, only a single such deposit call is defined, which is:
+目前，仅确定了一种存款调用，即：
 
 ```text
 function deposit(uint64 clientAccount)
 ```
 
-whose signature hash is `0x13765838`. The transaction to transfer the assets should be formed as an ether-laden call to the institution's Ethereum address using the `deposit` method as specified above, with the client account determined through the value of the big-endian, base-36 interpretation of the alpha-numeric _Institution client identifier_, literally using the value of the characters `0` to `9`, then evaluating 'A' \(or 'a'\) as 10, 'B' \(or 'b'\) as 11 and so forth.
-
-**TODO**: JS code for specifying the transfer.`_**![](https://etherscan.io/address/0xc94770007dda54cf92009bff0de90c06f603a09f)**_`
+其签名哈希值为 `0x13765838`。转移资产交易应采用上述指定的`deposit` 方法来作为对机构以太坊地址的eth负载调用，客户端账户应通过机构客户端的字母数字标识符的大端base-36整数来确定，数值使用字符 `0`到 `9`，然后将'A'（或'a'）等值为10，将'B'（或'b'）等值为11，依此类推。
 
 
 
-
-
-[https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-\(ICAP\)](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29)
+原文链接：[https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-\(ICAP\)](https://github.com/ethereum/wiki/wiki/Inter-exchange-Client-Address-Protocol-%28ICAP%29)
 

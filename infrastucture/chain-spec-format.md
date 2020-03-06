@@ -1,57 +1,50 @@
 # 以太坊区块链规范
 
-**Contents**
+以下是任何类似以太坊的区块链所用的格式。此格式源自`genesis.json`格式，但它还包含用于更改和配置共识算法、确定基础设施信息、确定boot nodes、确定任何内建合约及其成本的参数。
 
-* [Format](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format#format)
-  * [Subformat: engine](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format#subformat-engine)
-  * [Subformat: params](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format#subformat-params)
-  * [Subformat: genesis](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format#subformat-genesis)
-  * [Subformat: accounts](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format#subformat-accounts)
-* [Example](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format#example)
+### 格式
 
-This is a format to describe any Ethereum-like chain. It is derived from the `genesis.json` format but includes parameters to change and configure the consensus algorithm, to specify infrastructure information, to specify boot nodes and to specify any built-in contracts together with their cost.
+此格式是JSON格式，顶层对象带有六个键：
 
-#### Format
+* `name`: 表示区块链链名称的字符串值如“Frontier/Homestead”、“Morden”和“Olympic”。
+* `forkName`: 如果两条不同的链的创世区块相同，则可以在此填入字符串值指定一个子标识符。
+* `engine`: 表示共识引擎的枚举值（enum value）如“ Ethash”和“ Null”。
+* `params`: 确定共识引擎各种属性的对象，允许进行配置。
+* `genesis`: 确定创世区块头的对象。
+* `nodes`: 字符串组，每个字符串都是enode格式的节点地址。
+* `accounts`: 用来设定创世区块帐号，这包括预设内建合约和预设余额。
 
-It is JSON, with the top level being an object with six keys:
+#### 子格式：engine（引擎）
 
-* `name`: A string value specifying the chain name. e.g. "Frontier/Homestead", "Morden", "Olympic".
-* `forkName`: An optional string value specifying a sub-identifier, in case two different chains have equivalent genesis blocks.
-* `engine`: A enum value specifying the consensus engine. e.g. "Ethash", "Null".
-* `params`: An object specifying various attributes of the consensus engine, allowing configuration.
-* `genesis`: An object specifying the header of the genesis block.
-* `nodes`: An array of strings, each one a node address in enode format.
-* `accounts`: An object specifying accounts of the genesis block. This includes builtin contracts and premines.
+有两种有效引擎：`Ethash` 和 `Null`
 
-**Subformat: engine**
+* `Null`: 非运行引擎
+* `Ethash`: 以太坊所用的sealing引擎
+  * `params`: 引擎特定参数
+    * `minimumDifficulty`: 区块最小估算难度。
+    * `gasLimitBoundDivisor`: 黄皮书里规定的相应数值。
+    * `difficultyBoundDivisor`: 黄皮书里规定的相应数值。
+    * `durationLimit`: 难度增加的边界点数。
+    * `blockReward`: 区块奖励。
+    * `registrar`: 区块链上注册表合约地址上以`0x`为前缀的40位半字节数据。
 
-There are two valid engines, `Ethash` and `Null`.
+#### 子格式：params（参数）
 
-* `Null`: Nonoperative engine.
-* `Ethash`: Sealing engine used by ethereum.
-  * `params`: Engine specific params.
-    * `minimumDifficulty`: Integer specifying the minimum difficulty a block may have.
-    * `gasLimitBoundDivisor`: Integer specifying the according value in the Yellow Paper.
-    * `difficultyBoundDivisor`: Integer specifying the according value in the Yellow Paper.
-    * `durationLimit`: Integer specifying the boundary point at which difficulty is increased.
-    * `blockReward`: Integer specifying the reward given for authoring a block.
-    * `registrar`: `0x`-prefixed, 40-nibble datum of the address of the registrar contract on this chain.
+不同的共识引擎可能会在`params`中允许使用不同的键，但是它们也存在一些共同点：
 
-**Subformat: params**
+* `accountStartNonce`: 所有新创建帐户应具有的随机数。
+* `frontierCompatibilityModeLimit`: Frontier兼容模式完成到Homestead模式开始期间产生的区块数量。
+* `maximumExtraDataSize`: 区块头extra\_data字段的最大字节数。
+* `minGasLimit`: 一个区块的规定最小gas值。
+* `networkID`: 网络上该链的索引。
 
-Different consensus engines may allow different keys in the `params` object, however there exist a few common to all:
+注意：所有数值均是以`0x`为前缀的十六进制编码字符串。
 
-* `accountStartNonce`: Integer specifying what nonce all newly created accounts should have.
-* `frontierCompatibilityModeLimit`: Integer specifying the number of the block that Frontier-compatibility mode finishes and Homestead mode begins.
-* `maximumExtraDataSize`: Integer specifying the maximum size in bytes of the extra\_data field of the header.
-* `minGasLimit`: Integer specifying the minimum amount of gas a block may be limited at.
-* `networkID`: Integer specifying the index of this chain on the network.
+#### 子格式：genesis（创世）
 
-Note: all integers are `0x`-prefixed, hex-encoded strings.
+genesis中的键指定了链的创世区块中的相应字段，它们均是以`0x`为前缀的十六进制编码字符串。
 
-**Subformat: genesis**
-
-The keys in genesis specify the according fields in the chain's genesis block. All are hex-encoded, `0x` prefixed. The fields required are:
+必填字段为：
 
 * `seal`
 * `difficulty`
@@ -61,22 +54,22 @@ The keys in genesis specify the according fields in the chain's genesis block. A
 * `extraData`
 * `gasLimit`
 
-**Subformat: accounts**
+#### 子格式：accounts（账户）
 
-The `accounts` object maps from addresses \(40-nibble strings without the `0x` prefix\) to objects, each with a number of allowed keys:
+`accounts`从地址（不带`0x`前缀的40个半字节字符串）映射到对象，每个对象都有许多键
 
-* `balance`: Integer to specify the balance of the account at genesis in wei.
-* `nonce`: Integer to specify the nonce of the account at genesis.
-* `code`: `0x`-prefixed hex specifying the code of the account at genesis.
-* `storage`: Object mapping hex-encoded integers for the account's storage at genesis.
-* `builtin`: Alternative to `code`, used to specify that the account's code is natively implemented. Value is an object with further fields:
-  * "name": The name of the builtin code to execute as a string. e.g. `"identity"`, `"ecrecover"`.
-  * "pricing": Enum to specify the cost of calling this contract.
-    * "linear": Specify a linear cost to calling this contract. Value is an object with two fields: `base` which is the basic cost in Wei and is always paid; and `word` which is the cost per word of input, rounded up.
+* `balance`: 账户创建时，以wei为单位的账户余额。
+* `nonce`: 账户创建时，帐户的随机数。
+* `code`: 账户创建时，前缀为`0x`的十六进制账户代码。
+* `storage`: 账户创建时，映射十六进制编码的数值。
+* `builtin`: 替代`code`，用于指定帐户代码是本地实现的。值是具有其他字段的对象：
+  * "name": 充当字符串来执行的内置代码名称，如“identity”，“ecrecover”。 e.g. `"identity"`, `"ecrecover"`.
+  * "pricing": 确定调用此合约的成本的枚举。
+    * "linear": 确定调用此合约的线性成本。值是具有两个字段的对象：`base`是以Wei为单位的基本成本，此成本始终被支付；`word`表示输入一个单词的大概费用。
 
-#### Example
+### 例子
 
-This is the Morden ECS JSON file
+以下是Morden ECS JSON文档：
 
 ```text
 {
@@ -129,5 +122,5 @@ This is the Morden ECS JSON file
 }
 ```
 
-Note: the builtin accounts enable usage of Solidity language. Running without them included in the chain definition file may result in unexpected behavior.
+
 
