@@ -6,45 +6,45 @@ description: 递归长度前缀编码
 
 **Contents**
 
-* [Definition](https://github.com/ethereum/wiki/wiki/RLP#definition)
-* [Examples](https://github.com/ethereum/wiki/wiki/RLP#examples)
-* [RLP decoding](https://github.com/ethereum/wiki/wiki/RLP#rlp-decoding)
-* [Implementations](https://github.com/ethereum/wiki/wiki/RLP#implementations)
+* [定义](https://github.com/ethereum/wiki/wiki/RLP#definition)
+* [例子](https://github.com/ethereum/wiki/wiki/RLP#examples)
+* [RLP解码](https://github.com/ethereum/wiki/wiki/RLP#rlp-decoding)
+* [代码实现](https://github.com/ethereum/wiki/wiki/RLP#implementations)
 
-The purpose of RLP \(Recursive Length Prefix\) is to encode arbitrarily nested arrays of binary data, and RLP is the main encoding method used to serialize objects in Ethereum. The only purpose of RLP is to encode structure; encoding specific data types \(eg. strings, floats\) is left up to higher-order protocols; but positive RLP integers must be represented in big endian binary form with no leading zeroes \(thus making the integer value zero be equivalent to the empty byte array\). Deserialised positive integers with leading zeroes must be treated as invalid. The integer representation of string length must also be encoded this way, as well as integers in the payload. Additional information can be found in the Ethereum yellow paper Appendix B.
+RLP \(递归长度前缀\)提供了一种适用于任意二进制数据数组的编码，RLP已经成为以太坊中对对象进行序列化的主要编码方式。 RLP的唯一目标就是解决结构体的编码问题；对原子数据类型（比如，字符串，整数型，浮点型）的编码则交给更高层的协议；以太坊中要求数字必须是大端字节序的、没有零占位的存储格式（也就是说，一个整数0和一个空数组是等同的）。具有零占位的反序列化正整数必须视为无效。字符串长度的数字以及内容中的数字也必须采用这种方式进行编码。更多信息请查阅以太坊黄皮书的附录B。
 
-If one wishes to use RLP to encode a dictionary, the two suggested canonical forms are to either use `[[k1,v1],[k2,v2]...]` with keys in lexicographic order or to use the higher-level [Patricia Tree](https://github.com/ethereum/wiki/wiki/Patricia-Tree) encoding as Ethereum does.
+对于在 RLP 格式中对一个字典数据的编码问题，有两种建议的方式，一种是通过二维数组表达键值对，比如`[[k1,v1],[k2,v2]...]`，并且对键进行字典序排序；另一种方式是通过以太坊文档中提到的高级[基数树](https://github.com/ethereum/wiki/wiki/Patricia-Tree)编码来实现。
 
-In summary, RLP is like a binary encoding of JSON, if JSON were restricted only to strings and arrays.
+总之，如果JSON仅适用于字符串和数组，则RLP类似于JSON的二进制编码。
 
-#### Definition
+#### 定义
 
-The RLP encoding function takes in an item. An item is defined as follows：
+RLP 编码函数接受一个item。定义如下：
 
-* A string \(ie. byte array\) is an item
-* A list of items is an item
+* 将一个字符串作为一个item（比如，一个 byte 数组）
+* 一组item列表（list）作为一个item
 
-For example, an empty string is an item, as is the string containing the word "cat", a list containing any number of strings, as well as more complex data structures like `["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]`. Note that in the context of the rest of this article, "string" will be used as a synonym for "a certain number of bytes of binary data"; no special encodings are used and no knowledge about the content of the strings is implied.
+例如，一个空字符串可以是一个item，一个字符串"cat"也可以是一个item，一个含有多个字符串的列表也行，复杂的数据结构也行，比如这样的`["cat",["puppy","cow"],"horse",[[]],"pig",[""],"sheep"]`。注意在本文后续内容中，说"字符串"的意思其实就相当于"一个确定长度的二进制字节信息数据"；而不要假设或考虑关于字符的编码问题。
 
-RLP encoding is defined as follows:
+RLP 编码定义如下：
 
-* For a single byte whose value is in the `[0x00, 0x7f]` range, that byte is its own RLP encoding.
-* Otherwise, if a string is 0-55 bytes long, the RLP encoding consists of a single byte with value **0x80** plus the length of the string followed by the string. The range of the first byte is thus `[0x80, 0xb7]`.
-* If a string is more than 55 bytes long, the RLP encoding consists of a single byte with value **0xb7** plus the length in bytes of the length of the string in binary form, followed by the length of the string, followed by the string. For example, a length-1024 string would be encoded as `\xb9\x04\x00` followed by the string. The range of the first byte is thus `[0xb8, 0xbf]`.
-* If the total payload of a list \(i.e. the combined length of all its items being RLP encoded\) is 0-55 bytes long, the RLP encoding consists of a single byte with value **0xc0** plus the length of the list followed by the concatenation of the RLP encodings of the items. The range of the first byte is thus `[0xc0, 0xf7]`.
-* If the total payload of a list is more than 55 bytes long, the RLP encoding consists of a single byte with value **0xf7** plus the length in bytes of the length of the payload in binary form, followed by the length of the payload, followed by the concatenation of the RLP encodings of the items. The range of the first byte is thus `[0xf8, 0xff]`.
+* 对于 `[0x00, 0x7f]` 范围内的单个字节, RLP 编码内容就是字节内容本身。
+* 否则，如果是一个 0-55 字节长的字符串，则RLP编码由一个特别的数值 **0x80** 加上字符串长度，再加上字符串二进制内容。这样，第一个字节的表达范围为 `[0x80, 0xb7]`.
+* 如果字符串长度超过 55 个字节，RLP 编码由定值 **0xb7** 加上字符串长度所占用的字节数，加上字符串长度的编码，加上字符串二进制内容组成。比如，一个长度为 1024 的字符串，将被编码为`\xb9\x04\x00` 后面再加上字符串内容。第一字节的表达范围是`[0xb8, 0xbf]`。
+* 如果列表的内容（它的所有项的组合长度）是0-55个字节长，它的RLP编码由**0xC0**加上所有的项的RLP编码串联起来的长度得到的单个字节，后跟所有的项的RLP编码的串联组成。 第一字节的范围因此是`[0xc0, 0xf7]`
+* 如果列表的内容超过55字节，它的RLP编码由 **0xf7** 加上所有的项的RLP编码串联起来的长度的长度得到的单个字节，后跟所有的项的RLP编码串联起来的长度，再后跟所有的项的RLP编码的串联组成。 第一字节的范围因此是`[0xf8, 0xff]` 。
 
-In code, this is:
+用Python代码表达以上逻辑:
 
 ```text
 def rlp_encode(input):
     if isinstance(input,str):
-        if len(input) == 1 and ord(input) < 0x80: return input
-        else: return encode_length(len(input), 0x80) + input
+        if len(input) == 1 and chr(input) < 128: return input
+        else: return encode_length(len(input),128) + input
     elif isinstance(input,list):
         output = ''
         for item in input: output += rlp_encode(item)
-        return encode_length(len(output), 0xc0) + output
+        return encode_length(len(output),192) + output
 
 def encode_length(L,offset):
     if L < 56:
@@ -56,51 +56,46 @@ def encode_length(L,offset):
          raise Exception("input too long")
 
 def to_binary(x):
-    if x == 0:
-        return ''
-    else: 
-        return to_binary(int(x / 256)) + chr(x % 256)
+    return '' if x == 0 else to_binary(int(x / 256)) + chr(x % 256)
 ```
 
-#### Examples
+#### 例子
 
-The string "dog" = \[ 0x83, 'd', 'o', 'g' \]
+字符串 "dog" = \[ 0x83, 'd', 'o', 'g' \]
 
-The list \[ "cat", "dog" \] = `[ 0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o', 'g' ]`
+列表 \[ "cat", "dog" \] = `[ 0xc8, 0x83, 'c', 'a', 't', 0x83, 'd', 'o', 'g' ]`
 
-The empty string \('null'\) = `[ 0x80 ]`
+空字符串 \('null'\) = `[ 0x80 ]`
 
-The empty list = `[ 0xc0 ]`
+空列表 = `[ 0xc0 ]`
 
-The integer 0 = `[ 0x80 ]`
+数字0 = `[ 0x80 ]`
 
-The encoded integer 0 \('\x00'\) = `[ 0x00 ]`
+数字15 \('\x0f'\) = `[ 0x0f ]`
 
-The encoded integer 15 \('\x0f'\) = `[ 0x0f ]`
+数字 1024 \('\x04\x00'\) = `[ 0x82, 0x04, 0x00 ]`
 
-The encoded integer 1024 \('\x04\x00'\) = `[ 0x82, 0x04, 0x00 ]`
+[集合论表达](https://en.wikipedia.org/wiki/Set-theoretic_definition_of_natural_numbers)， `[ [], [[]], [ [], [[]] ] ] = [ 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 ]`
 
-The [set theoretical representation](http://en.wikipedia.org/wiki/Set-theoretic_definition_of_natural_numbers) of three, `[ [], [[]], [ [], [[]] ] ] = [ 0xc7, 0xc0, 0xc1, 0xc0, 0xc3, 0xc0, 0xc1, 0xc0 ]`
+字符串 "Lorem ipsum dolor sit amet, consectetur adipisicing elit" = `[ 0xb8, 0x38, 'L', 'o', 'r', 'e', 'm', ' ', ... , 'e', 'l', 'i', 't' ]`
 
-The string "Lorem ipsum dolor sit amet, consectetur adipisicing elit" = `[ 0xb8, 0x38, 'L', 'o', 'r', 'e', 'm', ' ', ... , 'e', 'l', 'i', 't' ]`
 
-#### RLP decoding
 
-According to rules and process of RLP encoding, the input of RLP decode shall be regarded as array of binary data, the process is as follows:
+根据RLP编码的规则和过程，RLP解码的输入数据应被视为二进制数组，过程如下：
 
-1. According to the first byte\(i.e. prefix\) of input data, and decoding the data type, the length of the actual data and offset;
-2. According to type and offset of data, decode data correspondingly;
-3. Continue to decode the rest of the input;
+1. 根据输入数据的首字节（即前缀），解码数据类型、实际数据的长度和偏移量；
+2. 根据数据类型和其偏移量，对数据进行相应的解码；
+3. 继续解码剩余的输入数据
 
-Among them, the rules of decoding data types and offset is as follows:
+其中，解码数据类型和偏移量的规则如下：
 
-1. the data is a string if the range of the first byte\(i.e. prefix\) is \[0x00, 0x7f\], and the string is the first byte itself exactly;
-2. the data is a string if the range of the first byte is \[0x80, 0xb7\], and the string whose length is equal to the first byte minus 0x80 follows the first byte;
-3. the data is a string if the range of the first byte is \[0xb8, 0xbf\], and the length of the string whose length in bytes is equal to the first byte minus 0xb7 follows the first byte, and the string follows the length of the string;
-4. the data is a list if the range of the first byte is \[0xc0, 0xf7\], and the concatenation of the RLP encodings of all items of the list which the total payload is equal to the first byte minus 0xc0 follows the first byte;
-5. the data is a list if the range of the first byte is \[0xf8, 0xff\], and the total payload of the list whose length is equal to the first byte minus 0xf7 follows the first byte, and the concatenation of the RLP encodings of all items of the list follows the total payload of the list;
+1. 如果首字节（即前缀）的值在\[0x00，0x7f\]范围之内，那么该数据为字符串，且该字符串就是首字节本身，；
+2. 如果首字节的值在\[0x80，0xb7\]范围之内，并且数据长度等于首字节减去0x80，那么该数据为字符串，且位于首字节之后。
+3. 如果首字节的值在\[0xb8，0xbf\]范围之内，那么该数据为字符串，且该字符串的字节长度等于首字节减去0xb7，字符串长度位于首字节之后，字符串位于字符串长度之后。
+4. 如果首字节的值在\[0xc0，0xf7\]范围之内，那么该数据为列表，这时则需要对列表里的各项item进行RLP递归解码。列表总长度等于首字节减去0xc0，列表各项item递归解码位于首字节之后。
+5. 如果首字节的值在\[0xf8，0xff\]范围之内，那么该数据为列表，列表长度等于首字节减去0xf7，列表总长度位于首字节之后，并且列表各项item递归解码位于列表总长度之后。
 
-In code, this is:
+代码如下：
 
 ```text
 def rlp_decode(input):
@@ -159,9 +154,9 @@ def to_integer(b):
         return ord(substr(b, -1)) + to_integer(substr(b, 0, -1)) * 256
 ```
 
-Note that the `decode_length` function rejects invalid encodings that have "non-optimal" lengths, namely \(1\) singleton strings whose only byte is below 128 that are encoded with a short \(i.e. one-byte\) length of 1 instead of as the strings themselves and \(2\) strings and lists with long \(i.e. multi-byte\) lengths with leading zeros \(which must be absent\) or below 56 \(which should be encoded using short lengths\).
+注意：`decode_length`函数会拒绝“非最佳”长度的无效编码，即（1）仅字节小于128的单例字符串，其应使用短长度（即一个字节）为1进行编码，而不是用字符串本身（2）字符串和列表长度较长（即多字节）的，且具有零占位（本来不应该存在），或长度小于56（本来应使用短长度进行编码）。
 
-#### Implementations
+#### 代码实现
 
 * Go: [go-ethereum](https://github.com/ethereum/go-ethereum/tree/master/rlp)
 * Java: [web3j](https://github.com/web3j/web3j/blob/master/rlp/src/main/java/org/web3j/rlp/RlpDecoder.java), [ethereumj](https://github.com/ethereumj/ethereumj/blob/master/ethereumj-core/src/main/java/org/ethereum/util/RLP.java), [headlong](https://github.com/esaulpaugh/headlong/tree/master/src/main/java/com/esaulpaugh/headlong/rlp)
@@ -172,101 +167,5 @@ Note that the `decode_length` function rejects invalid encodings that have "non-
 * Swift: [RLPSwift](https://github.com/bitfwdcommunity/RLPSwift), [RLP](https://github.com/uport-project/swift-rlp)
 * PHP: [rlp](https://github.com/web3p/rlp)
 
-\| [Deutsch](https://github.com/ethereum/wiki/wiki/%5BGerman%5D-Ethereum-TOC) \| [English](https://github.com/ethereum/wiki/wiki) \| [Español](https://github.com/ethereum/wiki/wiki/%5BSpanish%5D-Ethereum-TOC) \| [Français](https://github.com/ethereum/wiki/wiki/%5BFrench%5D-Ethereum-TOC) \| [한국어](https://github.com/ethereum/wiki/wiki/%5BKorean%5D-White-Paper) \| [Italiano](https://github.com/ethereum/wiki/wiki/%5BItalian%5D-Ethereum-TOC) \| [Portuguese](https://github.com/ethereum/wiki/wiki/%5BPortuguese%5D-White-Paper/) \| [Română](https://github.com/ethereum/wiki/wiki/%5BRomanian%5D-Cuprins) \| [العربية](https://github.com/ethereum/wiki/wiki/%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9) \| [فارسی](https://github.com/ethereum/wiki/wiki/%5BPersian%5D-Ethereum-TOC) \| [中文\(繁体\)](https://github.com/ethereum/wiki/wiki/%5BChinese%5D-Ethereum-TOC)
-
-\| [中文\(简体\)](https://github.com/ethereum/wiki/wiki/%5BSimplified-Chinese%5D-Ethereum-TOC) \| [日本語](https://github.com/ethereum/wiki/wiki/%5BJapanese%5D-Ethereum-TOC)
-
-####  Pages 231
-
-## Basics
-
-* [Home](https://github.com/ethereum/wiki/wiki/)
-* [Ethereum Whitepaper](https://github.com/ethereum/wiki/wiki/White-Paper)
-* [Ethereum Introduction](https://github.com/ethereum/wiki/wiki/Ethereum-introduction)
-* [Uses: DAOs and dapps](https://github.com/ethereum/wiki/wiki/Decentralized-apps-%28dapps%29)
-* [Getting Ether](https://github.com/ethereum/wiki/wiki/Getting-Ether)
-* [Releases](https://github.com/ethereum/wiki/wiki/Releases)
-* [FAQs](https://github.com/ethereum/wiki/wiki/FAQs)
-* [Design Rationale](https://github.com/ethereum/wiki/wiki/Design-Rationale)
-* EVM intro: [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf), [Beige Paper](https://github.com/chronaeon/beigepaper) and [Py-EVM](https://github.com/ethereum/py-evm).
-* [Wiki for \(old\) website](https://github.com/ethereum/ethereum.org/wiki) \(still a good introduction\)
-* [Glossary](https://github.com/ethereum/wiki/wiki/Glossary)
-
-## [R&D](https://github.com/ethereum/wiki/wiki/R&D)
-
-* [Sharding introduction & R&D Compendium](https://github.com/ethereum/wiki/wiki/Sharding-introduction-R&D-compendium), [FAQs](https://github.com/ethereum/wiki/wiki/Sharding-FAQs) & [roadmap](https://github.com/ethereum/wiki/wiki/Sharding-roadmap)
-* [Casper Proof-of-Stake compendium](https://github.com/ethereum/wiki/wiki/Casper-Proof-of-Stake-compendium) and [FAQs](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQs).
-* [Alternative blockchains, randomness, economics, and other research topics](https://github.com/ethereum/wiki/wiki/Alternative-blockchains,-randomness,-economics,-and-other-research-topics)
-* [Hard Problems of Cryptocurrency](https://github.com/ethereum/wiki/wiki/Problems)
-* [Governance](https://github.com/ethereum/wiki/wiki/Governance-compendium)
-
-## [Ethereum Virtual Machine \(EVM\)](https://github.com/ethereum/wiki/wiki/Ethereum-Virtual-Machine-%28EVM%29-Awesome-List)
-
-## [Ethereum clients, tools, wallets, dapp browsers and other projects](https://github.com/ethereum/wiki/wiki/Clients,-tools,-dapp-browsers,-wallets-and-other-projects)
-
-## [ÐApp Development](https://github.com/ethereum/wiki/wiki/%C3%90App-Development)
-
-## Infrastructure
-
-* [Chain Spec Format](https://github.com/ethereum/wiki/wiki/Ethereum-Chain-Spec-Format)
-* [Inter-exchange Client Address Protocol](https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol)
-* [URL Hint Protocol](https://github.com/ethereum/wiki/wiki/URL-Hint-Protocol)
-* [NatSpec Determination](https://github.com/ethereum/wiki/wiki/NatSpec-Determination)
-* [Network Status](https://github.com/ethereum/wiki/wiki/Network-Status)
-* [Raspberry Pi](https://github.com/ethereum/wiki/wiki/Raspberry-Pi-instructions)
-* [Mining](https://github.com/ethereum/wiki/wiki/Mining)
-* [Licensing](https://github.com/ethereum/wiki/wiki/Licensing)
-* [Consortium Chain Development](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development)
-
-## Networking
-
-* [Ethereum Wire Protocol](https://github.com/ethereum/devp2p/blob/master/caps/eth.md)
-* [libp2p](https://libp2p.io/)
-* [devp2p Specifications](https://github.com/ethereum/devp2p)
-* [devp2p Whitepaper \(old\)](https://github.com/ethereum/wiki/wiki/libp2p-Whitepaper)
-
-## Ethereum Technologies
-
-* [RLP Encoding](https://github.com/ethereum/wiki/wiki/RLP)
-* [Patricia Tree](https://github.com/ethereum/wiki/wiki/Patricia-Tree)
-* [Web3 Secret Storage](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition)
-* [Light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol)
-* [Subtleties](https://github.com/ethereum/wiki/wiki/Subtleties)
-* [Solidity Documentation](https://solidity.readthedocs.io/en/latest/)
-* [NatSpec Format](https://github.com/ethereum/wiki/wiki/Ethereum-Natural-Specification-Format)
-* [Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)
-* [Bad Block Reporting](http://github.com/ethereum/wiki/wiki/Bad-Block-Reporting)
-* [Bad Chain Canary](http://github.com/ethereum/wiki/wiki/Bad-Chain-Canary)
-
-## Ethash/Dashimoto
-
-* [Ethash](https://github.com/ethereum/wiki/wiki/Ethash)
-* [Ethash Yellow Paper appendix](https://ethereum.github.io/yellowpaper/paper.pdf#appendix.J)
-* [Ethash C API](https://github.com/ethereum/wiki/wiki/Ethash-C-API)
-* [Ethash DAG](https://github.com/ethereum/wiki/wiki/Ethash-DAG)
-
-## [Whisper](https://github.com/ethereum/wiki/wiki/Whisper-pages)
-
-* [Whisper Proposal](https://github.com/ethereum/wiki/wiki/Whisper)
-* [Whisper Overview](https://github.com/ethereum/wiki/wiki/Whisper-Overview)
-* [PoC-1 Wire protocol](https://github.com/ethereum/wiki/wiki/Whisper-Wire-Protocol)
-* [PoC-2 Wire protocol](https://github.com/ethereum/wiki/wiki/Whisper-PoC-2-Wire-Protocol)
-* [PoC-2 Whitepaper](https://github.com/ethereum/wiki/wiki/Whisper-PoC-2-Protocol-Spec)
-
-0x927c0E368722206312D243417dA9797424b56434
-
-**Clone this wiki locally**
-
-* © 2020 GitHub, Inc.
-* [Terms](https://github.com/site/terms)
-* [Privacy](https://github.com/site/privacy)
-* [Security](https://github.com/security)
-* [Status](https://githubstatus.com/)
-* [Help](https://help.github.com/)
-* [Contact GitHub](https://github.com/contact)
-* [Pricing](https://github.com/pricing)
-* [API](https://developer.github.com/)
-* [Training](https://training.github.com/)
-* [Blog](https://github.blog/)
-* [About](https://github.com/about)
+部分内容引用于：[https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-RLP](https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-RLP)
 
