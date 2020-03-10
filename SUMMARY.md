@@ -46,7 +46,6 @@
   * [代码分析器](evm/code-analyzers.md)
   * [相关EIPs](evm/improvement-proposals.md)
 * [基础设施](infrastucture/README.md)
-  * [以太坊区块链规范](infrastucture/chain-spec-format.md)
   * [客户端地址交换协议](infrastucture/inter-exchange-client-address-protocol.md)
   * [URL Hint  Protocol](infrastucture/url-hint-protocol.md)
   * [网络状态监测](infrastucture/network-status.md)
