@@ -1,5 +1,14 @@
 # 挖矿
 
+* [注意事项](https://github.com/ethereum/wiki/wiki/Mining#notice) 
+* [简介](https://github.com/ethereum/wiki/wiki/Mining#introduction) 
+  * [挖矿到底是什么？](https://github.com/ethereum/wiki/wiki/Mining#so-what-is-mining-anyway)
+  * [区块奖励](https://github.com/ethereum/wiki/wiki/Mining#mining-rewards)
+  * [基础设施概述 ](https://github.com/ethereum/wiki/wiki/Mining#infrastructure-overview)
+  * [JSON-RPC](https://github.com/ethereum/wiki/wiki/Mining#json-rpc)
+
+### 注意事项
+
 目前不建议大家成为以太坊矿工。以太坊将过渡到权益证明共识机制（proof-of-stake），因此以太坊挖矿将过时。成为一名矿工需要投资购买挖矿设备，譬如数个GPU，可能还需要其他硬件如兼容计算机，要在实施PoS前赚回成本是不太可能的，因为首次集成PoW / PoS与分片和casper FFG \(shasper\)将使挖矿区块奖励大大减少，EIP 1011提议将其降低至0.6 枚ETH，但该方案遭到反对。待到实行完全PoS机制并集成Casper CBC后（还没开始进行，但已在路线图规划中），就没有挖掘一说了，因此也没有挖矿奖励。
 
 ### 简介
@@ -8,7 +17,7 @@
 
 挖以太币 = 维护网络安全 = 验证计算
 
-### 挖矿到底是什么？
+#### 挖矿到底是什么？
 
 像所有区块链技术一样，以太坊前沿（Frontier）版本也使用激励驱动安全模型。选择总难度最高的区块，并达成共识。矿工生产区块，其他人验证区块的有效性。根据其他完备标准，仅当某个区块包含给定难度的工作量证明（PoW）时，该区块才有效。
 
@@ -22,7 +31,7 @@ Ethash PoW占用大量内存，因此基本上可以抗ASIC。这意味着计算
 
 作为一种特殊情况，当从头开始启动节点时，只有在当前epoch的DAG完成构建之后，才会开始挖掘。
 
-### 挖矿奖励
+#### 挖矿奖励
 
 获胜PoW矿工将获得：
 
@@ -30,11 +39,11 @@ Ethash PoW占用大量内存，因此基本上可以抗ASIC。这意味着计算
 * 由获胜矿工提交的区块中的所有交易执行所消耗的所有gas费用将由交易发送者支持，作为给予获胜矿工的奖励。作为共识协议约定的一部分，产生的gas成本将发送到矿工的帐户。随着时间的流逝，预计gas奖励将使静态区块奖励变得微不足道。  
 * 将叔块包括在区块中可获得额外奖励
 
-### 基础设施概述
+#### 基础设施概述
 
 目前挖矿有两种方式：通过Mist客户端在CPU（或许是GPU）上进行，或者通过以太坊守护程序（daemon）和sgmine在GPU上进行。
 
-### JSON-RPC
+#### JSON-RPC
 
 外部挖矿应用程序与以太坊守护程序 \(daemon，负责工作规定和报送\) 之间通过JSON-RPC API进行沟通，其中使用了两种RPC函数：`eth_getWork` 和 `eth_submitWork`。
 

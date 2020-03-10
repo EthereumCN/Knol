@@ -1,6 +1,9 @@
 # 许可证
 
-### 概述
+* [核心](https://github.com/ethereum/wiki/wiki/Licensing#the-core)
+* [中间件](https://github.com/ethereum/wiki/wiki/Licensing#the-middleware)
+
+#### 概述
 
 以太坊基金会确定了有关以太坊开发资金的三项原则：
 

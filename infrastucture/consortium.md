@@ -1,5 +1,21 @@
 # 联盟链
 
+* [选择代码库](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#choosing-a-codebase)
+* [配置文件](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#the-config-file)
+* [共识机制](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#consensus)
+* [抽象化](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#abstraction) 
+* [P2P 网络 ](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#p2p-networking)
+* [隐私保护协议](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#privacy-preserving-protocols)
+* [APIs](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#apis) 
+* [用户界面](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#user-interfaces) 
+* [效率提升](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#efficiency-improvements) 
+* [默克尔树](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#the-merkle-tree) 
+* [交易并行性](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#transaction-parallelizability) 
+* [智能合约安全](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#smart-contract-safety) 
+* [状态通道](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#state-channels) 
+* [特权账户 ](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#privileged-accounts)
+* [改变共识集](https://github.com/ethereum/wiki/wiki/Consortium-Chain-Development#changing-the-consensus-set)
+
 ### 选择代码库
 
 当前有8种以太坊协议的实现：
