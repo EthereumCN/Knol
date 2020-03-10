@@ -49,7 +49,6 @@
   * [以太坊区块链规范](infrastucture/chain-spec-format.md)
   * [客户端地址交换协议](infrastucture/inter-exchange-client-address-protocol.md)
   * [URL Hint  Protocol](infrastucture/url-hint-protocol.md)
-  * [NatSpec 规定](infrastucture/natspec-determination.md)
   * [网络状态监测](infrastucture/network-status.md)
   * [挖矿](infrastucture/mining.md)
   * [许可证](infrastucture/licensing.md)
