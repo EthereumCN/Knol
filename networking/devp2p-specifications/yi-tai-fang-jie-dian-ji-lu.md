@@ -51,32 +51,32 @@ record    = [signature, seq, k, v, ...]
 * 要对记录进行验证，请检查签名是否由记录的“secp256k1”键/值对中的公钥生成。 
 * 要导出节点地址，请使用未压缩公钥的keccak256哈希。
 
-## Rationale
+## 基本原理
 
-The format is meant to suit future needs in two ways:
+该范式的目的是以两种方式来满足未来的需求：
 
-* Adding new key/value pairs: This is always possible and doesn't require implementation consensus. Existing clients will accept any key/value pairs regardless of whether they can interpret their content.
-* Adding identity schemes: these need implementation consensus because the network won't accept the signature otherwise. To introduce a new identity scheme, propose an EIP and get it implemented. The scheme can be used as soon as most clients accept it.
+* 添加新的键/值对：这始终是可行的，且并不需要实现共识 \(implementation consensus\)。既有客户端将接受任何键/值对，无论是否可以解释其内容。
+* 添加身份方案：这些方案需要实现共识 \(implementation consensus\)，否则网络将不接受签名。要引入一种新的身份方案，需要提出并实施一个新的EIP。在大多数客户端接收之后，即可投入使用。
 
-The size of a record is limited because records are relayed frequently and may be included in size-constrained protocols such as DNS. A record containing a IPv4 address, when signed using the "v4" scheme occupies roughly 120 bytes, leaving plenty of room for additional metadata.
+记录的大小之所以受限，是因为记录经常被转发，并且可能被包含在大小受限制的协议中（例如DNS）。当使用“ v4”方案签名时，包含IPv4地址的记录大约占用120个字节，从而为其他元数据保留足够的空间。
 
-You might wonder about the need for so many pre-defined keys related to IP addresses and ports. This need arises because residential and mobile network setups often put IPv4 behind NAT while IPv6 traffic—if supported—is directly routed to the same host. Declaring both address types ensures a node is reachable from IPv4-only locations and those supporting both protocols.
+另一个问题在于是否需要这么多与IP地址和端口相关联的预定义密钥。之所以出现这种需求，是因为住宅和移动网络设置通常将IPv4放在NAT之后，而IPv6会直接路由到同一主机。阐明两种地址类型可确保仅支持IPv4的节点也能访问。
 
-## Test Vectors
+## 测试矢量
 
-This is an example record containing the IPv4 address `127.0.0.1` and UDP port `30303`. The node ID is `a448f24c6d18e575453db13171562b71999873db5b286df957af199ec94617f7`.
+以下是一个节点记录实例，包含IPv4地址`127.0.0.1` 以及UDP端口`30303`. 节点ID是`a448f24c6d18e575453db13171562b71999873db5b286df957af199ec94617f7`.
 
 ```text
 enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8
 ```
 
-The record is signed using the "v4" identity scheme using sequence number `1` and this private key:
+该条记录通过"v4"身份方案进行签名，使用数字`1`为序列数，私钥如下：
 
 ```text
 b71c71a67e1177ad4e901695e1b4b9ee17ae16c6668d313eac2f96dbcda3f291
 ```
 
-The RLP structure of the record is:
+该条记录的RLP结构如下：
 
 ```text
 [
