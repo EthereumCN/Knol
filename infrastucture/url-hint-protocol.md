@@ -1,5 +1,9 @@
 # URL Hint  Protocol
 
+* [URL 组合](https://github.com/ethereum/wiki/wiki/URL-Hint-Protocol#url-composition) 
+  * [例子](https://github.com/ethereum/wiki/wiki/URL-Hint-Protocol#example-1)
+* [内容](https://github.com/ethereum/wiki/wiki/URL-Hint-Protocol#content)
+
 在地址0x42处存在一个根`Registry`合约，也存在一个 `Registry`实作的合约介面`register`。
 
 `register`中的条目通过长度为32个字节的字符串进行分类，当查找就会发现其中有几个值类型字段，包括`content`和 `register`。

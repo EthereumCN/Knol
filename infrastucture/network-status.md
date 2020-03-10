@@ -1,8 +1,16 @@
 # 网络状态监测
 
+* [网络状态监测](https://github.com/ethereum/wiki/wiki/Network-Status#network-status-monitoring) 
+  * [列节点 ](https://github.com/ethereum/wiki/wiki/Network-Status#listing)
+    * [更新](https://github.com/ethereum/wiki/wiki/Network-Status#updating)
+  * [在全新Ubuntu系统上自动安装](https://github.com/ethereum/wiki/wiki/Network-Status#auto-installation-on-a-fresh-ubuntu-install)
+    * [配置](https://github.com/ethereum/wiki/wiki/Network-Status#configuration)
+    * [运行](https://github.com/ethereum/wiki/wiki/Network-Status#run) 
+    * [更新](https://github.com/ethereum/wiki/wiki/Network-Status#updating-1)
+
 以太坊（中心化）网络状态监测器（也称为“eth-netstats”）是基于网络的应用程序，用于通过一组节点监测测试网与主网的运行状况。
 
-### Listing
+### 列节点
 
 要列节点，必须安装客户端信息中继器，即节点模块。此处给出的指令适用于Ubuntu操作系统（Mac OS X也适用相同的指令，但可能不必使用sudo指令）。不同平台的指令有所不同（请确保已安装nodejs-legacy，否则某些模块可能会失效）。
 
