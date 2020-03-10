@@ -167,5 +167,5 @@ def to_integer(b):
 * Swift: [RLPSwift](https://github.com/bitfwdcommunity/RLPSwift), [RLP](https://github.com/uport-project/swift-rlp)
 * PHP: [rlp](https://github.com/web3p/rlp)
 
-部分内容引用于：[https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-RLP](https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-RLP)
+部分内容引用自：[https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-RLP](https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-RLP)
 
