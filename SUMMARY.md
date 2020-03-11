@@ -57,6 +57,7 @@
   * [以太坊线路协议](networking/ethereum-wire-protocol.md)
   * [devp2p](networking/devp2p-specifications/README.md)
     * [以太坊节点记录](networking/devp2p-specifications/yi-tai-fang-jie-dian-ji-lu.md)
+    * [节点发现协议](networking/devp2p-specifications/jie-dian-fa-xian-xie-yi.md)
 * [以太坊技术](ethereum-technologies/README.md)
   * [RLP 编码](ethereum-technologies/rlp-encoding.md)
   * [Patricia Tree](ethereum-technologies/patricia-tree.md)
