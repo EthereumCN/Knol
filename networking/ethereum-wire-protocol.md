@@ -110,8 +110,6 @@ description: Ethereum Wire Protocol
 
 `[hash_0: B_32, hash_1: B_32, ...]`
 
-Require peer to return a [NodeData](https://github.com/ethereum/devp2p/blob/master/caps/eth.md#nodedata-0x0e) message containing state tree nodes or contract code matching the requested hashes.
-
 要求节点回复[NodeData](https://github.com/ethereum/devp2p/blob/master/caps/eth.md#nodedata-0x0e)消息，包含与所请求哈希匹配的状态树节点或合约代码。
 
 #### NodeData \(0x0e\)
