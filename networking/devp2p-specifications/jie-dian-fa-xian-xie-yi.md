@@ -2,9 +2,9 @@
 description: Node Discovery Protocol v4
 ---
 
-# 节点发现协议
+# 节点发现协议 v4
 
-本规范定义了节点发现协议v4版本，一种类似于Kademlia的DHT，用于存储以太坊节点相关信息。之所以选择Kademlia结构是因为其在组织节点分布式索引以及产生短径拓扑方面十分有效。 
+[本规范](https://github.com/ethereum/devp2p/blob/master/discv4.md)定义了节点发现协议v4版本，一种类似于Kademlia的DHT，用于存储以太坊节点相关信息。之所以选择Kademlia结构是因为其在组织节点分布式索引以及产生短径拓扑方面十分有效。 
 
 当前协议版本为第4版。过往协议版本请参阅本文档末尾。
 
@@ -46,15 +46,15 @@ A 'lookup' locates the `k` closest nodes to a node ID.
 
 如果一轮FindNode查询失败，即没有返回任何一个比最近节点更近的节点，那么将会继续向`k`个最近节点中未被查询过的节点发送FindNode。当查询了所有`k`个最近节点，并获得其响应，查找过程终止。
 
-## Wire Protocol
+## 线路协议
 
-Node discovery messages are sent as UDP datagrams. The maximum size of any packet is 1280 bytes.
+节点发现消息都以UDP报文形式发送，数据包最大为1280字节。
 
 ```text
 packet = packet-header || packet-data
 ```
 
-Every packet starts with a header:
+数据包头部：
 
 ```text
 packet-header = hash || signature || packet-type
@@ -62,11 +62,11 @@ hash = keccak256(signature || packet-type || packet-data)
 signature = sign(packet-type || packet-data)
 ```
 
-The `hash` exists to make the packet format recognizable when running multiple protocols on the same UDP port. It serves no other purpose.
+当在同一UDP端口上运行多个协议时，`hash`的作用是使数据包格式可识别。除此之外并无其他目的。
 
-Every packet is signed by the node's identity key. The `signature` is encoded as a byte array of length 65 as the concatenation of the signature values `r`, `s` and the 'recovery id' `v`.
+每个包都由节点的公钥进行签名，`signature`是一个编码长度为65字节的数组，作为签名值串联`r`, `s`以及'recovery id' `v`。
 
-The `packet-type` is a single byte defining the type of message. Valid packet types are listed below. Data after the header is specific to the packet type and is encoded as an RLP list. Implementations should ignore any additional elements in the `packet-data` list as well as any extra data after the list.
+`packet-type`为单字节，作用是定义消息类型。有效数据包类型如下。数据包头部之后的数据特定于该数据包，用RLP进行编码。实现应忽略`packet-data`列表中的其他任何元素及其后面的任何额外数据。
 
 #### Ping Packet \(0x01\)
 
@@ -77,13 +77,13 @@ from = [sender-ip, sender-udp-port, sender-tcp-port]
 to = [recipient-ip, recipient-udp-port, 0]
 ```
 
-The `expiration` field is an absolute UNIX time stamp. Packets containing a time stamp that lies in the past are expired may not be processed.
+`expiration`字段是UNIX时间戳，如果数据包内的时间戳过期可能会导致无法处理。
 
-The `enr-seq` field is the current ENR sequence number of the sender. This field is optional.
+`enr-seq`字段是发送者的当前ENR序列号。该字段为可选项。
 
-When a ping packet is received, the recipient should reply with a [Pong]() packet. It may also consider the sender for addition into the local table. Implementations should ignore any mismatches in version.
+收到ping数据包后，接收节点应回复[Pong](https://github.com/ethereum/devp2p/blob/master/discv4.md#pong-packet-0x02)数据包，还可以考虑将发送节点添加到本地表中。实现应忽略版本中的不匹配情况。
 
-If no communication with the sender has occurred within the last 12h, a ping should be sent in addition to pong in order to receive an endpoint proof.
+如果在12小时内未与发送方进行任何通信，则除了pong之外还应发送ping以进行端点验证。
 
 #### Pong Packet \(0x02\)
 
@@ -91,11 +91,11 @@ If no communication with the sender has occurred within the last 12h, a ping sho
 packet-data = [to, ping-hash, expiration, enr-seq, ...]
 ```
 
-Pong is the reply to ping.
+Pong是ping的响应。
 
-`ping-hash` should be equal to `hash` of the corresponding ping packet. Implementations should ignore unsolicited pong packets that do not contain the hash of the most recent ping packet.
+`ping-hash`须与相应ping包的`hash`一致。实现时应该忽略未经请求的不含ping包`hash`的pong包。
 
-The `enr-seq` field is the current ENR sequence number of the sender. This field is optional.
+`enr-seq`字段是发送者的当前ENR序列号。该字段为可选项。
 
 #### FindNode Packet \(0x03\)
 
@@ -103,9 +103,9 @@ The `enr-seq` field is the current ENR sequence number of the sender. This field
 packet-data = [target, expiration, ...]
 ```
 
-A FindNode packet requests information about nodes close to `target`. The `target` is a 65-byte secp256k1 public key. When FindNode is received, the recipient should reply with [Neighbors]() packets containing the closest 16 nodes to target found in its local table.
+FindNode包用于请求距离`target`节点近的节点。`target`节点ID是一个65字节的secp256k1椭圆曲线公钥。当接收到FindNode，接收方应当回复在本地节点列表中距离请求目标节点最近的16个节点。
 
-To guard against traffic amplification attacks, Neighbors replies should only be sent if the sender of FindNode has been verified by the endpoint proof procedure.
+为了抵抗流量放大攻击，只有经过端点验证的FindNode发送者才能被邻近节点回复。
 
 #### Neighbors Packet \(0x04\)
 
@@ -114,7 +114,7 @@ packet-data = [nodes, expiration, ...]
 nodes = [[ip, udp-port, tcp-port, node-id], ...]
 ```
 
-Neighbors is the reply to [FindNode]().
+Neighbors是[FindNode](https://github.com/ethereum/devp2p/blob/master/discv4.md#findnode-packet-0x03)的响应。
 
 #### ENRRequest Packet \(0x05\)
 
@@ -122,9 +122,9 @@ Neighbors is the reply to [FindNode]().
 packet-data = [expiration]
 ```
 
-When a packet of this type is received, the node should reply with an ENRResponse packet containing the current version of its [node record](https://github.com/ethereum/devp2p/blob/master/enr.md).
+当接收到此类数据包时，节点应使用包含其[节点记录](https://github.com/ethereum/devp2p/blob/master/enr.md)的当前版本ENRResponse数据包进行回复。
 
-To guard against amplification attacks, the sender of ENRRequest should have replied to a ping packet recently \(just like for FindNode\). The `expiration` field, a UNIX timestamp, should be handled as for all other existing packets i.e. no reply should be sent if it refers to a time in the past.
+为了防止放大攻击，ENRRequest的发送者应该已经回复了ping数据包 \(如同FindNode\)。针对`expiration`字段（UNIX时间戳），如果指向了过去的时间，则不应发送任何回复。
 
 #### ENRResponse Packet \(0x06\)
 
@@ -132,26 +132,26 @@ To guard against amplification attacks, the sender of ENRRequest should have rep
 packet-data = [request-hash, ENR]
 ```
 
-This packet is the response to ENRRequest.
+本数据包是ENRRequest的响应。
 
-* `request-hash` is the hash of the entire ENRRequest packet being replied to.
-* `ENR` is the node record.
+* `request-hash`是被回复的整个ENRRequest包的哈希
+* `ENR`是节点记录
 
-The recipient of the packet should verify that the node record is signed by the public key which signed the response packet.
+数据包的接收者应验证节点记录是否已由公钥签名（与响应数据包的签名相同）。
 
-## Change Log
+## 过往协议版本
 
-#### Known Issues in the Current Version
+#### 当前版本的已知问题
 
-The `expiration` field present in all packets is supposed to prevent packet replay. Since it is an absolute time stamp, the node's clock must be accurate to verify it correctly. Since the protocol's launch in 2016 we have received countless reports about connectivity issues related to the user's clock being wrong.
+所有数据包中的`expiration`字段数据都应能预防数据包重放。作为绝对时间戳，要求节点的时钟是准确的，因此才能进行正确验证。自协议2016年发布以来，我们收到了无数由节点时钟不正确引起的连接性问题报告。
 
-The endpoint proof is imprecise because the sender of FindNode can never be sure whether the recipient has seen a recent enough pong. Geth handles it as follows: If no communication with the recipient has occurred within the last 12h, initiate the procedure by sending a ping. Wait for a ping from the other side, reply to it and then send FindNode.
+端点验证的准确性还存在问题，因为FindNode的发送者无法确定接收者是否见过最近的足够的pong。 Geth的处理方式如下：如果在最近12小时内未与接收方进行任何通信，则要通过发送ping来启动该过程。等待对方的ping，进行回复，然后发送FindNode。
 
-#### EIP-868 \(October 2019\)
+#### EIP-868 \(2019/10\)
 
-[EIP-868](https://eips.ethereum.org/EIPS/eip-868) adds the [ENRRequest]() and [ENRResponse]() packets. It also modifies [Ping]() and [Pong]() to include the local ENR sequence number.
+[EIP-868](https://eips.ethereum.org/EIPS/eip-868)加入了[ENRRequest](https://github.com/ethereum/devp2p/blob/master/discv4.md#enrrequest-packet-0x05)和[ENRResponse](https://github.com/ethereum/devp2p/blob/master/discv4.md#enrresponse-packet-0x06)数据包，并且对[Ping](https://github.com/ethereum/devp2p/blob/master/discv4.md#ping-packet-0x01)和[Pong](https://github.com/ethereum/devp2p/blob/master/discv4.md#pong-packet-0x02)进行了优化以包含本地ENR序列号。
 
-#### EIP-8 \(December 2017\)
+#### EIP-8 \(2017/12\)
 
-[EIP-8](https://eips.ethereum.org/EIPS/eip-8) mandated that implementations ignore mismatches in Ping version and any additional list elements in `packet-data`.
+[EIP-8](https://eips.ethereum.org/EIPS/eip-8)要求实现必须忽略Ping版本中的不匹配以及`packet-data`中的任何其他列表元素。
 

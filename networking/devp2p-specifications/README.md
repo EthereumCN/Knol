@@ -4,7 +4,7 @@ description: 以太坊点对点网络协议
 
 # devp2p
 
-devp2p的Github Repo包含以太坊所使用的点对点网络协议规范。
+[devp2p](https://github.com/ethereum/devp2p)的Github Repo包含以太坊所使用的点对点网络协议规范。
 
 * [以太坊节点记录](https://github.com/ethereum/devp2p/blob/master/enr.md) \(Ethereum Node Records\)，节点元数据格式
 * [节点发现协议 v4](https://github.com/ethereum/devp2p/blob/master/discv4.md)
