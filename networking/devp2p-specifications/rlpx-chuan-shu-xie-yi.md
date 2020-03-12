@@ -4,65 +4,79 @@ description: The RLPx Transport Protocol
 
 # RLPx传输协议
 
-This specification defines the RLPx transport protocol, a TCP-based transport protocol used for communication among Ethereum nodes. The protocol carries encrypted messages belonging to one or more 'capabilities' which are negotiated during connection establishment. RLPx is named after the [RLP](https://github.com/ethereum/wiki/wiki/RLP) serialization format. The name is not an acronym and has no particular meaning.
+[本规范](https://github.com/ethereum/devp2p/blob/master/rlpx.md)定义了RLPx传输协议，用于以太坊节点间通信，是一个基于TCP的传输协议。该协议承载了建立连接期间一个或多个“功能”的加密消息。 RLPx根据[RLP](https://github.com/ethereum/wiki/wiki/RLP)序列化格式命名，该名称不是首字母缩写，没有特殊含义。
 
-The current protocol version is **5**. You can find a list of changes in past versions at the end of this document.
+目前协议版本为第5版。过往协议版本请参阅本文档末尾。
 
-### Notation
+## 符号
 
 `X || Y`  
-     denotes concatenation of X and Y.  
+     表示X和Y的串联  
  `X ^ Y`  
-     is byte-wise XOR of X and Y.  
+     X和Y按位异或  
  `X[:N]`  
-     denotes an N-byte prefix of X.  
+     X的前N个字节.  
  `[X, Y, Z, ...]`  
-     denotes recursive encoding as an RLP list.  
+     \[X, Y, Z, ...\]的RLP递归编码  
  `keccak256(MESSAGE)`  
-     is the Keccak256 hash function as used by Ethereum.  
+     以太坊使用的keccak256哈希算法  
  `ecies.encrypt(PUBKEY, MESSAGE, AUTHDATA)`  
-     is the asymmetric authenticated encryption function as used by RLPx.  
-     AUTHDATA is authenticated data which is not part of the resulting ciphertext,  
-     but written to HMAC-256 before generating the message tag.  
+     RLPx使用的非对称身份验证加密函数  
+     AUTHDATA是身份认证的数据，并非密文的一部分  
+     但是AUTHDATA会在生成消息tag前，写入HMAC-256哈希函数  
  `ecdh.agree(PRIVKEY, PUBKEY)`  
-     is elliptic curve Diffie-Hellman key agreement between PRIVKEY and PUBKEY.
+     是PRIVKEY和PUBKEY之间的椭圆曲线Diffie-Hellman协商函数
 
-### ECIES Encryption
+## ECIES加密
 
-ECIES \(Elliptic Curve Integrated Encryption Scheme\) is an asymmetric encryption method used in the RLPx handshake. The cryptosystem used by RLPx is
+ECIES \(Elliptic Curve Integrated Encryption Scheme\) 非对称加密用于RLPx握手。RLPx使用的加密系统：
 
-* The elliptic curve secp256k1 with generator `G`.
-* `KDF(k, len)`: the NIST SP 800-56 Concatenation Key Derivation Function
-* `MAC(k, m)`: HMAC using the SHA-256 hash function.
-* `AES(k, iv, m)`: the AES-128 encryption function in CTR mode.
+* 椭圆曲线secp256k1基点`G`
+* `KDF(k, len)`：密钥推导函数 NIST SP 800-56 Concatenation
+* `MAC(k, m)`：HMAC函数，使用了SHA-256哈希
+* `AES(k, iv, m)`：AES-128对称加密函数，CTR模式
 
-Alice wants to send an encrypted message that can be decrypted by Bobs static private key `kB`. Alice knows about Bobs static public key `KB`.
+假设Alice想发送加密消息给Bob，并且希望Bob可以用他的静态私钥`kB`解密。Alice知道Bob的静态公钥`KB`。
 
-To encrypt the message `m`, Alice generates a random number `r` and corresponding elliptic curve public key `R = r * G` and computes the shared secret `S = Px` where `(Px, Py) = r * KB`. She derives key material for encryption and authentication as `kE || kM = KDF(S, 32)` as well as a random initialization vector `iv`. Alice sends the encrypted message `R || iv || c || d` where `c = AES(kE, iv , m)` and `d = MAC(sha256(kM), iv || c)` to Bob.
+Alice为了对消息`m`进行加密：
 
-For Bob to decrypt the message `R || iv || c || d`, he derives the shared secret `S = Px` where `(Px, Py) = kB * R` as well as the encryption and authentication keys `kE || kM = KDF(S, 32)`. Bob verifies the authenticity of the message by checking whether `d == MAC(sha256(kM), iv || c)` then obtains the plaintext as `m = AES(kE, iv || c)`.
+1. 生成一个随机数`r`并生成对应的椭圆曲线公钥`R = r * G`
+2. 计算共享密码`S = Px`，其中 `(Px, Py) = r * KB`
+3. 推导加密及认证所需的密钥`kE || kM = KDF(S, 32)`以及随机向量`iv`
+4. 使用AES加密 `c = AES(kE, iv, m)`
+5. 计算MAC校验 `d = MAC(keccak256(kM), iv || c)`
+6. 发送完整密文`R || iv || c || d`给Bob
 
-### Node Identity
+Bob对密文`R || iv || c || d`进行解密：
 
-All cryptographic operations are based on the secp256k1 elliptic curve. Each node is expected to maintain a static secp256k1 private key which is saved and restored between sessions. It is recommended that the private key can only be reset manually, for example, by deleting a file or database entry.
+1. 推导共享密码`S = Px`, 其中`(Px, Py) = r * KB = kB * R`
+2. 推导加密认证用的密钥`kE || kM = KDF(S, 32)`
+3. 验证MAC`d = MAC(keccak256(kM), iv || c)`
+4. 获得明文`m = AES(kE, iv || c)`
 
-### Initial Handshake
+## 节点身份
 
-An RLPx connection is established by creating a TCP connection and agreeing on ephemeral key material for further encrypted and authenticated communication. The process of creating those session keys is the 'handshake' and is carried out between the 'initiator' \(the node which opened the TCP connection\) and the 'recipient' \(the node which accepted it\).
+所有的加密操作都基于secp256k1椭圆曲线。每个节点维护一个静态的secp256k1私钥。建议该私钥只能进行手动重置（例如删除文件或数据库条目）。
 
-1. initiator connects to recipient and sends its `auth` message
-2. recipient accepts, decrypts and verifies `auth` \(checks that recovery of signature == `keccak256(ephemeral-pubk)`\)
-3. recipient generates `auth-ack` message from `remote-ephemeral-pubk` and `nonce`
-4. recipient derives secrets and sends the first encrypted frame containing the [Hello]() message
-5. initiator receives `auth-ack` and derives secrets
-6. initiator sends its first encrypted frame containing initiator [Hello]() message
-7. recipient receives and authenticates first encrypted frame
-8. initiator receives and authenticates first encrypted frame
-9. cryptographic handshake is complete if MAC of first encrypted frame is valid on both sides
+## 握手流程
 
-Either side may disconnect if authentication of the first framed packet fails.
+RLPx连接基于TCP通信，并且每次通信都会生成随机的临时密钥用于加密和验证。生成临时密钥的过程被称作“握手” \(handshake\)，握手在发起端（initiator, 发起TCP连接请求的节点）和接收端（recipient, 接受连接的节点）之间进行。
 
-Handshake messages:
+1. 发起端向接收端发起TCP连接，发送`auth`消息
+2. 接收端接受连接，解密、验证`auth`消息（检查recovery of signature == `keccak256(ephemeral-pubk)`）
+3. 接收端通过`remote-ephemeral-pubk` 和 `nonce`生成`auth-ack`消息
+4. 接收端推导密钥，发送首个包含[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息的数据帧
+5. 发起端接收到`auth-ack`消息，导出密钥
+6. 发起端发送首个加密后的数据帧，包含发起端[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息
+7. 接收端接收并验证首个加密后的数据帧
+8. 发起端接收并验证首个加密后的数据帧
+9. 如果两边的首个加密数据帧的MAC都验证通过，则加密握手完成
+
+如果首个数据帧的验证失败，则任意一方都可以断开连接。
+
+#### 握手消息
+
+**发送端：**
 
 ```text
 auth = auth-size || enc-auth-body
@@ -71,7 +85,11 @@ auth-vsn = 4
 auth-body = [sig, initiator-pubk, initiator-nonce, auth-vsn, ...]
 enc-auth-body = ecies.encrypt(recipient-pubk, auth-body || auth-padding, auth-size)
 auth-padding = arbitrary data
+```
 
+**接收端：**
+
+```text
 ack = ack-size || enc-ack-body
 ack-size = size of enc-ack-body, encoded as a big-endian 16-bit integer
 ack-vsn = 4
@@ -80,9 +98,11 @@ enc-ack-body = ecies.encrypt(initiator-pubk, ack-body || ack-padding, ack-size)
 ack-padding = arbitrary data
 ```
 
-Implementations must ignore any mismatches in `auth-vsn` and `ack-vsn`. Implementations must also ignore any additional list elements in `auth-body` and `ack-body`.
+实现必须忽略`auth-vsn` 和 `ack-vsn`中的所有不匹配。
 
-Secrets generated following the exchange of handshake messages:
+实现必须忽略`auth-body` 和 `ack-body`中的所有额外列表元素。
+
+握手消息互换后，密钥生成：
 
 ```text
 static-shared-secret = ecdh.agree(privkey, remote-pubk)
@@ -92,13 +112,13 @@ aes-secret = keccak256(ephemeral-key || shared-secret)
 mac-secret = keccak256(ephemeral-key || aes-secret)
 ```
 
-### Framing
+## 帧结构
 
-All messages following the initial handshake are framed. A frame carries a single encrypted message belonging to a capability.
+握手后所有的消息都按帧传输。一帧数据携带属于某一功能的一条加密消息。
 
-The purpose of framing is multiplexing multiple capabilites over a single connection. Secondarily, as framed messages yield reasonable demarcation points for message authentication codes, supporting an encrypted and authenticated stream becomes straight-forward. Frames are encrypted and authenticated via key material generated during the handshake.
+分帧传输的主要目的是在单一连接上实现可靠的支持多路复用协议。其次，因数据包分帧，为消息认证码产生了适当的分界点，使得加密流变得简单了。通过握手生成的密钥对数据帧进行加密和验证。
 
-The frame header provides information about the size of the message and the message's source capability. Padding is used to prevent buffer starvation, such that frame components are byte-aligned to block size of cipher.
+帧头提供关于消息大小和消息源功能的信息。填充字节用于防止缓存区不足，使得帧组件按指定区块字节大小对齐。
 
 ```text
 frame = header-ciphertext || header-mac || frame-ciphertext || frame-mac
@@ -112,27 +132,27 @@ frame-ciphertext = aes(aes-secret, frame-data || frame-padding)
 frame-padding = zero-fill frame-data to 16-byte boundary
 ```
 
-See the [Capability Messaging]() section for definitions of `frame-data` and `frame-size.`
+`frame-data` 和 `frame-size`的定义请参阅[Capacity Messaging](https://github.com/ethereum/devp2p/blob/master/rlpx.md#capability-messaging)部分。
 
 #### MAC
 
-Message authentication in RLPx uses two keccak256 states, one for each direction of communication. The `egress-mac` and `ingress-mac` keccak states are continuously updated with the ciphertext of bytes sent \(egress\) or received \(ingress\). Following the initial handshake, the MAC states are initialized as follows:
+RLPx中的消息认证 \(Message authentication\) 使用了两个keccak256状态，分别用于两个传输方向。`egress-mac`和`ingress-mac`分别代表发送和接收状态，每次发送或者接收密文，其状态都会更新。初始握手后，MAC状态初始化如下:
 
-Initiator:
+发送端：
 
 ```text
 egress-mac = keccak256.init((mac-secret ^ recipient-nonce) || auth)
 ingress-mac = keccak256.init((mac-secret ^ initiator-nonce) || ack)
 ```
 
-Recipient:
+接收端：
 
-```text
+```
 egress-mac = keccak256.init((mac-secret ^ initiator-nonce) || ack)
 ingress-mac = keccak256.init((mac-secret ^ recipient-nonce) || auth)
 ```
 
-When a frame is sent, the corresponding MAC values are computed by updating the `egress-mac` state with the data to be sent. The update is performed by XORing the header with the encrypted output of its corresponding MAC. This is done to ensure uniform operations are performed for both plaintext MAC and ciphertext. All MACs are sent cleartext.
+当发送一帧数据时，通过即将发送的数据更新`egress-mac`状态，然后计算相应的MAC值。通过将帧头与其对应MAC值的加密输出异或来进行更新。这样做是为了确保对明文MAC和密文执行统一操作。所有的MAC值都以明文发送。
 
 ```text
 header-mac-seed = aes(mac-secret, keccak256.digest(egress-mac)[:16]) ^ header-ciphertext
@@ -140,7 +160,7 @@ egress-mac = keccak256.update(egress-mac, header-mac-seed)
 header-mac = keccak256.digest(egress-mac)[:16]
 ```
 
-Computing `frame-mac`:
+计算 `frame-mac`
 
 ```text
 egress-mac = keccak256.update(egress-mac, frame-ciphertext)
@@ -149,33 +169,33 @@ egress-mac = keccak256.update(egress-mac, frame-mac-seed)
 frame-mac = keccak256.digest(egress-mac)[:16]
 ```
 
-Verifying the MAC on ingress frames is done by updating the `ingress-mac` state in the same way as `egress-mac` and comparing to the values of `header-mac` and `frame-mac` in the ingress frame. This should be done before decrypting `header-ciphertext` and `frame-ciphertext`.
+只要发送者和接受者按相同方式更新`egress-mac`和`ingress-mac`，并且在ingress帧中比对`header-mac` 和 `frame-mac`的值，就能对ingress帧中的MAC值进行校验。这一步应当在解密`header-ciphertext` 和 `frame-ciphertext`之前完成。
 
-## Capability Messaging
+## 功能消息
 
-All messages following the initial handshake are associated with a 'capability'. Any number of capabilities can be used concurrently on a single RLPx connection.
+初始握手后的所有消息均与“功能”相关。单个RLPx连接上就可以同时使用任何数量的功能。
 
-A capability is identified by a short ASCII name and version number. The capabilities supported on either side of the connection are exchanged in the [Hello]() message belonging to the 'p2p' capability which is required to be available on all connections.
+功能由简短的ASCII名称和版本号标识。连接两端都支持的功能在隶属于“ p2p”功能的[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息中进行交换，p2p功能需要在所有连接中都可用。
 
-### Message Encoding
+#### 消息编码
 
-The initial [Hello]() message is encoded as follows:
+初始[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息编码如下：
 
 ```text
 frame-data = msg-id || msg-data
 frame-size = length of frame-data, encoded as a 24bit big-endian integer
 ```
 
-where `msg-id` is an RLP-encoded integer identifying the message and `msg-data` is an RLP list containing the message data.
+其中，`msg-id`是标识消息的由RLP编码的整数，`msg-data`是包含消息数据的RLP列表。
 
-All messages following Hello are compressed using the Snappy algorithm. Note that the `frame-size` of compressed messages refers to the uncompressed size of `msg-data`. The compressed encoding of messages is:
+Hello之后的所有消息均使用Snappy算法压缩。请注意，压缩消息的`frame-size`指`msg-data`压缩前的大小。消息的压缩编码为：
 
 ```text
 frame-data = msg-id || snappyCompress(msg-data)
 frame-size = length of (msg-id || msg-data) encoded as a 24bit big-endian integer
 ```
 
-### Message ID-based Multiplexing
+## Message ID-based Multiplexing
 
 While the framing layer supports a `capability-id`, the current version of RLPx doesn't use that field for multiplexing between different capabilities. Instead, multiplexing relies purely on the message ID.
 
@@ -183,7 +203,7 @@ Each capability is given as much of the message-ID space as it needs. All such c
 
 Message IDs are assumed to be compact from ID 0x11 onwards \(0x00-0x10 is reserved for the "p2p" capability\) and given to each shared \(equal-version, equal-name\) capability in alphabetic order. Capability names are case-sensitive. Capabilities which are not shared are ignored. If multiple versions are shared of the same \(equal name\) capability, the numerically highest wins, others are ignored.
 
-### "p2p" Capability
+## "p2p" Capability
 
 The "p2p" capability is present on all connections. After the initial handshake, both sides of the connection must send either [Hello]() or a [Disconnect]() message. Upon receiving the [Hello]() message a session is active and any other message may be sent. Implementations must ignore any difference in protocol version for forward-compatibility reasons. When communicating with a peer of lower version, implementations should try to mimic that version.
 
