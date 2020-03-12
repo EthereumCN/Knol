@@ -46,9 +46,7 @@ ECN \(Ethereum Community Network/ethereum.cn\) 是一个**非营利性**的中�
 
 4. 其他社区资源。
 
-### 
-
-### 我们的愿景
+## 我们的愿景
 
 BUIDL a brighter future! ✨ 
 
