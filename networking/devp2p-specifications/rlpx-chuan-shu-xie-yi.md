@@ -65,7 +65,7 @@ RLPx连接基于TCP通信，并且每次通信都会生成随机的临时密钥�
 1. 发起端向接收端发起TCP连接，发送`auth`消息
 2. 接收端接受连接，解密、验证`auth`消息（检查recovery of signature == `keccak256(ephemeral-pubk)`）
 3. 接收端通过`remote-ephemeral-pubk` 和 `nonce`生成`auth-ack`消息
-4. 接收端推导密钥，发送首个包含[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息的数据帧
+4. 接收端推导密钥，发送首个包含[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息的数据帧 \(frame\)
 5. 发起端接收到`auth-ack`消息，导出密钥
 6. 发起端发送首个加密后的数据帧，包含发起端[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息
 7. 接收端接收并验证首个加密后的数据帧
@@ -114,7 +114,7 @@ mac-secret = keccak256(ephemeral-key || aes-secret)
 
 ## 帧结构
 
-握手后所有的消息都按帧传输。一帧数据携带属于某一功能的一条加密消息。
+握手后所有的消息都按帧 \(frame\) 传输。一帧数据携带属于某一功能的一条加密消息。
 
 分帧传输的主要目的是在单一连接上实现可靠的支持多路复用协议。其次，因数据包分帧，为消息认证码产生了适当的分界点，使得加密流变得简单了。通过握手生成的密钥对数据帧进行加密和验证。
 
@@ -195,13 +195,13 @@ frame-data = msg-id || snappyCompress(msg-data)
 frame-size = length of (msg-id || msg-data) encoded as a 24bit big-endian integer
 ```
 
-## Message ID-based Multiplexing
+## 基于`msg-id`的复用
 
-While the framing layer supports a `capability-id`, the current version of RLPx doesn't use that field for multiplexing between different capabilities. Instead, multiplexing relies purely on the message ID.
+frame中虽然支持`capability-id`，但是在本RLPx版本中并没有将该字段用于不同功能之间的复用（当前版本仅使用msg-id来实现复用）。
 
-Each capability is given as much of the message-ID space as it needs. All such capabilities must statically specify how many message IDs they require. On connection and reception of the [Hello]() message, both peers have equivalent information about what capabilities they share \(including versions\) and are able to form consensus over the composition of message ID space.
+每种功能都会根据需要分配尽可能多的msg-id空间。所有这些功能所需的msg-id空间都必须通过静态指定。在连接和接收[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)消息时，两端都具有共享功能（包括版本）的对等信息，并且能够就msg-id空间达成共识。
 
-Message IDs are assumed to be compact from ID 0x11 onwards \(0x00-0x10 is reserved for the "p2p" capability\) and given to each shared \(equal-version, equal-name\) capability in alphabetic order. Capability names are case-sensitive. Capabilities which are not shared are ignored. If multiple versions are shared of the same \(equal name\) capability, the numerically highest wins, others are ignored.
+msg-id应当大于0x11\(0x00-0x10保留用于“ p2p”功能）。
 
 ## "p2p" Capability
 
