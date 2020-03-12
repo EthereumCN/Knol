@@ -61,7 +61,7 @@
     * [RLPx传输协议](networking/devp2p-specifications/rlpx-chuan-shu-xie-yi.md)
 * [以太坊技术](ethereum-technologies/README.md)
   * [RLP 编码](ethereum-technologies/rlp-encoding.md)
-  * [Patricia Tree](ethereum-technologies/patricia-tree.md)
+  * [Merkle Patricia Tree](ethereum-technologies/patricia-tree.md)
   * [Web3 私密存储](ethereum-technologies/web3-secret-storage.md)
   * [轻客户端协议](ethereum-technologies/light-client-protocolsubtleties.md)
   * [Solidity 文档](ethereum-technologies/solidity-documentation.md)
