@@ -203,31 +203,31 @@ frame中虽然支持`capability-id`，但是在本RLPx版本中并没有将该�
 
 msg-id应当大于0x11\(0x00-0x10保留用于“ p2p”功能）。
 
-## "p2p" Capability
+## "p2p" 功能
 
-The "p2p" capability is present on all connections. After the initial handshake, both sides of the connection must send either [Hello]() or a [Disconnect]() message. Upon receiving the [Hello]() message a session is active and any other message may be sent. Implementations must ignore any difference in protocol version for forward-compatibility reasons. When communicating with a peer of lower version, implementations should try to mimic that version.
+所有连接都具有“p2p”功能。初始握手后，连接的两端都必须发送[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)或[Disconnect](https://github.com/ethereum/devp2p/blob/master/rlpx.md#disconnect-0x01)消息。在接收到Hello消息后，会话就进入激活状态，并且可以开始发送其他消息。由于前向兼容性，实现必须忽略协议版本中的所有差异。与处于较低版本的节点通信时，实现应尝试靠近该版本。
 
-At any time after protocol negotiation, a [Disconnect]() message may be sent.
+任何时候都可能会收到[Disconnect](https://github.com/ethereum/devp2p/blob/master/rlpx.md#disconnect-0x01)消息。
 
 #### Hello \(0x00\)
 
 `[protocolVersion: P, clientId: B, capabilities, listenPort: P, nodeKey: B_64, ...]`
 
-First packet sent over the connection, and sent once by both sides. No other messages may be sent until a Hello is received. Implementations must ignore any additional list elements in Hello because they may be used by a future version.
+握手完成后，双方发送的第一包数据。在收到Hello消息前，不能发送任何其他消息。实现必须忽略Hello消息中所有其他列表元素，因为可能会在未来版本中用到。
 
-* `protocolVersion` the version of the "p2p" capability, **5**.
-* `clientId` Specifies the client software identity, as a human-readable string \(e.g. "Ethereum\(++\)/1.0.0"\).
-* `capabilities` is the list of supported capabilities and their versions: `[[cap1, capVersion1], [cap2, capVersion2], ...]`.
-* `listenPort` specifies the port that the client is listening on \(on the interface that the present connection traverses\). If 0 it indicates the client is not listening.
-* `nodeId` is the secp256k1 public key corresponding to the node's private key.
+* `protocolVersion`当前p2p功能版本为第5版
+* `clientId`表示客户端软件身份，人类可读字符串, 比如"Ethereum\(++\)/1.0.0“
+* `capabilities`支持的子协议列表，名称及其版本：`[[cap1, capVersion1], [cap2, capVersion2], ...]`
+* `listenPort`节点的收听端口 \(位于当前连接路径的接口\)，0表示没有收听
+* `nodeId`secp256k1的公钥，对应节点私钥
 
 #### Disconnect \(0x01\)
 
 `[reason: P]`
 
-Inform the peer that a disconnection is imminent; if received, a peer should disconnect immediately. When sending, well-behaved hosts give their peers a fighting chance \(read: wait 2 seconds\) to disconnect to before disconnecting themselves.
+通知节点断开连接。收到该消息后，节点应当立即断开连接。如果是发送，正常的主机会给节点2秒钟读取时间，使其主动断开连接。
 
-`reason` is an optional integer specifying one of a number of reasons for disconnect:
+`reason` 一个可选整数，表示断开连接的原因：
 
 | Reason | Meaning |
 | :--- | :--- |
@@ -249,36 +249,34 @@ Inform the peer that a disconnection is imminent; if received, a peer should dis
 
 `[]`
 
-Requests an immediate reply of [Pong]() from the peer.
+要求节点立即进行[Pong](https://github.com/ethereum/devp2p/blob/master/rlpx.md#pong-0x03)回复。
 
 #### Pong \(0x03\)
 
 `[]`
 
-Reply to the peer's [Ping]() packet.
+回复节点的[Ping](https://github.com/ethereum/devp2p/blob/master/rlpx.md#ping-0x02)包。
 
-## Change Log
+## 过往协议版本
 
-#### Known Issues in the current version
+**当前版本已知问题**
 
-* The frame encryption/MAC scheme is considered 'broken' because `aes-secret` and `mac-secret` are reused for both reading and writing. The two sides of a RLPx connection generate two CTR streams from the same key, nonce and IV. If an attacker knows one plaintext, they can decrypt unknown plaintexts of the reused keystream.
-* General feedback from reviewers has been that the use of a keccak256 state as a MAC accumulator and the use of AES in the MAC algorithm is an uncommon and overly complex way to perform message authentication but can be considered safe.
-* The frame encoding provides `capability-id` and `context-id` fields for multiplexing purposes, but these fields are unused.
+* 帧加密和MAC被认为是易破解的，因为`aes-secret`和`mac-secret`被重复用于读取和写入 。RLPx连接的两端从相同的密钥、nonce和IV生成两个CTR流。如果攻击者知道一个明文，他们就可以利用重用的密钥流破解未知明文。
+* 审阅者的普遍反馈是，使用keccak256状态作为MAC累加器，并在MAC算法中使用AES来执行消息身份验证，是一种罕见且过于复杂的方法，但保障了一定安全性。
+* 帧编码为复用提供 `capability-id` 和 `context-id` 字段，但并未使用这些字段。
 
-#### Version 5 \(EIP-706, September 2017\)
+#### Version 5 \(EIP-706, 2017/09\)
 
-[EIP-706](https://eips.ethereum.org/EIPS/eip-706) added Snappy message compression.
+[EIP-706](https://eips.ethereum.org/EIPS/eip-706) 添加了Snappy消息压缩。
 
-#### Version 4 \(EIP-8, December 2015\)
+#### Version 4 \(EIP-8, 2015/12\)
 
-[EIP-8](https://eips.ethereum.org/EIPS/eip-8) changed the encoding of `auth-body` and `ack-body` in the initial handshake to RLP, added a version number to the handshake and mandated that implementations should ignore additional list elements in handshake messages and [Hello]().
+[EIP-8](https://eips.ethereum.org/EIPS/eip-8)将初始握手中的`auth-body`和`ack-body`编码更改为RLP，在握手中添加了版本号，并要求实现应忽略握手消息和[Hello](https://github.com/ethereum/devp2p/blob/master/rlpx.md#hello-0x00)中的其他列表元素。
 
-## References
+## 参考资源
 
 * Elaine Barker, Don Johnson, and Miles Smid. NIST Special Publication 800-56A Section 5.8.1, Concatenation Key Derivation Function. 2017.  URL [https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-56ar.pdf](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-56ar.pdf)
 * Victor Shoup. A proposal for an ISO standard for public key encryption, Version 2.1. 2001.  URL [http://www.shoup.net/papers/iso-2\_1.pdf](http://www.shoup.net/papers/iso-2_1.pdf)
 * Mike Belshe and Roberto Peon. SPDY Protocol - Draft 3. 2014.  URL [http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft3](http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft3)
 * Snappy compressed format description. 2011.  URL [https://github.com/google/snappy/blob/master/format\_description.txt](https://github.com/google/snappy/blob/master/format_description.txt)
-
-Copyright © 2014 Alex Leverington. [This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
