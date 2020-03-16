@@ -1,18 +1,24 @@
 # 架构概述
 
-## Architectural Overview
+## 2.1. 前言
 
-### 2.1. Preface
+Swarm定义了三个关键概念：
 
-Swarm defines 3 crucial notions:_chunk_Chunks are pieces of data of limited size \(max 4K\), the basic unit of storage and retrieval in the Swarm. The network layer only knows about chunks and has no notion of file or collection._reference_A reference is a unique identifier of a file that allows clients to retrieve and access the content. For unencrypted content the file reference is the cryptographic hash of the data and serves as its content address. This hash reference is a 32 byte hash, which is serialised with 64 hex bytes. In case of an encrypted file the reference has two equal-length components: the first 32 bytes are the content address of the encrypted asset, while the second 32 bytes are the decryption key, altogether 64 bytes, serialised as 128 hex bytes._manifest_A manifest is a data structure describing file collections; they specify paths and corresponding content hashes allowing for URL based content retrieval. The [BZZ URL schemes](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-url-schemes) assumes that the content referenced in the domain is a manifest and renders the content entry whose path matches the one in the request path. Manifests can also be mapped to a filesystem directory tree, which allows for uploading and downloading directories. Finally, manifests can also be considered indexes, so it can be used to implement a simple key-value store, or alternatively, a database index. This offers the functionality of _virtual hosting_, storing entire directories, web3 websites or primitive data structures; analogous to web2.0, with centralized hosting taken out of the equation.[![Example of how Swarm could serve a web page](https://swarm-guide.readthedocs.io/en/latest/_images/dapp-page.svg)](https://swarm-guide.readthedocs.io/en/latest/_images/dapp-page.svg)
+**Chunk**：大小有限 \(最大4K\) 的数据块，Swarm中存储和检索的基本单位。网络层只识别chunk，没有文件概念。
 
-In this guide, content is understood very broadly in a technical sense denoting any blob of data. Swarm defines a specific identifier for a file. This identifier part of the reference serves as the retrieval address for the content. This address needs to be
+**Reference**：文件的唯一标识符，允许客户端检索和访问内容。对于未加密内容，文件reference是数据的加密哈希，并作为其内容地址。该哈希长度为32字节，序列化为64个十六进制字节。如果是加密文件，则包含两个等长的部分：前32个字节是内容地址，后32个字节是解密密钥（共64字节），序列化为128个十六进制字节。
 
-* collision free \(two different blobs of data will never map to the same identifier\)
-* deterministic \(same content will always receive the same identifier\)
-* uniformly distributed
+**Manifest**：描述文件集合的数据结构。Manifest指定路径和相应的内容哈希，以允许基于URL的内容检索。[BZZ URL方案](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-url-schemes)假定域名中的引用内容是manifest，并呈现路径与请求路径相匹配的内容条目。Manifest也可以映射到文件系统目录树 \(directory tree\)，该目录树允上传和下载目录。最后，manifest也可以被视作是索引，因此它可以用于实现简单的键值存储或数据库索引。这提供了虚拟主机功能 \(virtual hosting\)，可以存储整个目录、web3网站或原始数据结构，类似于web2.0，使集中托管成为可能。
 
-The choice of identifier in Swarm is the hierarchical Swarm hash described in [Swarm Hash](https://swarm-guide.readthedocs.io/en/latest/architecture.html#swarm-hash). The properties above allow us to view hashes as addresses at which content is expected to be found. Since hashes can be assumed to be collision free, they are bound to one specific version of a content. Hash addressing is therefore immutable in the strong sense that you cannot even express mutable content: “changing the content changes the hash”.
+![](../.gitbook/assets/dapp-page.svg)
+
+Swarm定义了文件的特定标识符 \(identifier \)。Reference的标识符部分用作内容的检索地址。该地址必须是：
+
+* 无冲突（两个不同的数据块不会映射到同一个标识符）
+* 确定的（同样的内容始终对应同样的标识符）
+* 均匀分布
+
+Swarm中标识符的选择根据[Swarm Hash](https://swarm-guide.readthedocs.io/en/latest/architecture.html#swarm-hash)中所描述的分级Swarm哈希。以上地址属性允许我们将哈希视作能够找到对应内容的地址。由于哈希要满足“无冲突”特点，所以会被绑定到一个特定版本的内容。因此在很大程度上，哈希寻址是不可篡改的，甚至不能代表变化的内容：“内容更改会引起哈希变动”。
 
 Users of the web, however, are accustomed to mutable resources, looking up domains and expect to see the most up to date version of the ‘site’. Mutable resources are made possible by the ethereum name service \(ENS\) and Feeds. The ENS is a smart contract on the ethereum blockchain which enables domain owners to register a content reference to their domain. Using ENS for domain name resolution, the url scheme provides content retrieval based on mnemonic \(or branded\) names, much like the DNS of the world wide web, but without servers. Feeds is an off-chain solution for communicating updates to a resource, it offers cheaper and faster updates than ENS, yet the updates can be consolidated on ENS by any third party willing to pay for the transaction.
 
@@ -34,19 +40,23 @@ There is no such thing as delete/remove in Swarm. Once data is uploaded there is
 
 Nodes cache content that they pass on at retrieval, resulting in an auto scaling elastic cloud: popular \(oft-accessed\) content is replicated throughout the network decreasing its retrieval latency. Caching also results in a _maximum resource utilisation_ in as much as nodes will fill their dedicated storage space with data passing through them. If capacity is reached, least accessed chunks are purged by a garbage collection process. As a consequence, unpopular content will end up getting deleted. Storage insurance \(yet to be implemented\) will offer users a secure guarantee to protect important content from being purged.
 
-### 2.2. Overlay network
+## 2.2. Overlay network
 
 #### 2.2.1. Logarithmic distance
 
 The distance metric MSB\(x,y\)MSB\(x,y\) of two equal length byte sequences xx an yy is the value of the binary integer cast of xXORyxXORy \(bitwise xor\). The binary cast is big endian: most significant bit first \(=MSB\).
 
-Proximity\(x,y\)Proximity\(x,y\) is a discrete logarithmic scaling of the MSB distance. It is defined as the reverse rank of the integer part of the base 2 logarithm of the distance. It is calculated by counting the number of common leading zeros in the \(MSB\) binary representation of xXORyxXORy \(0 farthest, 255 closest, 256 self\).![Distance and Proximity](https://swarm-guide.readthedocs.io/en/latest/_images/distance.svg)
+Proximity\(x,y\)Proximity\(x,y\) is a discrete logarithmic scaling of the MSB distance. It is defined as the reverse rank of the integer part of the base 2 logarithm of the distance. It is calculated by counting the number of common leading zeros in the \(MSB\) binary representation of xXORyxXORy \(0 farthest, 255 closest, 256 self\).
+
+![Distance and Proximity](https://swarm-guide.readthedocs.io/en/latest/_images/distance.svg)
 
 Taking the _proximity order_ relative to a fix point xx classifies the points in the space \(byte sequences of length nn\) into bins. Items in each are at most half as distant from xx as items in the previous bin. Given a sample of uniformly distributed items \(a hash function over arbitrary sequence\) the proximity scale maps onto series of subsets with cardinalities on a negative exponential scale.
 
 It also has the property that any two addresses belonging to the same bin are at most half as distant from each other as they are from xx.
 
-If we think of a random sample of items in the bins as connections in a network of interconnected nodes, then relative proximity can serve as the basis for local decisions for graph traversal where the task is to _find a route_ between two points. Since on every hop, the finite distance halves, as long as each relevant bin is non-empty, there is a guaranteed constant maximum limit on the number of hops needed to reach one node from the other.![Kademlia topology in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/topology.svg)
+If we think of a random sample of items in the bins as connections in a network of interconnected nodes, then relative proximity can serve as the basis for local decisions for graph traversal where the task is to _find a route_ between two points. Since on every hop, the finite distance halves, as long as each relevant bin is non-empty, there is a guaranteed constant maximum limit on the number of hops needed to reach one node from the other.
+
+![Kademlia topology in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/topology.svg)
 
 #### 2.2.2. Kademlia topology
 
@@ -58,7 +68,9 @@ If each point of a connected subgraph has kademlia connectivity, then we say the
 
 Given a set of points uniformly distributed in the space \(e.g., the results of a hash function applied to Swarm data\) the proximity bins map onto a series of subsets with cardinalities on a negative exponential scale, i.e., PO bin 0 has half of the points of any random sample, PO bin 1 has one fourth, PO bin 2 one eighth, etc. The expected value of saturation depth in the network of NN nodes is log2\(N\)log2\(N\). The last bin can just merge all bins deeper than the depth and is called the _most proximate bin_.
 
-Nodes in the Swarm network are identified by the hash of the ethereum address of the Swarm base account. This serves as their overlay address, the proximity order bins are calculated based on these addresses. Peers connected to a node define another, live kademlia table, where the graph edges represent devp2p rlpx connections.[![Kademlia table for a sample node in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/kademlia.svg)](https://swarm-guide.readthedocs.io/en/latest/_images/kademlia.svg)
+Nodes in the Swarm network are identified by the hash of the ethereum address of the Swarm base account. This serves as their overlay address, the proximity order bins are calculated based on these addresses. Peers connected to a node define another, live kademlia table, where the graph edges represent devp2p rlpx connections.
+
+![Kademlia table for a sample node in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/kademlia.svg)
 
 If each node in a set has a saturated kademlia table of connected peers, then the nodes “live connection” graph has kademlia topology. The properties of a kademlia graph can be used for routing messages between nodes in a network using overlay addressing. In a _forwarding kademlia_ network, a message is said to be _routable_ if there exists a path from sender node to destination node through which the message could be relayed. In a mature subnetwork with kademlia topology every message is routable. A large proportion of nodes are not stably online; keeping several connected peers in their PO bins, each node can increase the chances that it can forward messages at any point in time, even if a relevant peer drops.
 
@@ -74,9 +86,11 @@ After a sufficient number of nodes are connected, a bin becomes saturated, and t
 
 Such a network can readily be used for a forwarding-style messaging system. Swarm’s PSS is based on this. Swarm also uses this network to implement its storage solution.
 
-### 2.3. Distributed preimage archive
+## 2.3. Distributed preimage archive
 
-_Distributed hash tables_ \(DHTs\) utilise an overlay network to implement a key-value store distributed over the nodes. The basic idea is that the keyspace is mapped onto the overlay address space, and information about an element in the container is to be found with nodes whose address is in the proximity of the key. DHTs for decentralised content addressed storage typically associate content fingerprints with a list of nodes \(seeders\) who can serve that content. However, the same structure can be used directly: it is not information about the location of content that is stored at the node closest to the address \(fingerprint\), but the content itself. We call this structure _distributed preimage archive_ \(DPA\).[![The DPA and chunking in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/dpa-chunking.svg)](https://swarm-guide.readthedocs.io/en/latest/_images/dpa-chunking.svg)
+_Distributed hash tables_ \(DHTs\) utilise an overlay network to implement a key-value store distributed over the nodes. The basic idea is that the keyspace is mapped onto the overlay address space, and information about an element in the container is to be found with nodes whose address is in the proximity of the key. DHTs for decentralised content addressed storage typically associate content fingerprints with a list of nodes \(seeders\) who can serve that content. However, the same structure can be used directly: it is not information about the location of content that is stored at the node closest to the address \(fingerprint\), but the content itself. We call this structure _distributed preimage archive_ \(DPA\).
+
+![The DPA and chunking in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/dpa-chunking.svg)
 
 A DPA is opinionated about which nodes store what content and this implies a few more restrictions: \(1\) load balancing of content among nodes is required and is accomplished by splitting content into equal sized chunks \(_chunking_\); \(2\) there has to be a process whereby chunks get to where they are supposed to be stored \(_syncing_\); and \(3\) since nodes do not have a say in what they store, measures of _plausible deniability_ should be employed.
 
@@ -112,9 +126,11 @@ When two nodes connect and they engage in synchronisation, the upstream node off
 
 Nodes keep track of when they stored a chunk locally for the first time \(for instance by indexing them by an ever incrementing storage count\). The downstream peer is said to have completed _history syncing_ if it has \(acknowledged\) all the chunks of the upstream peer up from the beginning until the time the session started \(up to the storage count that was the highest at the time the session started\). Some node is said to have completed _session syncing_ with its upstream peer if it has \(acknowledged\) all the chunks of the upstream peer up since the session started.
 
-In order to reduce network traffic resulting from receiving chunks from multiple sources, all store requests can go via a confirmation roundtrip. For each peer connection in both directions, the source peer sends an _offeredHashes_ message containing a batch of hashes offered to push to the recipient. Recipient responds with a _wantedHashes_.[![Syncing chunks in the Swarm network](https://swarm-guide.readthedocs.io/en/latest/_images/syncing-high-level.svg)](https://swarm-guide.readthedocs.io/en/latest/_images/syncing-high-level.svg)
+In order to reduce network traffic resulting from receiving chunks from multiple sources, all store requests can go via a confirmation roundtrip. For each peer connection in both directions, the source peer sends an _offeredHashes_ message containing a batch of hashes offered to push to the recipient. Recipient responds with a _wantedHashes_.
 
-### 2.4. Data layer
+![Syncing chunks in the Swarm network](https://swarm-guide.readthedocs.io/en/latest/_images/syncing-high-level.svg)
+
+## 2.4. Data layer
 
 There are 4 different layers of data units relevant to Swarm:
 
@@ -123,7 +139,9 @@ There are 4 different layers of data units relevant to Swarm:
 * _file_: the smallest unit that is associated with a mime-type and not guaranteed to have integrity unless it is complete. This is the smallest unit semantic to the user, basically a file on a filesystem.
 * _collection_: a mapping of paths to files is represented by the _swarm manifest_. This layer has a mapping to file system directory tree. Given trivial routing conventions, a url can be mapped to files in a standardised way, allowing manifests to mimic site maps/routing tables. As a result, Swarm is able to act as a webserver, a virtual cloud hosting service.
 
-The actual storage layer of Swarm consists of two main components, the _localstore_ and the _netstore_. The local store consists of an in-memory fast cache \(_memory store_\) and a persistent disk storage \(_dbstore_\). The NetStore is extending local store to a distributed storage of Swarm and implements the _distributed preimage archive \(DPA\)_.[![High level storage layer in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/storage-layer.svg)](https://swarm-guide.readthedocs.io/en/latest/_images/storage-layer.svg)
+The actual storage layer of Swarm consists of two main components, the _localstore_ and the _netstore_. The local store consists of an in-memory fast cache \(_memory store_\) and a persistent disk storage \(_dbstore_\). The NetStore is extending local store to a distributed storage of Swarm and implements the _distributed preimage archive \(DPA\)_.
+
+![High level storage layer in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/storage-layer.svg)
 
 #### 2.4.1. Files
 
@@ -149,7 +167,7 @@ Note
 
 In POC4, json manifests will be replaced by a serialisation scheme that enables compact path proofs, essentially asserting that a file is part of a collection that can be verified by any third party or smart contract.
 
-### 2.5. Components
+## 2.5. Components
 
 In what follows we describe the components in more detail.
 

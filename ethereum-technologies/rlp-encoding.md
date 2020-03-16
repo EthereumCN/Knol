@@ -4,8 +4,6 @@ description: 递归长度前缀编码
 
 # RLP 编码
 
-**Contents**
-
 * [定义](https://github.com/ethereum/wiki/wiki/RLP#definition)
 * [例子](https://github.com/ethereum/wiki/wiki/RLP#examples)
 * [RLP解码](https://github.com/ethereum/wiki/wiki/RLP#rlp-decoding)
@@ -17,7 +15,7 @@ RLP \(递归长度前缀\)提供了一种适用于任意二进制数据数组的
 
 总之，如果JSON仅适用于字符串和数组，则RLP类似于JSON的二进制编码。
 
-#### 定义
+## 定义
 
 RLP 编码函数接受一个item。定义如下：
 
@@ -156,7 +154,7 @@ def to_integer(b):
 
 注意：`decode_length`函数会拒绝“非最佳”长度的无效编码，即（1）仅字节小于128的单例字符串，其应使用短长度（即一个字节）为1进行编码，而不是用字符串本身（2）字符串和列表长度较长（即多字节）的，且具有零占位（本来不应该存在），或长度小于56（本来应使用短长度进行编码）。
 
-#### 代码实现
+## 代码实现
 
 * Go: [go-ethereum](https://github.com/ethereum/go-ethereum/tree/master/rlp)
 * Java: [web3j](https://github.com/web3j/web3j/blob/master/rlp/src/main/java/org/web3j/rlp/RlpDecoder.java), [ethereumj](https://github.com/ethereumj/ethereumj/blob/master/ethereumj-core/src/main/java/org/ethereum/util/RLP.java), [headlong](https://github.com/esaulpaugh/headlong/tree/master/src/main/java/com/esaulpaugh/headlong/rlp)

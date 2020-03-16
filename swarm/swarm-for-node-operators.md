@@ -1,7 +1,5 @@
 # 面向节点
 
-
-
 ## 5. Swarm for Node-Operators
 
 This section is about how to run your swarm node, or deploy a seperate private or public swarm network.
