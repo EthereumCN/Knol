@@ -1,3 +1,7 @@
+---
+description: 'https://swarm-guide.readthedocs.io/en/latest/architecture.html'
+---
+
 # 架构概述
 
 ## 2.1. 前言
@@ -32,7 +36,7 @@ Swarm中标识符的选择根据[Swarm Hash](https://swarm-guide.readthedocs.io/
 
 Swarm实现了分布式原图像存档 \(distributed preimage archive\)，这实际上是一种特定类型内容寻址的分布式哈希表，其中距离某个chunk地址最近的节点不仅提供有关内容的信息，还对数据进行托管。
 
-两者的可行性取决于以下假设：任何节点（上传者/请求者）都可以“访问”任何其他节点（存储者）。这个假设可以通过特殊的网络拓扑结构 \(kademlia\) 来实现，该拓扑结构可以保证在网络规模中存在对数的最多转发跳数。
+两者的可行性取决于以下假设：任何节点（上传者/请求者）都可以“访问”任何其他节点（存储者）。这个假设可以通过特殊的网络拓扑结构 \(kademlia\) 来实现，该拓扑结构可以保证在网络规模中存在对数的最大数量转发跃点。
 
 | 注意 |
 | :--- |
@@ -40,51 +44,51 @@ Swarm实现了分布式原图像存档 \(distributed preimage archive\)，这实
 
 节点缓存在检索时传递的内容，从而形成自动缩放的弹性云：流行（经常访问）的内容被复制到整个网络中，从而减少检索延迟。缓存还可以最大程度地利用资源，因为节点将传输的数据存储到专用空间。如果达到容量上限，垃圾回收过程将清除访问最少的chunk。结果就是，访问最少的内容最终被删除。存储保险（尚未实施）将为用户提供安全保障，以防止重要内容被清除。
 
-## 2.2. Overlay network
+## 2.2. 叠加网络
 
-#### 2.2.1. Logarithmic distance
+#### 2.2.1. 对数距离
 
-The distance metric MSB\(x,y\)MSB\(x,y\) of two equal length byte sequences xx an yy is the value of the binary integer cast of xXORyxXORy \(bitwise xor\). The binary cast is big endian: most significant bit first \(=MSB\).
+两个等长字节序列x和y的距离度量 MSB\(x,y\)MSB\(x,y\) 是xXORy（按位异或）的二进制整数转换的值。二进制类型转换为大端字节序：最高有效位在先 \(= MSB\)。
 
-Proximity\(x,y\)Proximity\(x,y\) is a discrete logarithmic scaling of the MSB distance. It is defined as the reverse rank of the integer part of the base 2 logarithm of the distance. It is calculated by counting the number of common leading zeros in the \(MSB\) binary representation of xXORyxXORy \(0 farthest, 255 closest, 256 self\).
+邻近度 \(x,y\) 是MSB距离的离散对数缩放，定义为距离的以2为底的对数的整数部分的倒数。通过对xXORy \(最远为0，最近255，自身为256\) 的 \(MSB\) 二进制表示形式中的共用前导零进行计数来计算。
 
-![Distance and Proximity](https://swarm-guide.readthedocs.io/en/latest/_images/distance.svg)
+![&#x8DDD;&#x79BB;&#x548C;&#x90BB;&#x8FD1;&#x5EA6;](https://swarm-guide.readthedocs.io/en/latest/_images/distance.svg)
 
-Taking the _proximity order_ relative to a fix point xx classifies the points in the space \(byte sequences of length nn\) into bins. Items in each are at most half as distant from xx as items in the previous bin. Given a sample of uniformly distributed items \(a hash function over arbitrary sequence\) the proximity scale maps onto series of subsets with cardinalities on a negative exponential scale.
+按相对于固定点x的邻近度顺序将空间中的点（长度为nn的字节序列）分类为bin。每个项目与x的距离最多为前一个bin中项目的x的一半。给定均匀分布项目的样本（任意序列上的哈希函数），邻近度范围映射到基数为负指数范围的一系列子集
 
-It also has the property that any two addresses belonging to the same bin are at most half as distant from each other as they are from xx.
+它还具有以下特性：属于同一个bin的任何两个地址之间的距离最多为与x的距离的一半。
 
-If we think of a random sample of items in the bins as connections in a network of interconnected nodes, then relative proximity can serve as the basis for local decisions for graph traversal where the task is to _find a route_ between two points. Since on every hop, the finite distance halves, as long as each relevant bin is non-empty, there is a guaranteed constant maximum limit on the number of hops needed to reach one node from the other.
+如果我们将bin中项目的随机样本视为网络中节点的互连，则相对邻近度可以用作图的遍历的本地决策基础，目标是在两点之间找到一条路线。由于在每个跃点上，有限距离减半，只要每个相关的bin都不为空，就可以保证从一个节点到另一个节点所需的跃点数具有恒定的最大限制。
 
-![Kademlia topology in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/topology.svg)
+![Swarm&#x4E2D;&#x7684;Kademlia&#x62D3;&#x6251;](https://swarm-guide.readthedocs.io/en/latest/_images/topology.svg)
 
-#### 2.2.2. Kademlia topology
+#### 2.2.2. Kademlia拓扑
 
-Swarm uses the ethereum devp2p rlpx suite as the transport layer of the underlay network. This uncommon variant allows semi-stable peer connections \(over TCP\), with authenticated, encrypted, synchronous data streams.
+Swarm使用以太坊devp2p rlpx套件作为底层网络的传输层。这种不常见的变体允许半稳定的节点连接（通过TCP）以及经验证和加密的同步数据流。
 
-We say that a node has _kademlia connectivity_ if \(1\) it is connected to at least one node for each proximity order up to \(but excluding\) some maximum value dd \(called the _saturation depth_\) and \(2\) it is connected to all nodes whose proximity order relative to the node is greater or equal to dd.
+我们说一个节点具有kademlia连接性，如果（1）对于每个邻近度，直到（但不包括）某个最大值d（饱和深度），该节点至少与一个节点相连；并且（2）连接了与其自身邻近度大于或等于d的所有节点。
 
-If each point of a connected subgraph has kademlia connectivity, then we say the subgraph has _kademlia topology_. In a graph with kademlia topology, \(1\) a path between any two points exists, \(2\) it can be found using only local decisions on each hop and \(3\) is guaranteed to terminate in no more steps than the depth of the destination plus one.
+如果已连接子图 \(subgraph\) 的每个点都具有kademlia连接性，那么我们说该子图具有kademlia拓扑。在具有kademlia拓扑的图中（1）存在任何两点之间的路径，（2）只能通过每个跃点上的本地判定找到，并且（3）保证终止深度不超过目标深度加一。
 
-Given a set of points uniformly distributed in the space \(e.g., the results of a hash function applied to Swarm data\) the proximity bins map onto a series of subsets with cardinalities on a negative exponential scale, i.e., PO bin 0 has half of the points of any random sample, PO bin 1 has one fourth, PO bin 2 one eighth, etc. The expected value of saturation depth in the network of NN nodes is log2\(N\)log2\(N\). The last bin can just merge all bins deeper than the depth and is called the _most proximate bin_.
+给定一组在空间中均匀分布的点（例如应用于Swarm数据的哈希函数结果），邻近度bins映射到基数为负指数范围的一系列子集，即PO bin 0有任意随机样本的一半点数，PO bin 1有四分之一，PO bin 2有八分之一，依此类推。N节点网络中饱和深度的期望值为log2\(N\)。最后一个bin可以合并所有比深度更深的bin，称为最邻近bin。
 
-Nodes in the Swarm network are identified by the hash of the ethereum address of the Swarm base account. This serves as their overlay address, the proximity order bins are calculated based on these addresses. Peers connected to a node define another, live kademlia table, where the graph edges represent devp2p rlpx connections.
+Swarm节点由Swarm基本帐户的以太坊地址的哈希标识。这用作它们的覆盖地址，根据这些地址计算邻近度顺序bins。连接到节点的节点定义了另一个实时kademlia表，其中图形边缘表示devp2p rlpx连接。
 
-![Kademlia table for a sample node in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/kademlia.svg)
+![](../.gitbook/assets/kademlia.svg)
 
-If each node in a set has a saturated kademlia table of connected peers, then the nodes “live connection” graph has kademlia topology. The properties of a kademlia graph can be used for routing messages between nodes in a network using overlay addressing. In a _forwarding kademlia_ network, a message is said to be _routable_ if there exists a path from sender node to destination node through which the message could be relayed. In a mature subnetwork with kademlia topology every message is routable. A large proportion of nodes are not stably online; keeping several connected peers in their PO bins, each node can increase the chances that it can forward messages at any point in time, even if a relevant peer drops.
+如果集合中的每个节点都有一个已连接节点的饱和kademlia表，则节点“实时连接”图具有kademlia拓扑。Kademlia图的属性可用于在节点之间通过覆盖寻址路由消息。在转递kademlia网络中，如果存在从发送节点到目标节点的路径（可通过该路径中继消息），那么该消息可路由 \(routable\)。在具有kademlia拓扑的成熟子网中，每条消息都是可路由的。很大一部分节点不稳定在线，将一部分已连接的节点保留在其PO bins中，即使相关节点掉线，每个节点在任何时间点转发消息的几率也增加了。
 
-#### 2.2.3. Bootstrapping and discovery
+#### 2.2.3. Bootstrapping及discovery
 
-Nodes joining a decentralised network are supposed to be naive, i.e., potentially connect via a single known peer. For this reason, the bootstrapping process will need to include a discovery component with the help of which nodes exchange information about each other.
+假定加入去中心化网络的节点缺乏经验，即通过单个已知节点潜在连接。由于这个原因，bootstrapping将需要包括一个discovery组件，借助于该组件，节点之间可以相互交换信息。
 
-The protocol is as follows: Initially, each node has zero as their saturation depth. Nodes keep advertising to their connected peers info about their saturation depth as it changes. If a node establishes a new connection, it notifies each of its peers about this new connection if their proximity order relative to the respective peer is not lower than the peer’s advertised saturation depth \(i.e., if they are sufficiently close by\). The notification is always sent to each peer that shares a PO bin with the new connection. These notification about connected peers contain full overlay and underlay address information. Light nodes that do not wish to relay messages and do not aspire to build up a healthy kademlia are discounted.
+协议如下：最初，每个节点的饱和深度为零。节点会随着饱和深度的变化不断通知其连接的节点。当某个节点建立了新连接，如果它和相应节点的接近程度不低于对方告知的饱和深度（即如果它们足够接近），则它可以将此新连接通知给每个节点。通知始终发送给与该新连接共享PO bin的每个节点，包含完整的覆盖地址和底层地址信息。不希望中继消息也不打算建立kademlia的轻节点会被排除。
 
-As a node is being notified of new peer addresses, it stores them in a kademlia table of known peers. While it listens to incoming connections, it also proactively attempts to connect to nodes in order to achieve saturation: it tries to connect to each known node that is within the PO boundary of N _nearest neighbours_ called _nearest neighbour depth_ and \(2\) it tries to fill each bin up to the nearest neighbour depth with healthy peers. To satisfy \(1\) most efficiently, it attempts to connect to the peer that is most needed at any point in time. Low \(far\) bins are more important to fill than high \(near\) ones since they handle more volume. Filling an empty bin with one peer is more important than adding a new peer to a non-empty bin, since it leads to a saturated kademlia earlier. Therefore the protocol uses a bottom-up, depth-first strategy to choose a peer to connect to. Nodes that are tried but failed to get connected are retried with an exponential backoff \(i.e., after a time interval that doubles after each attempt\). After a certain number of attempts such nodes are no longer considered.
+当节点收到新节点地址的通知时，会将其存储在已知节点的kademlia表中。在收听传入的连接时，还会主动尝试连接到节点以实现饱和：尝试连接到N个最近节点的PO边界内（最近邻点深度）的每个已知节点，并且（2）尝试通过将正常节点填充到bin中以达到最近邻点深度。为了最有效地满足（1），节点会在任何时间尝试连接到最需要的节点。低（远）bins比高（近）bins更重要，因为其容量更大。将一个新节点添加到非空bin，比起将一个节点加入一个空bin更为重要，因为能够更快使kademlia达到饱和。因此，该协议使用自下而上、深度优先的策略来选择要连接的节点。已尝试但无法建立连接的节点将使用指数退避重试（即在每次尝试后时间间隔翻倍）。经过一定次数的尝试后，若仍然失败将不再考虑这些节点。
 
-After a sufficient number of nodes are connected, a bin becomes saturated, and the bin saturation depth can increase. Nodes keep advertising their current saturation depth to their peers if it changes. As their saturation depth increases, nodes will get notified of fewer and fewer new peers \(since they already know their neighbourhood\). Once the node finds all their nearest neighbours and has saturated all the bins, no new peers are expected. For this reason, a node can conclude a saturated kademlia state if it receives no new peers \(for some time\). The node does not need to know the number of nodes in the network. In fact, some time after the node stops receiving new peer addresses, the node can effectively estimate the size of the network from the depth \(depth nn implies 2n2n nodes\)
+连接足够数量的节点后，bin达到饱和，bin饱和深度增加。如果节点当前的饱和深度发生变化，节点则将继续向其他节点同胞。随着其饱和深度的增加，节点收到的新节点的通知会越来越少（因为它们已经知道邻近节点）。一旦节点找到了所有最近节点并且素有bins都达到饱和，那么就不会再有新节点通知。因此如果某个节点（在一段时间内）未收到新节点，则该节点可以得出饱和的kademlia状态。该节点不需要知道网络中的节点数量。实际上，在节点停止接收新节点地址之后某时，可以根据深度有效估计网络大小（深度n表示$$2^n$$个节点）。
 
-Such a network can readily be used for a forwarding-style messaging system. Swarm’s PSS is based on this. Swarm also uses this network to implement its storage solution.
+这样的网络可以轻松应用于转发式消息传递系统。 Swarm的PSS就是基于此。 Swarm还使用此网络来实现其存储解决方案。
 
 ## 2.3. Distributed preimage archive
 
