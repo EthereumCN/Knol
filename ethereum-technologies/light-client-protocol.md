@@ -1,6 +1,6 @@
-# Light-client-protocol
+# 轻客户端协议
 
-* [背景：Merkle Patricia Tree](https://github.com/ethereum/wiki/wiki/Light-client-protocol#background-patricia-merkle-trees)
+* [背景知识：Merkle Patricia Tree](https://github.com/ethereum/wiki/wiki/Light-client-protocol#background-patricia-merkle-trees)
   * [规则](https://github.com/ethereum/wiki/wiki/Light-client-protocol#principles)
 
 \_\_
