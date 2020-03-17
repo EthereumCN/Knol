@@ -63,7 +63,7 @@
   * [RLP 编码](ethereum-technologies/rlp-encoding.md)
   * [Merkle Patricia Tree](ethereum-technologies/merkle-patricia-tree.md)
   * [Web3私密存储](ethereum-technologies/web3-secret-storage.md)
-  * [轻客户端协议](ethereum-technologies/light-client-protocolsubtleties.md)
+  * [Light-client-protocol](ethereum-technologies/light-client-protocolsubtleties.md)
   * [Solidity 文档](ethereum-technologies/solidity-documentation.md)
   * [NatSpec 格式](ethereum-technologies/natspec-format.md)
   * [智能合约应用程序二进制接口 \(ABI\)](ethereum-technologies/contract-abi.md)
