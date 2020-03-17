@@ -18,27 +18,27 @@ Swarm定义了文件的特定标识符 \(identifier \)。Reference的标识符�
 * 确定的（同样的内容始终对应同样的标识符）
 * 均匀分布
 
-Swarm中标识符的选择根据[Swarm Hash](https://swarm-guide.readthedocs.io/en/latest/architecture.html#swarm-hash)中所描述的分级Swarm哈希。以上地址属性允许我们将哈希视作能够找到对应内容的地址。由于哈希要满足“无冲突”特点，所以会被绑定到一个特定版本的内容。因此在很大程度上，哈希寻址是不可篡改的，甚至不能代表变化的内容：“内容更改会引起哈希变动”。
+Swarm中标识符的选择根据[Swarm Hash](https://swarm-guide.readthedocs.io/en/latest/architecture.html#swarm-hash)中所描述的分层Swarm哈希。以上地址属性允许我们将哈希视作能够找到对应内容的地址。由于哈希要满足“无冲突”特点，所以会被绑定到一个特定版本的内容。因此在很大程度上，哈希寻址是不可篡改的，甚至不能代表变化的内容：“内容更改会引起哈希变动”。
 
-Users of the web, however, are accustomed to mutable resources, looking up domains and expect to see the most up to date version of the ‘site’. Mutable resources are made possible by the ethereum name service \(ENS\) and Feeds. The ENS is a smart contract on the ethereum blockchain which enables domain owners to register a content reference to their domain. Using ENS for domain name resolution, the url scheme provides content retrieval based on mnemonic \(or branded\) names, much like the DNS of the world wide web, but without servers. Feeds is an off-chain solution for communicating updates to a resource, it offers cheaper and faster updates than ENS, yet the updates can be consolidated on ENS by any third party willing to pay for the transaction.
+然而网络用户习惯于使用多元资源，查找域名时看到最新版本的“网站”。以太坊域名服务 \(ENS\) 和订阅服务 \(Feed\) 使多元资源成为可能。 ENS是以太坊区块链上的智能合约，域名所有者可以对其域名注册内容。通过使用ENS进行域名解析，URL方案可基于助记符提供内容检索，与万维网DNS相似，不同的是没有服务器。 订阅服务 \(Feed\) 则是一种链下解决方案，用于提供资源更新，与ENS相比更便宜，更新更快，但是愿意付费的第三方可以将更新合并到ENS上。
 
-Just as content in Swarm is addressed with a 32-byte hash, so is every Swarm node in the network associated with a 32-byte hash address. All Swarm nodes have their own _base address_ which is derived as the \(Keccak 256bit SHA3\) hash of the public key of an ethereum account:
+就像Swarm中的内容使用32字节的哈希值寻址一样，网络中的每个Swarm节点也都与32字节的哈希地址相关联。所有Swarm节点都有自己的基址 \(base address\)，该地址由以太坊帐户公钥的哈希 \(Keccak 256bit SHA3\) 派生而来：
 
-Note
+| 注意 |
+| :--- |
+| Swarm节点地址 = sha3 \(以太坊账户公钥\)，即swarm节点基址。这些节点地址在相同的数据地址空间中进行定位。 |
 
-Swarm node address = sha3\(ethereum account public key\) - the so called _swarm base account_ of the node. These node addresses define a location in the same address space as the data.
+当在Swarm中上传资源时，内容会被分割为数据块 \(chunks\)。通过由内容派生出的确定地址（chunk哈希），每个chunk都可以被访问。数据块的references被打包到一个chunk中，具有相应的哈希。通过这种方式，内容被映射到默克尔树中。这种分层的Swarm哈希结构允许对一条内容中的chunks进行默克尔证明，从而能够对（大）文件进行完整的随机访问（例如允许在流视频中安全跳过或在数据库文件中查找密钥） 。
 
-When content is uploaded to Swarm it is chopped up into pieces called chunks. Each chunk is accessed at the address deterministically derived from its content \(using the chunk hash\). The references of data chunks are themselves packaged into a chunk which in turn has its own hash. In this way the content gets mapped into a merkle tree. This hierarchical Swarm hash construct allows for merkle proofs for chunks within a piece of content, thus providing Swarm with integrity protected random access into \(large\) files \(allowing for instance skipping safely in a streaming video or looking up a key in a database file\).
+Swarm实现了分布式原图像存档 \(distributed preimage archive\)，这实际上是一种特定类型内容寻址的分布式哈希表，其中距离某个chunk地址最近的节点不仅提供有关内容的信息，还对数据进行托管。
 
-Swarm implements a _distributed preimage archive_, which is essentially a specific type of content addressed distributed hash table, where the node\(s\) closest to the address of a chunk do not only serve information about the content but actually host the data.
+两者的可行性取决于以下假设：任何节点（上传者/请求者）都可以“访问”任何其他节点（存储者）。这个假设可以通过特殊的网络拓扑结构 \(kademlia\) 来实现，该拓扑结构可以保证在网络规模中存在对数的最多转发跳数。
 
-The viability of both hinges on the assumption that any node \(uploader/requester\) can ‘reach’ any other node \(storer\). This assumption is guaranteed with a special _network topology_ \(called _kademlia_\), which guarantees the existence as well a maximum number of forwarding hops logarithmic in network size.
+| 注意 |
+| :--- |
+| Swarm中不存在删除/移除功能。数据一旦上传，则无法撤回。 |
 
-Note
-
-There is no such thing as delete/remove in Swarm. Once data is uploaded there is no way to revoke it.
-
-Nodes cache content that they pass on at retrieval, resulting in an auto scaling elastic cloud: popular \(oft-accessed\) content is replicated throughout the network decreasing its retrieval latency. Caching also results in a _maximum resource utilisation_ in as much as nodes will fill their dedicated storage space with data passing through them. If capacity is reached, least accessed chunks are purged by a garbage collection process. As a consequence, unpopular content will end up getting deleted. Storage insurance \(yet to be implemented\) will offer users a secure guarantee to protect important content from being purged.
+节点缓存在检索时传递的内容，从而形成自动缩放的弹性云：流行（经常访问）的内容被复制到整个网络中，从而减少检索延迟。缓存还可以最大程度地利用资源，因为节点将传输的数据存储到专用空间。如果达到容量上限，垃圾回收过程将清除访问最少的chunk。结果就是，访问最少的内容最终被删除。存储保险（尚未实施）将为用户提供安全保障，以防止重要内容被清除。
 
 ## 2.2. Overlay network
 
