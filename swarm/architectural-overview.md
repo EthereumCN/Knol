@@ -90,27 +90,27 @@ Swarm节点由Swarm基本帐户的以太坊地址的哈希标识。这用作它�
 
 这样的网络可以轻松应用于转发式消息传递系统。 Swarm的PSS就是基于此。 Swarm还使用此网络来实现其存储解决方案。
 
-## 2.3. Distributed preimage archive
+## 2.3. 分布式原像存档
 
-_Distributed hash tables_ \(DHTs\) utilise an overlay network to implement a key-value store distributed over the nodes. The basic idea is that the keyspace is mapped onto the overlay address space, and information about an element in the container is to be found with nodes whose address is in the proximity of the key. DHTs for decentralised content addressed storage typically associate content fingerprints with a list of nodes \(seeders\) who can serve that content. However, the same structure can be used directly: it is not information about the location of content that is stored at the node closest to the address \(fingerprint\), but the content itself. We call this structure _distributed preimage archive_ \(DPA\).
+分布式哈希表 \(Distributed hash tables, DHT\) 利用覆盖网络来实现分布在节点上的键值存储。基本思想是将键空间映射到覆盖地址空间，并使用地址在键附近的节点查找有关信息。用于去中心化内容寻址存储的DHT通常会将内容指纹与可以提供该内容的节点 \(seeders\) 相关联。然而，我们可以直接使用相同的结构：不是将内容位置信息存储在最近地址（指纹）节点上，而是直接对内容本身进行存储。我们称这种结构为分布式原像存档（Distributed Preimage Archives, DPA）。
 
-![The DPA and chunking in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/dpa-chunking.svg)
+![Swarm&#x4E2D;&#x7684;DPA&#x53CA;&#x6570;&#x636E;&#x5757;](https://swarm-guide.readthedocs.io/en/latest/_images/dpa-chunking.svg)
 
-A DPA is opinionated about which nodes store what content and this implies a few more restrictions: \(1\) load balancing of content among nodes is required and is accomplished by splitting content into equal sized chunks \(_chunking_\); \(2\) there has to be a process whereby chunks get to where they are supposed to be stored \(_syncing_\); and \(3\) since nodes do not have a say in what they store, measures of _plausible deniability_ should be employed.
+DPA会考虑哪些节点存储什么内容，这也意味着一些限制：（1）节点之间的内容负载平衡是必需的，这一点可以通过将内容分割成同等大小的数据块 \(chunking\) 来实现； （2）必须有一个过程使数据块到达应该存储（同步）的位置； （3）由于节点在存储内容上没有发言权，因此应采用推诿 \(plausible deniability\) 进行度量。
 
-Chunk retrieval in this design is carried out by relaying retrieve requests from a requestor node to a storer node and passing the retrieved chunk from the storer back to the requestor.
+该设计中的数据块检索的执行方式是：通过将检索请求从请求节点中继到存储节点，然后将检索到的数据块从存储节点传递回请求节点。
 
-Since Swarm implements a DPA \(over chunks of 4096 bytes\), relaying a retrieve request to the chunk address as destination is equivalent to passing the request towards the storer node. Forwarding kademlia is able to route such retrieve requests to the neighbourhood of the chunk address. For the delivery to happen we just need to assume that each node when it forwards a retrieve request, remembers the requestors. Once the request reaches the storer node, delivery of the content can be initiated and consists in relaying the chunk data back to the requestor\(s\).
+由于Swarm实现了DPA（超过4096字节的数据块），因此将检索请求中继到目标数据块地址等同于将请求传递到存储节点。转发kademlia能够将此类检索请求路由到数据块地址的附近。为了实现传递，我们只需要假设每个节点在转发检索请求时记住请求者。一旦请求到达存储节点，就可以开始传递内容，包括将数据块中继回请求者。
 
-In this context, a chunk is retrievable for a node if the retrieve request is routable to the storer closest to the chunk address and the delivery is routable from the storer back to the requestor node. The success of retrievals depends on \(1\) the availability of strategies for finding such routes and \(2\) the availability of chunks with the closest nodes \(syncing\). The latency of request–delivery roundtrips hinges on the number of hops and the bandwidth quality of each node along the way. The delay in availability after upload depends on the efficiency of the syncing protocol.
+在这种情况下，如果检索请求可路由到最接近数据块地址的存储设备，并且从存储设备路由回请求者节点，则可以为节点检索数据块。检索成功与否取决于（1）查找此类路由策略的可用性以及（2）最近节点（同步）数据块的可用性。请求-传递往返的延迟取决于跃点数量和沿途每个节点的带宽质量。上传后可用性的延迟取决于同步协议的效率。
 
-#### 2.3.1. Redundancy
+#### 2.3.1. 反复检索
 
-If the closest node is the only storer and drops out, there is no way to retrieve the content. This basic scenario is handled by having a set of nearest neighbours holding replicas of each chunk that is closest to any of them. A chunk is said to be _redundantly retrievable_ of degree math:n if it is retrievable and would remain so after any math:n-1 responsible nodes leave the network. In the case of request forwarding failures, one can retry, or start concurrent retrieve requests. Such fallback options are not available if the storer nodes go down. Therefore redundancy is of major importance.
+如果最近节点是唯一的存储节点且退出，则无法检索内容。要应对这种情况，可以通过使一组邻近节点保留最近的每个数据块的副本。如果数据块可检索，并且在任何math：n-1负责节点离线后仍将保留，则将其称作“可反复检索度为math：n的数据块” \(redundantly retrievable of degree math:n\)。如果转发请求失败，可以重试或启动并发检索请求。如果存储节点发生故障，那么这两个后备选项不可用。因此反复检索非常重要。
 
-The area of the fully connected neighbourhood defines an _area of responsibility_. A storer node is responsible for \(storing\) a chunk if the chunk falls within the node’s area of responsibility. Let us assume, then, \(1\) a forwarding strategy that relays requests along stable nodes and \(2\) a storage strategy that each node in the nearest neighbourhood \(of mimimum R peers\) stores all chunks within the area of responsibility. As long as these assumptions hold, each chunk is retrievable even if R−1R−1 storer nodes drop offline simultaneously. As for \(2\), we still need to assume that every node in the nearest neighbour set can store each chunk.
+完全相连的邻近节点区域被视为责任区 \(area of responsibility\)。如果数据块进入节点的责任范围内，则存储节点负责（存储）该数据块。然后，让我们假设：（1）沿稳定节点中继请求的转发策略，以及（2）一种存储策略，即邻近节点区域中（最少R个节点）的每个节点都要存储责任区内的所有数块。只要这些假设成立，即使R-1个存储节点同时离线也可以检索到每个数据块。至于第二点，我们仍需要假设邻近节点区域中的每个节点都能存储每个数据块。
 
-Further measures of redundancy, e.g. [Erasure coding](https://en.wikipedia.org/wiki/Erasure_code), will be implemented in the future.
+关于反复检索的更多措施（例如[纠删编码](https://en.wikipedia.org/wiki/Erasure_code)）将在未来进行实现。
 
 #### 2.3.2. Caching and purging Storage
 
