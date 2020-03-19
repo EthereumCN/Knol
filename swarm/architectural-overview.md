@@ -122,40 +122,48 @@ Given absolute limits on popularity, there might be an actual upper limit on a s
 
 This storage protocol is designed to result in an autoscaling elastic cloud where a growth in popularity automatically scales. An order of magnitude increase in popularity will result in an order of magnitude more nodes actually caching the chunk resulting in fewer hops to route the chunk, ie., a lower latency retrieval.
 
-#### 2.3.3. Synchronisation
+#### 2.3.3. 同步
 
 Smart synchronisation is a protocol of distribution which makes sure that these transfers happen. Apart from access count which nodes use to determine which content to delete if capacity limit is reached, chunks also store their first entry index. This is an arbitrary monotonically increasing index, and nodes publish their current top index, so virtually they serve as timestamps of creation. This index helps keeping track what content to synchronise with a peer.
 
+智能同步是一种分发协议，可确保进行这些传输。除了访问计数之外，如果达到容量限制，哪些节点用于确定删除哪些内容，块还存储其第一个条目索引。这是一个任意单调递增的索引，并且节点发布其当前的最高索引，因此实际上它们充当创建的时间戳。该索引有助于跟踪要与对等方同步的内容。
+
 When two nodes connect and they engage in synchronisation, the upstream node offers all the chunks it stores locally in a datastream per proximity order bin. To receive chunks closer to a downstream than to the upstream, downstream peer subscribes to the data stream of the PO bin it belongs to in the upstream node’s kademlia table. If the peer connection is within nearest neighbour depth the downstream node subscribes to all PO streams that constitute the most proximate bin.
+
+当两个节点连接并参与同步时，上游节点将按每个邻近顺序箱将其本地存储的所有块提供给数据流。为了接收更靠近下游而不是上游的数据块，下游对等方订阅了上游节点的kademlia表中它所属的PO bin的数据流。如果对等连接在最近的邻居深度之内，则下游节点订阅构成最接近的bin的所有PO流。
 
 Nodes keep track of when they stored a chunk locally for the first time \(for instance by indexing them by an ever incrementing storage count\). The downstream peer is said to have completed _history syncing_ if it has \(acknowledged\) all the chunks of the upstream peer up from the beginning until the time the session started \(up to the storage count that was the highest at the time the session started\). Some node is said to have completed _session syncing_ with its upstream peer if it has \(acknowledged\) all the chunks of the upstream peer up since the session started.
 
+节点会跟踪它们首次在本地存储块的时间（例如，通过不断增加的存储计数为它们建立索引）。如果下游对等方从开始到会话开始为止一直（确认）上游对等方的所有块（直到会话开始时最高的存储计数），则已完成历史同步。 。如果某个节点自会话开始以来已经（确认）上游对等方的所有块，则据说该节点已完成与其上游对等方的会话同步。
+
 In order to reduce network traffic resulting from receiving chunks from multiple sources, all store requests can go via a confirmation roundtrip. For each peer connection in both directions, the source peer sends an _offeredHashes_ message containing a batch of hashes offered to push to the recipient. Recipient responds with a _wantedHashes_.
 
-![Syncing chunks in the Swarm network](https://swarm-guide.readthedocs.io/en/latest/_images/syncing-high-level.svg)
+为了减少由于从多个来源接收数据块而导致的网络流量，所有存储请求都可以通过确认往返进行。对于双向的每个对等方连接，源对等方都将发送一个offerHashes消息，其中包含一批要推送给接收者的哈希。收件人以一个通缉哈希为响应。
 
-## 2.4. Data layer
+![Swarm&#x7F51;&#x7EDC;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x5757;&#x540C;&#x6B65;](https://swarm-guide.readthedocs.io/en/latest/_images/syncing-high-level.svg)
 
-There are 4 different layers of data units relevant to Swarm:
+## 2.4. 数据层
 
-* _message_: p2p RLPx network layer. Messages are relevant for the devp2p wire protocols
-* _chunk_: fixed size data unit of storage in the distributed preimage archive
-* _file_: the smallest unit that is associated with a mime-type and not guaranteed to have integrity unless it is complete. This is the smallest unit semantic to the user, basically a file on a filesystem.
-* _collection_: a mapping of paths to files is represented by the _swarm manifest_. This layer has a mapping to file system directory tree. Given trivial routing conventions, a url can be mapped to files in a standardised way, allowing manifests to mimic site maps/routing tables. As a result, Swarm is able to act as a webserver, a virtual cloud hosting service.
+与Swarm相关的数据单元有不同的四层：
 
-The actual storage layer of Swarm consists of two main components, the _localstore_ and the _netstore_. The local store consists of an in-memory fast cache \(_memory store_\) and a persistent disk storage \(_dbstore_\). The NetStore is extending local store to a distributed storage of Swarm and implements the _distributed preimage archive \(DPA\)_.
+* _message_: p2p RLPx 网络层，消息与devp2p线路协议相关
+* _chunk_: 分布式原像存档中固定大小的数据存储单元 
+* _file_: 与mime类型关联的最小单元。这是用户的最小单位语义，基本上是文件系统上的文件
+* _collection_: _swarm manifest_代表了文件路径的映射。该层具有到文件系统目录树的映射。给定简单的路由规定，可以以标准化方式将url映射到文件，从而允许manifest模仿站点映射/路由表。因此Swarm可以充当Web服务器（虚拟云托管服务）。
 
-![High level storage layer in Swarm](https://swarm-guide.readthedocs.io/en/latest/_images/storage-layer.svg)
+Swarm的实际存储层由两个主要组件组成：localstore和netstore。Localstore由内存中的快速缓存（内存存储）和持续性磁盘存储（dbstore）组成。 NetStore正在将本地存储扩展到Swarm的分布式存储，并实现了分布式原像存档（DPA）。
 
-#### 2.4.1. Files
+![Swarm&#x4E2D;&#x7684;&#x5B58;&#x50A8;&#x5C42;](https://swarm-guide.readthedocs.io/en/latest/_images/storage-layer.svg)
 
-The _FileStore_ is the local interface for storage and retrieval of files. When a file is handed to the FileStore for storage, it chunks the document into a merkle hashtree and hands back its root key to the caller. This key can later be used to retrieve the document in question in part or whole.
+#### 2.4.1. 文件
 
-The component that chunks the files into the merkle tree is called the _chunker_. Our chunker implements the _bzzhash_ algorithm which is parallellized tree hash based on an arbitrary _chunk hash_. When the chunker is handed an I/O reader \(be it a file or webcam stream\), it chops the data stream into fixed sized chunks. The chunks are hashed using an arbitrary chunk hash \(in our case the BMT hash, see below\). If encryption is used the chunk is encrypted before hashing. The references to consecutive data chunks are concatenated and packaged into a so called _intermediate chunk_, which in turn is encrypted and hashed and packaged into the next level of intermediate chunks. For unencrypted content and 32-byte chunkhash, the 4K chunk size enables 128 branches in the resulting Swarm hash tree. If we use encryption, the reference is 64-bytes, allowing for 64 branches in the Swarm hash tree. This recursive process of constructing the Swarm hash tree will result in a single root chunk, the chunk hash of this root chunk is the Swarm hash of the file. The reference to the document is the Swarm hash itself if the upload is unencrypted, and the Swarm hash concatenated with the decryption key of the rootchunk if the upload is encrypted.
+FileStore是用于存储和检索文件的本地接口。将文件上传给FileStore进行存储时，它将文档分块为默克尔哈希树，然后将其根密钥发还给调用方。之后可以使用此密钥来检索有问题的文档。
 
-When the FileStore is handed a reference for file retrieval, it calls the Chunker which hands back a seekable document reader to the caller. This is a _lazy reader_ in the sense that it retrieves parts of the underlying document only as they are being read \(with some buffering similar to a video player in a browser\). Given the reference, the FileStore takes the Swarm hash and using the NetStore retrieves the root chunk of the document. After decrypting it if needed, references to chunks on the next level are processed. Since data offsets can easily be mapped to a path of intermediate chunks, random access to a document is efficient and supported on the lowest level. The HTTP API offers range queries and can turn them to offset and span for the lower level API to provide integrity protected random access to files.
+将文件分块到默克尔树中的组件称为chunker。Chunker使用bzzhash算法，该算法是基于任意块哈希的并行树哈希。将chunker置入I / O reader后（可以是文件或网络摄像头流），它可以将数据流分割成固定大小的数据块，使用任意块哈希（在Swarm中是BMT哈希）对数据块进行哈希。如果要进行加密，则在哈希之前就要对数据块进行加密。连续数据块的references被连接起来并打包成中间块 \(intermediate chunk\)，而中间块又再次进行加密和哈希，并打包成下一级中间块。对于未加密的内容和32字节的chunkhash，4K数据块能够在Swarm哈希树中产生128个分支。如果进行了加密，则reference为64字节，在Swarm哈希树中产生64个分支。构造Swarm哈希树的这种递归过程将产生一个根块，该根块的哈希就是文件的Swarm哈希。如果上传内容未加密，则文档的reference 充当Swarm哈希。如果文件加密，则将Swarm哈希与rootchunk的解密密钥串联在一起。
 
-Swarm exposes the FileStore API via the [bzz-raw](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-raw) URL scheme directly on the HTTP local proxy server \(see [BZZ URL schemes](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-url-schemes) and API Reference\). This API allows file upload via POST request as well as file download with GET request. Since on this level the files have no mime-type associated, in order to properly display or serve to an application, the `content_type` query parameter can be added to the url. This will set the proper content type in the HTTP response.
+当reference发送给FileStore进行文件检索时会调用Chunker，将可搜索的文档阅读器交还给调用者。从某种意义上说，这是一个“懒惰”的阅读器，因为它仅在读取基础文档时才检索其中一部分（缓冲类似于浏览器中的视频播放器）。给定reference，FileStore将收取Swarm哈希，并使用NetStore检索文档的根块。解密后（若需要的话），将处理下一级块的reference。由于数据偏移可以轻松地映射到中间块的路径，因此可以对文档进行有效的随机访问，并且受最低级别支持。 HTTP API提供范围查询，并且可以将它们转换为低级API的偏移量和跨度，以在不破坏文件的前提下提供随机访问。
+
+Swarm通过[bzz-raw](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-raw) URL方案直接在HTTP本地代理服务器上公开FileStore API。该API允许通过POST请求上传文件，以及通过GET请求下载文件。由于在此级别中的文件没有关联的mime类型，出于正确显示或服务应用程序的考虑，可以将`content_type`查询参数添加到url中。这可以在HTTP响应中设置适当的内容类型。
 
 #### 2.4.2. Manifests
 
