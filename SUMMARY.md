@@ -70,7 +70,6 @@
     * [Solidity](ethereum-technologies/natspec-format/solidity.md)
   * [智能合约应用程序二进制接口 \(ABI\)](ethereum-technologies/contract-abi.md)
   * [坏块广播](ethereum-technologies/bad-block-reporting.md)
-  * [其他](ethereum-technologies/others.md)
 * [Swarm](swarm/README.md)
   * [介绍Swarm](swarm/introduction.md)
   * [架构概述](swarm/architectural-overview.md)
