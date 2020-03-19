@@ -159,7 +159,7 @@ Swarm通过[bzz-raw](https://swarm-guide.readthedocs.io/en/latest/features/bzz.h
 
 #### 2.4.2. Manifests
 
-The Swarm _manifest_ is a structure that defines a mapping between arbitrary paths and files to handle collections. It also contains metadata associated with the collection and its objects \(files\). Most importantly a manifest entry specifies the media mime type of files so that browsers know how to handle them. You can think of a manifest as \(1\) routing table, \(2\) an index or \(3\) a directory tree, which make it possible for Swarm to implement \(1\) web sites, \(2\) databases and \(3\) filesystem directories. Manifests provide the main mechanism to allow URL based addressing in Swarm. The domain part of the URL maps onto a manifest in which the path part of the URL is looked up to arrive at a file entry to serve.
+Swarm _manifest_是一种结构，用于定义任意路径和文件之间的映射以处理集合。它还包含与集合及其对象（文件）关联的元数据。最重要的是，manifest条目指定文件的媒体mime类型，以便浏览器对其进行处理。可以将manifest视为（1）路由表，（2）索引或（3）目录树，这使Swarm可以实现（1）网站，（2）数据库以及（3）文件系统目录。Manifests提供了允许在Swarm中基于URL寻址的主要机制。 URL的域部分映射到manifest，就可以在其中查找URL的路径部分以到达要服务的文件条目。
 
 Manifests are currently respresented as a compacted trie \([http://en.wikipedia.org/wiki/Trie](http://en.wikipedia.org/wiki/Trie)\) , with individual trie nodes serialised as json. The json structure has an array of _manifest entries_ minimally with a path and a reference \(Swarm hash address\). The path part is used for matching the URL path, the reference may point to an embedded manifest if the path is a common prefix of more than one path in the collection. When you retrieve a file by url, Swarm resolves the domain to a reference to a root manifest, which is recursively traversed to find the matching path.
 
