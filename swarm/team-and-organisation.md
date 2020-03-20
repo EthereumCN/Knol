@@ -1,8 +1,6 @@
-# Swarm团队
+# Swarm团队及组织
 
-## 团队及组织
-
-### 交流渠道
+## 交流渠道
 
 > * [Swarm Website](http://swarm.ethereum.org/)：网站使用自己的服务（Swarm网关） [https://swarm-gateways.net/bzz:/theswarm.eth/](https://swarm-gateways.net/bzz:/theswarm.eth/)\)
 > * 社区交流：[Mattermost](https://beehive.ethswarm.org/)
@@ -10,7 +8,7 @@
 > * [reddit channel](https://www.reddit.com/r/ethswarm/)
 > * [Research Forum](https://swarmresear.ch/)：关于研究和开发的结构化讨论
 
-### 组织及资金
+## 组织及资金
 
 Swarm项目没有发行代币，也没有进行任何形式的众筹。2014年至2019年之间的资金主要由以太坊基金会提供，以及私人形式的赞助。项目由需要使用Swarm作为基础设施的各方资助。以下组织通过向Swarm提供雇员或其他方式进行支持：
 
@@ -18,7 +16,7 @@ Swarm项目没有发行代币，也没有进行任何形式的众筹。2014年�
 * [IOV Labs](https://iovlabs.org/)：自2019年6月IOV和Swarm建立合作伙伴关系以来，为项目提供了实质资源。
 * 私人赞助者：S​​warm受到私人赞助者的部分支持，例如E-Point \(布达佩斯\)。
 
-### Swarm团队
+## Swarm团队
 
 #### 主要开发人员
 
@@ -28,8 +26,6 @@ Swarm项目没有发行代币，也没有进行任何形式的众筹。2014年�
 | Rafael Mathias | 以太坊基金会 | Go开发/运维 |
 | Elad Nachmias | Swarm | Go开发/运维 |
 | Janos Gulyas | Swarm | Go开发/运维 |
-
-#### 
 
 | 姓名                               | 组织                | 职责 |
 | :--- | :--- | :--- |

@@ -73,7 +73,7 @@
 * [Swarm](swarm/README.md)
   * [介绍Swarm](swarm/introduction.md)
   * [架构概述](swarm/architectural-overview.md)
-  * [Swarm团队](swarm/team-and-organisation.md)
+  * [Swarm团队及组织](swarm/team-and-organisation.md)
   * [相关网站](swarm/xiang-guan-lian-xi-wang-zhan.md)
 * [以太坊生态](yi-tai-fang-sheng-tai/README.md)
   * [钱包](yi-tai-fang-sheng-tai/untitled-4/README.md)
