@@ -161,41 +161,43 @@ Swarm通过[bzz-raw](https://swarm-guide.readthedocs.io/en/latest/features/bzz.h
 
 Swarm _manifest_是一种结构，用于定义任意路径和文件之间的映射以处理集合。它还包含与集合及其对象（文件）关联的元数据。最重要的是，manifest条目指定文件的媒体mime类型，以便浏览器对其进行处理。可以将manifest视为（1）路由表，（2）索引或（3）目录树，这使Swarm可以实现（1）网站，（2）数据库以及（3）文件系统目录。Manifests提供了允许在Swarm中基于URL寻址的主要机制。 URL的域部分映射到manifest，就可以在其中查找URL的路径部分以到达要服务的文件条目。
 
-Manifests are currently respresented as a compacted trie \([http://en.wikipedia.org/wiki/Trie](http://en.wikipedia.org/wiki/Trie)\) , with individual trie nodes serialised as json. The json structure has an array of _manifest entries_ minimally with a path and a reference \(Swarm hash address\). The path part is used for matching the URL path, the reference may point to an embedded manifest if the path is a common prefix of more than one path in the collection. When you retrieve a file by url, Swarm resolves the domain to a reference to a root manifest, which is recursively traversed to find the matching path.
+Manifests目前表示为压缩之后的树结构（[http://en.wikipedia.org/wiki/Trie）](http://en.wikipedia.org/wiki/Trie）表示，单个特里节点序列化为json。)，单个树节点进行json序列化。json结构具有一个manifest条目组，最少包含一个路径和一个reference \(Swarm哈希地址\)。路径部分用于匹配URL路径，如果路径是集合中多个路径的公共前缀，则reference可能指向嵌入式manifest。当通过url检索文件时，Swarm将域名解析为对根manifest的reference，该根manifest以递归方式遍历以找到匹配路径。
 
-The high level API to the manifests provides functionality to upload and download individual documents as files, collections \(manifests\) as directories. It also provides an interface to add documents to a collection on a path, delete a document from a collection. Note that deletion here only means that a new manifest is created in which the path in question is missing. There is no other notion of deletion in the Swarm. Swarm exposes the manifest API via the bzz URL scheme, see [BZZ URL schemes](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-url-schemes).
+Manifests的高级API提供了将单个文档作为文件、将集合 \(manifests\) 作为目录上传和下载的功能。它还提供了一个界面用于将文档添加到路径上的集合，以及从集合中删除文档。请注意，此处的删除仅意味着在缺少相关路径的情况下创建了新manifest。 Swarm中不存在其他“删除”的概念。Swarm通过bzz URL方案公开manifest API，具体请参阅[BZZ URL方案](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-url-schemes)。 
 
-These HTTP proxy API is described in detail in the API Reference section.
+这些HTTP代理API在“API参考”部分中进行了详细说明。
 
-Note
+| 注意 |
+| :--- |
+| 在POC4中，json manifests将由序列化方案代替，启用了压缩路径证明，实质上表明文件是可以由任何第三方或智能合约验证的集合的一部分。 |
 
-In POC4, json manifests will be replaced by a serialisation scheme that enables compact path proofs, essentially asserting that a file is part of a collection that can be verified by any third party or smart contract.
+## 2.5. 组件
 
-## 2.5. Components
-
-In what follows we describe the components in more detail.
+以下内容将对组件进行详细描述。
 
 #### 2.5.1. Swarm Hash
 
-Swarm Hash \(a.k.a. bzzhash\) is a [Merkle tree](http://en.wikipedia.org/wiki/Merkle_tree) hash designed for the purpose of efficient storage and retrieval in content-addressed storage, both local and networked. While it is used in Swarm, there is nothing Swarm-specific in it and the authors recommend it as a drop-in substitute of sequential-iterative hash functions \(like SHA3\) whenever one is used for referencing integrity-sensitive content, as it constitutes an improvement in terms of performance and usability without compromising security.
+Swarm Hash \(又名bzzhash\) 是[默克尔树](http://en.wikipedia.org/wiki/Merkle_tree)哈希，其目的是在本地和网络的内容寻址存储中进行高效存储和检索。虽然Swarm使用了这种方式，但是其中并没有特定适用于Swarm的方法，因此作者建议将其用作顺序迭代哈希函数 \(如SHA3\) 的替代品，用于引用完整性易遭破坏的内容即可，因为其在改进性能和可用性的同时不会损害安全性。
 
-In particular, it can take advantage of parallelisation for faster calculation and verification, can be used to verify the integrity of partial content without having to transmit all of it \(and thereby allowing random access to files\). Proofs of security to the underlying hash function carry over to Swarm Hash.
+特别是，它可以利用并行优势 \(parallelisation\) 进行更快的计算和验证，可以用于验证部分内容的完整性，而不必传输所有内容 \(从而允许对文件进行随机访问\)。基础哈希函数的安全性证明会转移到Swarm Hash中。
 
-Swarm Hash is constructed using any chunk hash function with a generalization of Merkle’s tree hash scheme. The basic unit of hashing is a _chunk_, that can be either a _data chunk_ containing a section of the content to be hashed or an _intermediate chunk_ containing hashes of its children, which can be of either variety.![A Swarm chunk consists of 4096 bytes of the file or a sequence of 128 subtree hashes](https://swarm-guide.readthedocs.io/en/latest/_images/chunk.png)
+Swarm Hash可由任何具备默克尔树哈希方案的块哈希函数构建。哈希的基本单位是一个块 \(chunk\)，它可以是包含要进行哈希的内容的数据块 \(data chunk\)，也可以是包含其子对象哈希的中间块 \(intermediate chunk\)。
 
-Hashes of data chunks are defined as the hashes of the concatenation of the 64-bit length \(in LSB-first order\) of the content and the content itself. Because of the inclusion of the length, it is resistant to [length extension attacks](http://en.wikipedia.org/wiki/Length_extension_attack), even if the underlying chunk hash function is not.
+![](https://swarm-guide.readthedocs.io/en/latest/_images/chunk.png)
 
-Intermediate chunks are composed of the hashes of the concatenation of the 64-bit length \(in LSB-first order\) of the content subsumed under this chunk followed by the references to its children \(reference is either a chunk hash or chunk hash plus decryption key for encrypted content\).
+数据块的哈希定义为内容本身和内容的64位长度 \(以LSB优先顺序\) 的串联哈希。由于包含了长度，可以抵抗[长度扩展攻击](http://en.wikipedia.org/wiki/Length_extension_attack) \(length extension attack\)。
 
-To distinguish between the two, one should compare the length of the chunk to the 64-bit number with which every chunk begins. If the chunk is exactly 8 bytes longer than this number, it is a data chunk. If it is shorter than that, it is an intermediate chunk. Otherwise, it is not a valid Swarm Hash chunk.
+中间块由该块内容的64位长度 \(以LSB优先顺序\) 的串联哈希组成，后面紧跟其子级的references（reference是块哈希或是附带解密密钥的块哈希）。
 
-For the chunk hash we use a hashing algorithm based on a binary merkle tree over the 32-byte segments of the chunk data using a base hash function. Our choice for this base hash is the ethereum-wide used Keccak 256 SHA3 hash. For integrity protection the 8 byte span metadata is hashed together with the root of the BMT resulting in the BMT hash. BMT hash is ideal for compact solidity-friendly inclusion proofs.
+为了区分两者，可以将块的长度与每个块开始的64位数字进行比较。如果该块正好比该数字长8个字节，则是一个数据块。如果比数字短，则为中间块。再不然，该块就并非有效的Swarm Hash块。
+
+对于块哈希，我们对经过基础哈希函数的32字节段块数据使用基于二进制默克尔函数的哈希算法。此处的基础哈希是在以太坊范围内使用的Keccak 256 SHA3算法。为了保障完整性，将8字节跨度的元数据与BMT的根一起进行哈希处理，从而得出BMT哈希。 BMT哈希非常适合对Solidity友好的紧凑型包含证明。
 
 #### 2.5.2. Chunker
 
-_Chunker_ is the interface to a component that is responsible for disassembling and assembling larger data. More precisely _Splitter_ disassembles, while _Joiner_ reassembles documents.
+Chunker是组件的接口，负责对较大的数据进行反汇编和汇编。具体来说，_Splitter负责_反汇编，而_Joiner_负责重新汇编文档。
 
-Our Splitter implementation is the _pyramid_ chunker that does not need the size of the file, thus is able to process live capture streams. When _splitting_ a document, the freshly created chunks are pushed to the DPA via the NetStore and calculates the Swarm hash tree to return the _root hash_ of the document that can be used as a reference when retrieving the file.
+我们的Splitter实现是金字塔型chunker，与文件大小无关，因此能够处理实时捕获流。当对文档进行Spliting操作时，新创建的块将通过NetStore推送到DPA，并计算Swarm哈希树以得出文档的根哈希，该根哈希可在检索文件时用作参考。
 
-When _joining_ a document, the chunker needs the Swarm root hash and returns a _lazy reader_. While joining, for chunks not found locally, network protocol requests are initiated to retrieve chunks from other nodes. If chunks are retrieved \(i.e. retrieved from memory cache, disk-persisted db or via cloud based Swarm delivery from other peers in the DPA\), the chunker then puts these together on demand as and where the content is being read.
+对文档进行Joining操作时，chunker需要Swarm根哈希并返回惰性读取器 \(lazy reader\)。对于在本地找不到的块，将启动网络协议请求以从其他节点检索块。一旦检索到块（即从DPA中的其他节点从内存缓存、磁盘存储的db或是通过基于云的Swarm传输检索了数据），则chunker将在读取内容时按需将其集合起来。
 
