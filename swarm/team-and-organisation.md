@@ -1,77 +1,77 @@
-# Swarm 团队
+# Swarm团队
 
-## Team and Organisation
+## 团队及组织
 
-### 7.1. Communication Channels
+### 交流渠道
 
-> * [Swarm Website](http://swarm.ethereum.org/) - The Swarm Website is served from Swarm itself \(using the Swarm gateway [https://swarm-gateways.net/bzz:/theswarm.eth/](https://swarm-gateways.net/bzz:/theswarm.eth/)\)
-> * Community Chat - [Mattermost](https://beehive.ethswarm.org/)
-> * Twitter [@ethswarm](https://twitter.com/ethswarm)
+> * [Swarm Website](http://swarm.ethereum.org/)：网站使用自己的服务（Swarm网关） [https://swarm-gateways.net/bzz:/theswarm.eth/](https://swarm-gateways.net/bzz:/theswarm.eth/)\)
+> * 社区交流：[Mattermost](https://beehive.ethswarm.org/)
+> * 推特：[@ethswarm](https://twitter.com/ethswarm)
 > * [reddit channel](https://www.reddit.com/r/ethswarm/)
-> * [Research Forum](https://swarmresear.ch/) - Structured discussions about research and development
+> * [Research Forum](https://swarmresear.ch/)：关于研究和开发的结构化讨论
 
-### 7.2. Organisation and Funding
+### 组织及资金
 
-The Swarm project has no coin and has not done any form of crowed-sale. Funding between 2014 and 2019 was mainly provided by the Ethereum Foundation and augmented by private Sponsors. The project is financed by parties which require Swarm as an infrastructure.The following organisations employ employees or pay contractors to work on Swarm:
+Swarm项目没有发行代币，也没有进行任何形式的众筹。2014年至2019年之间的资金主要由以太坊基金会提供，以及私人形式的赞助。项目由需要使用Swarm作为基础设施的各方资助。以下组织通过向Swarm提供雇员或其他方式进行支持：
 
-* [Ethereum Foundation](https://www.ethereum.org/) Ethereum is the main sponsor for the Swarm project. The Ethereum Foundation employs the majority of the team.
-* [IOV Labs](https://iovlabs.org/) Contributes with substaintial resources since the IOV and Swarm Partnership in June 2019.
-* Private Sponsors - Swarm is partially supported through private sponsors. e.g. E-Point \(Budapest\).
+* [Ethereum Foundation](https://www.ethereum.org/)：以太坊是Swarm项目的主要资助方。以太坊基金会为团队提供了大部分雇员。
+* [IOV Labs](https://iovlabs.org/)：自2019年6月IOV和Swarm建立合作伙伴关系以来，为项目提供了实质资源。
+* 私人赞助者：S​​warm受到私人赞助者的部分支持，例如E-Point \(布达佩斯\)。
 
-### 7.3. Swarm-Team
+### Swarm团队
 
-#### 7.3.1. Swarm Core Track
+#### 主要开发人员
 
-| Name | Organisation | Responsibilities |
+| 姓名 | 组织 | 职责 |
 | :--- | :--- | :--- |
-| Anton Evangelatov | Ethereum Foundation | Go Developer / DevOps |
-| Rafael Mathias | Ethereum Foundation | Go Developer / DevOps |
-| Elad Nachmias | Swarm | Go Developer / DevOps |
-| Janos Gulyas | Swarm | Go Developer / DevOps |
+| Anton Evangelatov以 | 以太坊基金会 | Go开发/运维 |
+| Rafael Mathias | 以太坊基金会 | Go开发/运维 |
+| Elad Nachmias | Swarm | Go开发/运维 |
+| Janos Gulyas | Swarm | Go开发/运维 |
 
-#### 7.3.2. Swarm Incentive Track
+#### 
 
-| Name | Organisation | Responsibilities |
+| 姓名                               | 组织                | 职责 |
 | :--- | :--- | :--- |
-| Fabio Barone | Swarm | Track-Lead from Swarm Side Go Developer and Architect |
-| Rinke Hendriksen | Swarm | Swarm Smart Contract Development |
-| Vojtech Simetka | IOV Labs | Track-Lead from IOV Labs side, Go Development |
-| Marcelo Ortelli | IOV Labs | Go Developer |
-| Ralph Pichler | Swarm | Smart Contract Development |
-| Diego Masini | IOV Labs | Reseach / RSK integration |
+| Fabio Barone | Swarm | Swarm开发者和工程师负责人 |
+| Rinke Hendriksen | Swarm | Swarm智能合约开发 |
+| Vojtech Simetka | IOV Labs | IOV方负责人，Go开发 |
+| Marcelo Ortelli | IOV Labs | Go开发 |
+| Ralph Pichler | Swarm | 智能合约开发 |
+| Diego Masini | IOV Labs | 研究/RSK集成 |
 
-#### 7.3.3. Swarm Communication Track
+#### 交流方向
 
-| Name | Organisation | Responsibilities |
+| 姓名 | 组织 | 职责 |
 | :--- | :--- | :--- |
-| Louis Holbrook | Swarm | Track-Lead from Swarm side, Go Developer |
-| Oskar Thorén | Status.im | Project Lead from Status on the Communication Track |
+| Louis Holbrook | Swarm | Swarm方负责人，Go开发者 |
+| Oskar Thorén | Status.im | Status方项目负责人 |
 
-#### 7.3.4. Swarm Research Track
+#### 研究方向
 
-| Name | Organisation | Responsibilities |
+| 姓名                   | 组织                      | 职责 |
 | :--- | :--- | :--- |
-| Daniel Nagy | Ethereum Foundation | Research Lead and main contact for SWIP Process |
-| Aron Fischer | Ethereum Foundation | Research |
-| Viktor Tron | Ethereum Foundation | Ethereum Foundation and Team-Lead Swarm |
+| Daniel Nagy | 以太坊基金会 | 研究工作负责人，SWIP Process主要联系人 |
+| Aron Fischer | 以太坊基金会 | 研究工作 |
+| Viktor Tron | 以太坊基金会 | 以太坊基金会及Swarm团队主管 |
 
-#### 7.3.5. Organisational Support
+#### 组织支持
 
-| Name | Organisation | Responsibilities |
+| 姓名 | 组织 | 职责 |
 | :--- | :--- | :--- |
-| Tim Bansemer | Swarm | Fantastic Mr. Fox for Swarm |
-| Edina Loves | Swarm | Marketing Support, Event Organisation,PA-Viktor |
+| Tim Bansemer | Swarm | Swarm中的“了不起的狐狸爸爸” |
+| Edina Loves | Swarm | 营销支持/活动组织/PA-Viktor |
 
-#### 7.3.6. Former members of the team
+#### Swarm前成员
 
-in order of their engagement
+按参与度排序
 
-| Name | Organisation | Leave |
+| 姓名 | 组织 | 离开时间 |
 | :--- | :--- | :--- |
-| Vlad Hluhovsky | Ethereum Foundation | June 2019 |
-| Ferenc Szabo | Ethereum Foundation | April 2019 |
-| Balint Gabor | Ethereum Foundation | September 2018 |
-| Zahoor Mohame | Ethereum Foundation | April 2018 |
-| Nick Johnson | Ethereum Foundation | January 2016 |
-| Zsolt Felföldi | Ethereum Foundation | 2015 |
+| Vlad Hluhovsky | 以太坊基金会 | 2019/06 |
+| Ferenc Szabo | 以太坊基金会 | 2019/04 |
+| Balint Gabor | 以太坊基金会 | 2018/09 |
+| Zahoor Mohame | 以太坊基金会 | 2018/04 |
+| Nick Johnson | 以太坊基金会 | 2016/01 |
+| Zsolt Felföldi | 以太坊基金会 | 2015 |
 
