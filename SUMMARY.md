@@ -119,6 +119,8 @@
   * [相关会议](yi-tai-fang-she-qu/xiang-guan-hui-yi/README.md)
     * [Devcon 开发者大会](yi-tai-fang-she-qu/xiang-guan-hui-yi/devcon.md)
     * [EDCON](yi-tai-fang-she-qu/xiang-guan-hui-yi/edcon.md)
+    * [EthCC](yi-tai-fang-she-qu/xiang-guan-hui-yi/ethereum-community-conference.md)
+    * [Ethereal Summit](yi-tai-fang-she-qu/xiang-guan-hui-yi/ethereal-summit.md)
   * [社区论坛](yi-tai-fang-she-qu/she-qu-lun-tan/README.md)
     * [Ethresear.ch](yi-tai-fang-she-qu/she-qu-lun-tan/ethresear.ch.md)
     * [Gitter](yi-tai-fang-she-qu/she-qu-lun-tan/gitter.md)
