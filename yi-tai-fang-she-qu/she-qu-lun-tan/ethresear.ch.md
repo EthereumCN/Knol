@@ -6,7 +6,7 @@ ethresear.ch 是一个以太坊技术论坛，风格简洁，月平均活跃用�
 
 论坛上的技术话题众多，涵盖分片、ZK-SNARK、Plasma等等。
 
-👇 一睹芳容
+👇 一睹官网芳容
 
 {% embed url="https://ethresear.ch/" %}
 
