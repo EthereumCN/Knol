@@ -64,13 +64,10 @@ EVM 状态转换函数
 * [分片内部无分叉](https://ethresear.ch/search?q=internally%20fork-free)
 * 管理者分片：对于最新的规范较为困难，因为其使用的是信标链而非合约
 
-#### **Phase 6**: Super-quadratic or exponential sharding
-
 ### 阶段 6
 
 超二次分片或指数分片
 
-* Recursively, shards within shards within shards... Again, this may be difficult with the latest spec as it uses a beacon chain rather than a contract.
 * 分片递归地包含分片，同上，对于最新规范来说这可能很困难
 * [负载平衡](https://en.wikipedia.org/wiki/Load_balancing_%28computing%29)
 
