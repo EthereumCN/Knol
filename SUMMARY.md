@@ -14,7 +14,6 @@
     * [Py-EVM](eth-basics/evm-basics/py-evm/README.md)
       * [快速上手](eth-basics/evm-basics/py-evm/quickstart.md)
       * [最新版本](eth-basics/evm-basics/py-evm/release-notes.md)
-  * [术语列表](eth-basics/glossary.md)
 * [使用以太坊](use-ethereum/README.md)
   * [新用户入手](use-ethereum/new-user.md)
   * [如何购买以太币](use-ethereum/how-to-get-ether.md)
@@ -131,6 +130,7 @@
   * [区块链游戏](ethereum-ecosystem/blockchain-game.md)
   * [供应链](ethereum-ecosystem/supply-chain.md)
   * [其他列表](ethereum-ecosystem/awesome-lists.md)
+* [术语列表](glossary.md)
 
 ## 延伸阅读 <a id="extended-resources"></a>
 
