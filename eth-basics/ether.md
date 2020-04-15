@@ -56,7 +56,7 @@ Ether（又写作ETH或Ξ），中文译作以太币，是用于以太坊网络�
 
 ## 参考资源
 
-* [EthHub原文：What is Ether？](https://docs.ethhub.io/ethereum-basics/what-is-ether/)
+* [EthHub：What is Ether？](https://docs.ethhub.io/ethereum-basics/what-is-ether/)
 * [Why Ether is Valuable](https://medium.com/ethhub/why-ether-is-valuable-2b4e39e01eb3)
 * [Ether: A New Model for Money](https://medium.com/pov-crypto/ether-a-new-model-for-money-17365b5535ba)
 
