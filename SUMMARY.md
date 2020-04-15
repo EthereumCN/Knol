@@ -135,12 +135,5 @@
 ## 延伸阅读 <a id="extended-resources"></a>
 
 * [以太坊简史](extended-resources/short-history-of-ethereum.md)
-* [ETH2.0路线图](extended-resources/eth2.0roadmap/README.md)
-  * [ETH2.0 Specifications](extended-resources/eth2.0roadmap/eth2.0-spec.md)
-  * [Phase 0 -- The Beacon Chain](extended-resources/eth2.0roadmap/phase-0-the-beacon-chain.md)
-  * [Phase 1-- Custody Game](extended-resources/eth2.0roadmap/phase-1-custody-game.md)
-  * [Phase 2 - 研究中](extended-resources/eth2.0roadmap/phase-2-under-development.md)
-  * [Phase 3 研究中](extended-resources/eth2.0roadmap/phase-3-under-development.md)
-  * [超越Serenity](extended-resources/eth2.0roadmap/eth3.0.md)
 * [品牌相关资源](extended-resources/other-resources.md)
 
