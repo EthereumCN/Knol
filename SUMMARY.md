@@ -38,7 +38,6 @@
 * [虚拟机 EVM](evm/README.md)
   * [相关文档](evm/evm-related-documents.md)
   * [阐释](evm/illustration.md)
-  * [教程](evm/tutorials.md)
   * [EVM实现](evm/evm-implementations.md)
   * [EVM编程](evm/programming-languages-that-compile-into-evm.md)
   * [调试工具](evm/debuggers.md)
