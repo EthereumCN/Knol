@@ -69,7 +69,6 @@
   * [智能合约应用程序二进制接口 \(ABI\)](ethereum-technologies/contract-abi.md)
   * [坏块广播](ethereum-technologies/bad-block-reporting.md)
 * [Swarm](swarm/README.md)
-  * [介绍Swarm](swarm/introduction.md)
   * [架构概述](swarm/architectural-overview.md)
   * [Swarm团队及组织](swarm/team-and-organisation.md)
   * [相关渠道](swarm/related-websites.md)

@@ -1,52 +1,37 @@
+---
+description: 'https://www.swarm.fund/'
+---
+
 # Swarm
 
-## SWARM
+## 简介
 
-#### Storage and Communication for a Sovereign Digital Society 
+Swarm是一个扛审查的、无需许可的去中心化存储和通信基础设施。
 
-## Get started
+Swarm是一种点对点数据共享网络，其中文件通过其内容的哈希来寻址。与Bittorrent类似，可以同时从多个节点获取数据，只要单个节点承载分发数据，它就可以随处被访问。这种方法可以在不必依靠托管任何类型服务器的情况下分发数据，数据可访问性与位置无关。可以激励网络中的其他节点自己复制和存储数据，从而在原节点未连接到网络时避免了对托管服务的依赖。
 
-[DApp Developer](https://swarm-guide.readthedocs.io/en/latest/dapp_developer/index.html)
+此基础层设施通过互相贡献资源来提供服务。贡献基于点对点精确计算，从而允许节点以进行资源互换，并且为消耗量小于服务内容的节点提供经济补偿。
 
-Use Swarm for your applications[Node Operator](https://swarm-guide.readthedocs.io/en/latest/node_operator.html)
+Swarm通过当前的智能合约平台（主要是以太坊）实现经济激励。
 
-Run and manage a Swarm node[Client Contributor](https://swarm-guide.readthedocs.io/en/latest/go_client_contributor.html)
+## 实现
 
-Contribute to the Swarm codebase
+| 客户端 | 编程语言 | 维护方 | 备注 |
+| :--- | :--- | :--- | :--- |
+| Swarm Go-Client | golang        | Swarm Core-Team |  |
+| Swarm Nim-Client | nim | Status.im | 预计2020第一季度进行开发 |
 
-## Swarm and web3
+## 公共测试网
 
-[Swarm is a distributed storage platform and content distribution service](https://blog.ethereum.org/2016/12/15/swarm-alpha-public-pilot-basics-swarm/), a native base layer service of the ethereum web3 stack that aims to provide a decentralized and redundant store for dapp code, user data, blockchain and state data. Swarm sets out to provide various base layer services for web3, including node-to-node messaging, media streaming, decentralised database services and scalable state-channel infrastructure for decentralised service economies.
+| 网络ID | 网络名 | 网络分类 | 维护方 | 网关 |
+| :--- | :--- | :--- | :--- | :--- |
+| Network ID \#4 | EF-Test-Network | Pubic Test-Network | Swarm Core-Team / EF Dev OPS | [https://swarm-gateways.net](https://swarm-gateways.net/) |
 
-**Fault Tolerant**
+以太坊基金会运行一个Swarm测试网，使用类似于以太坊测试网的方式。任何人都可以通过运行Swarm客户端加入网络。
 
-Cross-node replication and erasure coding ensures data availability
+## 路线图
 
-**Censorship Resistant**
-
-Data is stored throughout the network without vulnerable central hubs
-
-**DDoS Resistant**
-
-Decentralised peer-to-peer networks mitigate DDoS attack vectors
-
-**Zero Downtime**
-
-Redundancy ensures continued data delivery even when individual nodes go offline
-
-**Self-sustaining**
-
-Built-in incentive system ensures the network's economic viability
-
-## Built for Ethereum
-
-From the end user's perspective, Swarm is not that different from the world wide web. In the background, the difference is that content is hosted on a peer-to-peer storage network instead of individual servers. This peer-to-peer network is self-sustaining due to a built-in incentive system which uses peer-to-peer accounting and allows trading resources for payment. Swarm is designed to deeply integrate with the devp2p multiprotocol network layer of Ethereum as well as with the Ethereum blockchain for domain name resolution, service payments and content availability insurance.
-
-## Swarm Docs
-
-{% embed url="https://swarm-guide.readthedocs.io/en/latest/index.html" %}
-
-
+[https://github.com/orgs/ethersphere/projects/8](https://github.com/orgs/ethersphere/projects/8)
 
 
 
