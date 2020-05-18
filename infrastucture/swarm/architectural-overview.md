@@ -14,7 +14,7 @@ Swarm定义了三个关键概念：
 
 **Manifest**：描述文件集合的数据结构。Manifest指定路径和相应的内容哈希，以允许基于URL的内容检索。[BZZ URL方案](https://swarm-guide.readthedocs.io/en/latest/features/bzz.html#bzz-url-schemes)假定域名中的引用内容是manifest，并呈现路径与请求路径相匹配的内容条目。Manifest也可以映射到文件系统目录树 \(directory tree\)，该目录树允上传和下载目录。最后，manifest也可以被视作是索引，因此它可以用于实现简单的键值存储或数据库索引。这提供了虚拟主机功能 \(virtual hosting\)，可以存储整个目录、web3网站或原始数据结构，类似于web2.0，使集中托管成为可能。
 
-![](../.gitbook/assets/dapp-page.svg)
+![](../../.gitbook/assets/dapp-page.svg)
 
 Swarm定义了文件的特定标识符 \(identifier \)。Reference的标识符部分用作内容的检索地址。该地址必须是：
 
@@ -74,7 +74,7 @@ Swarm使用以太坊devp2p rlpx套件作为底层网络的传输层。这种不�
 
 Swarm节点由Swarm基本帐户的以太坊地址的哈希标识。这用作它们的覆盖地址，根据这些地址计算邻近度顺序bins。连接到节点的节点定义了另一个实时kademlia表，其中图形边缘表示devp2p rlpx连接。
 
-![](../.gitbook/assets/kademlia.svg)
+![](../../.gitbook/assets/kademlia.svg)
 
 如果集合中的每个节点都有一个已连接节点的饱和kademlia表，则节点“实时连接”图具有kademlia拓扑。Kademlia图的属性可用于在节点之间通过覆盖寻址路由消息。在转递kademlia网络中，如果存在从发送节点到目标节点的路径（可通过该路径中继消息），那么该消息可路由 \(routable\)。在具有kademlia拓扑的成熟子网中，每条消息都是可路由的。很大一部分节点不稳定在线，将一部分已连接的节点保留在其PO bins中，即使相关节点掉线，每个节点在任何时间点转发消息的几率也增加了。
 
